@@ -4,10 +4,13 @@ kubernetes:
     master:
       hosts:
         k8s-master:
-          ansible_host: 192.168.11.5
+          # ansible_host: 192.168.11.5
+          ansible_host: 192.168.13.193
     worker:
       hosts:
         k8s-worker-01:
-          ansible_host: 192.168.11.6
+          # ansible_host: 192.168.11.6
+          ansible_host: 192.168.13.64
         k8s-worker-02:
-          ansible_host: 192.168.11.7
+          # ansible_host: 192.168.11.7
+          ansible_host: 192.168.13.111
