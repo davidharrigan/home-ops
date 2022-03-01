@@ -5,3 +5,4 @@ resources:
   - k8s-at-home-charts.yaml
   - metallb-charts.yaml
   - prometheus-community-charts.yaml
+  - traefik-charts.yaml
