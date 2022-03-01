@@ -1,0 +1,12 @@
+---
+- include: locale.yaml
+  tags:
+    - locale
+
+- include: packages.yaml
+  tags:
+    - packages
+
+- include: user.yaml
+  tags:
+    - user
