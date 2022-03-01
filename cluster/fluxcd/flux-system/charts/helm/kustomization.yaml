@@ -7,3 +7,4 @@ resources:
   - prometheus-community-charts.yaml
   - traefik-charts.yaml
   - longhorn-charts.yaml
+  - grafana-charts.yaml
