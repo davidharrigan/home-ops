@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    namespace: metallb-system
+    name: metallb-config-map
+data:
+    config: ENC[AES256_GCM,data:FZB7PnUBHYCfiH6OTN09fgsfoUeCodXoJTioulGkJi3ddIInKHkN2dQR8IQCHqejS0i74dreqbppBeOrnGcv6uCrT+udLdlxz5eqO8YDzjg9CaUH5EJxJAvHg06fyA==,iv:xPNi6LLGPw9dHfsHnmXJARCrgXOeqPHbhso7SoD6KQY=,tag:IYVtLAc3A9WmBdra2u2Iag==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1cyfh7x9qffez0eutk5c928m42k3kftjjwn8qveledrzl83y3544s5yjm8q
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA5YnFueldhNGRRbCtXOGdq
+            M1R2RHVMbGtPODByUTlqQTMwell1VU5vdUU4CjhyWlhRd1UxbDBKRVUzT1lGVVhQ
+            dk9DU0dlL04vQ1RUZjBuTTZiRkoyUncKLS0tIGlqQ0dxTFd6ckQzaUttQzBUQkR5
+            dCtQRmVaQ002NmFTclRNSVNFM3ZSbUUKHas/iGPErR3l8Se7FW5+GQLhXMOUthcn
+            Am4/4c7Sg5/m28e9ew3nTjAEZWjXqtNP2sH4YW/pnKos6rqPieBgDA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2022-03-01T21:14:19Z"
+    mac: ENC[AES256_GCM,data:pM4MaQr53uctYhEph19cgsz2MLoKFvjeNHDgUp73x1u61/7yl1BiDa2Uzwp784HT9e1ly89WtNdf3dTdKCAn+erWRN3FSOmr2FnUpsVrDTZF5bdq2zVIKW7qrNqUDU+OnhqRo/qwek7OepBkANo1z76adHV+BfbMivsRtMtcERM=,iv:ovQusOAt6HU7Kt2HIGBUMJSVv3p9Ir9VZIXMQq0kFlo=,tag:wHJQrbW7wPfAIv0LZUTXnQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.1
