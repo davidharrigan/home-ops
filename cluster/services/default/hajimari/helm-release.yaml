@@ -33,6 +33,7 @@ spec:
           - networking
           - monitoring
           - longhorn-system
+          - media
       name: "you"
     ingress:
       main:
