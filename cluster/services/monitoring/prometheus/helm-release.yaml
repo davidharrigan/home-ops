@@ -75,11 +75,14 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: "database-import-outline"
           hajimari.io/appName: "Prometheus"
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
           - &host "prometheus.${DOMAIN}"
         tls:
           - hosts:
               - *host
+            secretName: "prometheus-tls"
       prometheusSpec:
         replicas: 1
         replicaExternalLabelName: "replica"

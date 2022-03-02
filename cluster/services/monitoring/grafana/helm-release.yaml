@@ -64,17 +64,10 @@ spec:
             access: proxy
             url: http://prometheus-prometheus:9090/
             isDefault: true
-          # - name: Loki
-          #   type: loki
-          #   access: proxy
-          #   url: http://loki:3100
-    # dashboards:
-      # default:
-        # Ref: https://grafana.com/grafana/dashboards/13978
-        # node_exporter:
-        #   gnetId: 13978
-        #   revision: 1
-        #   datasource: Prometheus
+            # - name: Loki
+            #   type: loki
+            #   access: proxy
+            #   url: http://loki:3100
 
     sidecar:
       dashboards:
@@ -110,11 +103,14 @@ spec:
         hajimari.io/enable: "true"
         hajimari.io/icon: "chart-areaspline"
         hajimari.io/appName: "Grafana"
+        cert-manager.io/cluster-issuer: "letsencrypt-production"
+        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
       hosts:
         - &host "grafana.${DOMAIN}"
       tls:
         - hosts:
             - *host
+          secretName: "grafana-tls"
     serviceAccount:
       create: true
       autoMount: true
