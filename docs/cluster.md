@@ -27,7 +27,5 @@ cat $(echo $SOPS_AGE_KEY_FILE) |
 
 4. Verify Flux components are running
 ```bash
-kubectl get pods -n flux-system 
+kubectl get pods -n flux-system
 ```
-
-## Manually deploying changes

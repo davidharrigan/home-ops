@@ -8,3 +8,4 @@ resources:
   - traefik-charts.yaml
   - longhorn-charts.yaml
   - grafana-charts.yaml
+  - jetstack-charts.yaml
