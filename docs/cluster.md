@@ -17,7 +17,7 @@ flux bootstrap github \
   --personal
 ```
 
-3. Add the Age key in-order for Flux to decrypt SOPS secrets
+3. Add the Age key in order for Flux to decrypt SOPS secrets
 ```bash
 cat $(echo $SOPS_AGE_KEY_FILE) |
     kubectl \
