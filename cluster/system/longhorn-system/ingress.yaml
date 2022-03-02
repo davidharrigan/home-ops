@@ -5,14 +5,12 @@ metadata:
   name: longhorn-dashboard
   namespace: longhorn-system
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-production"
-    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
     hajimari.io/enable: "true"
     hajimari.io/icon: "database"
     hajimari.io/appName: "Longhorn"
     hajimari.io/group: "System"
 spec:
-  ingressClassName: "traefik"
+  ingressClassName: "nginx"
   tls:
     - hosts:
         - "longhorn.${DOMAIN}"

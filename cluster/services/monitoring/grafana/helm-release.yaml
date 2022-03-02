@@ -98,14 +98,12 @@ spec:
       enabled: true
     ingress:
       enabled: true
-      ingressClassName: "traefik"
+      ingressClassName: "nginx"
       annotations:
         hajimari.io/enable: "true"
         hajimari.io/icon: "chart-areaspline"
         hajimari.io/appName: "Grafana"
         hajimari.io/group: "System"
-        cert-manager.io/cluster-issuer: "letsencrypt-production"
-        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
       hosts:
         - &host "grafana.${DOMAIN}"
       tls:
