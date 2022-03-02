@@ -10,7 +10,7 @@ flux check --pre
 2. Install fluxcd onto the cluster:
 ```bash
 flux bootstrap github \
-  --owner=$GITHUB_USER \
+  --owner=davidharrigan \
   --repository=lab \
   --branch=main \
   --path=./cluster/fluxcd \
