@@ -39,7 +39,24 @@ spec:
               targetLabel: kubernetes_node
     grafana:
       enabled: false
+      defaultDashboardsEnabled: true
+      defaultDashboardsTimezone: America/New_York
       forceDeployDashboards: true
+      # sidecar:
+      #   dashboards:
+      #     multicluster:
+      #       etcd:
+      #         enabled: true
+    kubelet:
+      enabled: true
+    kubeApiServer:
+      enabled: true
+    kubeControllerManager:
+      enabled: true
+    kubeScheduler:
+      enabled: true
+    kubeProxy:
+      enabled: true
     prometheusOperator:
       prometheusConfigReloader:
         resources:
@@ -54,12 +71,22 @@ spec:
         enabled: true
         pathType: Prefix
         ingressClassName: "traefik"
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "database-import-outline"
+          hajimari.io/appName: "Prometheus"
         hosts:
           - &host "prometheus.${DOMAIN}"
         tls:
           - hosts:
               - *host
       prometheusSpec:
+        replicas: 1
+        replicaExternalLabelName: "replica"
+        ruleSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
         retention: 24h
         enableAdminAPI: true
         walCompression: true

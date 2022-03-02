@@ -68,19 +68,28 @@ spec:
           #   type: loki
           #   access: proxy
           #   url: http://loki:3100
-    dashboards:
-      default:
-        # Ref: https://grafana.com/grafana/dashboards/4475
-        zfs:
-          gnetId: 4475
-          revision: 5
-          datasource: Prometheus
+    # dashboards:
+      # default:
+        # Ref: https://grafana.com/grafana/dashboards/13978
+        # node_exporter:
+        #   gnetId: 13978
+        #   revision: 1
+        #   datasource: Prometheus
+
     sidecar:
       dashboards:
         enabled: true
+        # label key that the ConfigMaps containing dashboards should have to be collected by the sidecar
+        # The value is unused, the ConfigMap could be labelled as:
+        # label:
+        #   grafana_dashboard: "true"
+        label: grafana_dashboard
         searchNamespace: ALL
+        # If specified, the sidecar will look for annotation with this name to create folder and put graph here.
+        # You can use this parameter together with `provider.foldersFromFilesStructure`to annotate configmaps and create folder structure.
         folderAnnotation: grafana_folder
         provider:
+          allowUiUpdates: true
           foldersFromFilesStructure: true
       datasources:
         enabled: true
@@ -97,6 +106,10 @@ spec:
     ingress:
       enabled: true
       ingressClassName: "traefik"
+      annotations:
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "chart-areaspline"
+        hajimari.io/appName: "Grafana"
       hosts:
         - &host "grafana.${DOMAIN}"
       tls:
