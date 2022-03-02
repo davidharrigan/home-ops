@@ -29,3 +29,7 @@ ansible/ping:
 .PHONY: ansible/playbook/ubuntu-prepare
 ansible/playbook/ubuntu-prepare:
 	ansible-playbook -i ${ANSIBLE_INVENTORY_DIR}/hosts.yaml ${ANSIBLE_PLAYBOOK_DIR}/ubuntu-prepare.yaml
+
+.PHONY: ansible/playbook/docker-install
+ansible/playbook/docker-install:
+	ansible-playbook -i ${ANSIBLE_INVENTORY_DIR}/hosts.yaml ${ANSIBLE_PLAYBOOK_DIR}/docker-install.yaml

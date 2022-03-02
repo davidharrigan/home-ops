@@ -11,3 +11,4 @@ kubeconfig
 *.agekey
 # Ansible
 xanmanning.k3s*
+geerlingguy.docker*
