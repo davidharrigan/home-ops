@@ -9,3 +9,4 @@ resources:
   - longhorn-charts.yaml
   - grafana-charts.yaml
   - jetstack-charts.yaml
+  - hajimari-charts.yaml
