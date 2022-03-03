@@ -29,3 +29,30 @@ cat $(echo $SOPS_AGE_KEY_FILE) |
 ```bash
 kubectl get pods -n flux-system
 ```
+
+## Current Pain Points
+### Resolving Dependencies
+`nginx-ingress` is now in `system` since it's needed by other resources in
+`system`.  there's a dep issue currently with `certificate` where because the
+secret is not there yet, the resource fails to be created. Workaround now is to
+comment out the wildcard `certificate` resource on a fresh install.
+
+### Nginx Ingress Controller
+Something is already installing nginx? Have to remove these manually:
+```bash
+kubectl delete validatingwebhookconfiguration ingress-nginx-admission
+kubectl delete clusterrolebinding ingress-nginx-admission
+kubectl delete clusterrole ingress-nginx-admission
+kubectl delete clusterrolebinding ingress-nginx
+kubectl delete clusterrole ingress-nginx
+kubectl delete ingressclass nginx
+```
+
+### Setting up plex server
+Plex server setup can't be done through external IP. We need to port-foward the
+service and setup plex-server on the first time setup.
+```bash
+kubectl port-forward service/plex -n media 32400:32400  
+```
+
+go to http://localhost:32400/web/index.html in your browser.
