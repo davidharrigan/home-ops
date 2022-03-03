@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: vpn-auth-secret
+    namespace: media
+stringData:
+    password: ENC[AES256_GCM,data:ty439g/Rw7uliwh6Pod46L6UuX0=,iv:VtXBG1fmbkebewwYN5asBi+znrEVgx59tAgcQr0PhgA=,tag:qDhj6SZDVT9WYDH4jBwR4A==,type:str]
+    username: ENC[AES256_GCM,data:or8ibj7KuTY=,iv:9BjZJuSu7lkBwO3sQd5zAVIBt1OwDxZQzGPZaAXVuvQ=,tag:oJxLwxL7bAyqBnFMB+OUqQ==,type:str]
+    region: ENC[AES256_GCM,data:sc+HqPI5iQ==,iv:aWtbqEY1m8kHWHuzD/RKNmsgCb/F8czTVYvflVma+6U=,tag:qPNiTh0svZDluW9SaccPYw==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1cyfh7x9qffez0eutk5c928m42k3kftjjwn8qveledrzl83y3544s5yjm8q
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAzaUpxRUpJbmV5MjBZMS9r
+            T3ZGc2tWVjFEU0hZQ3MxUnJYcXNPVFdZb204CnhPNGR1QW54c0xwc2x0Ym1yS3Rq
+            Y284ZFd4MG1nNlQwVXhpdE5LTWd6SlkKLS0tIDJpN1RmeFVJY3FVZGo4ek15T1JE
+            ZFRVT2pXb2pZNHkrTFQ5K1QwbHZnMGsKiK2rbB/ePkvD1FZE2oumesZoAK9HIl6w
+            4RrQ2/BJUuHr86p2vElNIq9u9XQADvbMRAvdVDur0MDA/1fByMjBag==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2022-03-03T02:47:18Z"
+    mac: ENC[AES256_GCM,data:j0JqlYGxK7j8RbGfIfrtYirYIUzaAUylo8nWPcz2+XXTLTEk3YypeOjI7+UwrcgsBu3ohRpDvkk2OjCg1x2uO/FMgFPckOqwRkYBi/jKhKYhcx3hXQDKauG+PDV46rQoloOKszNdyourmNWd2AxekybQkQHXoyGgtyBBKDugrI0=,iv:W2LxTHZ/Y0sbjg5u/f10ja9Md8JGoYu+ekYrgDMrl/Y=,tag:j+Hkyj7sDIhpvJy6SJg73g==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.1
