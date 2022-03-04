@@ -35,6 +35,15 @@ spec:
           - longhorn-system
           - media
       name: "you"
+      groups:
+        - name: Resources
+          links:
+            - name: Material Icons
+              url: "https://materialdesignicons.com/"
+            - name: Artifact Hub
+              url: "https://artifacthub.io/"
+            - name: k8s-at-home-charts
+              url: "https://github.com/k8s-at-home/charts/tree/master/charts"
     ingress:
       main:
         enabled: true
