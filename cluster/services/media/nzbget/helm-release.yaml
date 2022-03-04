@@ -97,6 +97,8 @@ spec:
             value: "off"
           - name: SHADOWSOCKS
             value: "off"
+          - name: FIREWALL_DEBUG
+            value: "off"
         livenessProbe:
           exec:
             command:

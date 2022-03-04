@@ -9,3 +9,5 @@ resources:
   - overseerr
   - nzbget
   - prowlarr
+  - mylar
+  - lidarr
