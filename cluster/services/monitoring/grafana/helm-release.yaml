@@ -38,23 +38,12 @@ spec:
       analytics:
         check_for_updates: false
       log:
+        level: debug
         mode: console
       grafana_net:
         url: https://grafana.net
       auth.basic:
-        disable_login_form: false
-    dashboardProviders:
-      dashboardproviders.yaml:
-        apiVersion: 1
-        providers:
-          - name: "default"
-            orgId: 1
-            folder: ""
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/default
+        disable_login_form: true
     datasources:
       datasources.yaml:
         apiVersion: 1
