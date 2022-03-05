@@ -38,12 +38,12 @@ spec:
       analytics:
         check_for_updates: false
       log:
-        level: debug
+        level: info
         mode: console
       grafana_net:
         url: https://grafana.net
       auth.basic:
-        disable_login_form: true
+        disable_login_form: false
     datasources:
       datasources.yaml:
         apiVersion: 1
