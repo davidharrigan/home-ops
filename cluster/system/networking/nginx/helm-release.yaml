@@ -44,11 +44,18 @@ spec:
           memory: 1000Mi
       metrics:
         enabled: true
+        serviceMonitor:
+          enabled: true
+          namespace: networking
+          namespaceSelector:
+            any: true
     defaultBackend:
       enabled: true
       image:
-        repository: ghcr.io/181192/custom-error-pages
-        tag: 1.2.1
+        repository: ghcr.io/tarampampam/error-pages
+        tag: 2.7.0
       extraEnvs:
-        - name: ERROR_FILES_PATH
-          value: ./themes/ghost
+        - name: TEMPLATE_NAME
+          value: ghost
+        - name: SHOW_DETAILS
+          value: "false"
