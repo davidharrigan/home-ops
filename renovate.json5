@@ -2,17 +2,15 @@
   "extends": [
     "config:base"
   ],
-  "packageRules": [
-    {
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
-      "automerge": true
-    }
-  ],
   "suppressNotifications": ["prIgnoreNotification"],
   "rebaseWhen": "conflicted",
 
   // package rules
   "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true
+    },
     {
       "matchDatasources": [
         "helm"
