@@ -9,7 +9,9 @@
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
-      "automerge": true
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "rebase",
     },
     {
       "matchDatasources": [
