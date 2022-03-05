@@ -1,0 +1,4137 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: snmp-exporter-dell-idrac-1
+  namespace: monitoring
+data:
+  snmp.yaml: |
+    dell_idrac:
+      walk:
+      - 1.3.6.1.4.1.674.10892.5.1.3
+      - 1.3.6.1.4.1.674.10892.5.2
+      - 1.3.6.1.4.1.674.10892.5.4.1100.30.1
+      - 1.3.6.1.4.1.674.10892.5.4.1100.32.1
+      - 1.3.6.1.4.1.674.10892.5.4.1100.50.1
+      - 1.3.6.1.4.1.674.10892.5.4.1100.80.1
+      - 1.3.6.1.4.1.674.10892.5.4.1100.90.1
+      - 1.3.6.1.4.1.674.10892.5.4.2000.10.1
+      - 1.3.6.1.4.1.674.10892.5.4.300.50.1
+      - 1.3.6.1.4.1.674.10892.5.4.300.60.1
+      - 1.3.6.1.4.1.674.10892.5.4.300.70.1
+      - 1.3.6.1.4.1.674.10892.5.4.600.12.1
+      - 1.3.6.1.4.1.674.10892.5.4.600.50.1
+      - 1.3.6.1.4.1.674.10892.5.4.700.12.1.5
+      - 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+      - 1.3.6.1.4.1.674.10892.5.4.700.20.1
+      - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1
+      - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1
+      - 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1
+      get:
+      - 1.3.6.1.4.1.674.10892.5.4.300.1.0
+      metrics:
+      - name: systemFQDN
+        oid: 1.3.6.1.4.1.674.10892.5.1.3.1
+        type: DisplayString
+        help: This attribute defines the fully qualified domain name of the system - 1.3.6.1.4.1.674.10892.5.1.3.1
+      - name: systemServiceTag
+        oid: 1.3.6.1.4.1.674.10892.5.1.3.2
+        type: DisplayString
+        help: This attribute defines the service tag of the system. - 1.3.6.1.4.1.674.10892.5.1.3.2
+      - name: systemExpressServiceCode
+        oid: 1.3.6.1.4.1.674.10892.5.1.3.3
+        type: DisplayString
+        help: This attribute defines the express service code of the system. - 1.3.6.1.4.1.674.10892.5.1.3.3
+      - name: systemAssetTag
+        oid: 1.3.6.1.4.1.674.10892.5.1.3.4
+        type: DisplayString
+        help: This attribute defines the asset tag of the system. - 1.3.6.1.4.1.674.10892.5.1.3.4
+      - name: systemBladeSlotNumber
+        oid: 1.3.6.1.4.1.674.10892.5.1.3.5
+        type: OctetString
+        help: This attribute defines the slot number of the blade in the blade enclosure/chassis.
+          - 1.3.6.1.4.1.674.10892.5.1.3.5
+      - name: systemOSName
+        oid: 1.3.6.1.4.1.674.10892.5.1.3.6
+        type: OctetString
+        help: This attribute defines the name of the operating system that the host is
+          running. - 1.3.6.1.4.1.674.10892.5.1.3.6
+      - name: systemFormFactor
+        oid: 1.3.6.1.4.1.674.10892.5.1.3.7
+        type: gauge
+        help: This attribute defines the form factor of the system. - 1.3.6.1.4.1.674.10892.5.1.3.7
+        enum_values:
+          1: other
+          2: unknown
+          3: u1
+          4: u2
+          5: u4
+          6: u7
+          7: singleWidthSingleHeight
+          8: dualWidthSingleHeight
+          9: singleWidthDualHeight
+          10: dualWidthDualHeight
+          11: singleWidthQuarterHeight
+          12: u5
+      - name: systemDataCenterName
+        oid: 1.3.6.1.4.1.674.10892.5.1.3.8
+        type: DisplayString
+        help: This attribute defines the Data Center locator of the system. - 1.3.6.1.4.1.674.10892.5.1.3.8
+      - name: systemAisleName
+        oid: 1.3.6.1.4.1.674.10892.5.1.3.9
+        type: OctetString
+        help: This attribute defines the Aisle locator of the system. - 1.3.6.1.4.1.674.10892.5.1.3.9
+      - name: systemRackName
+        oid: 1.3.6.1.4.1.674.10892.5.1.3.10
+        type: OctetString
+        help: This attribute defines the Rack locator of the system. - 1.3.6.1.4.1.674.10892.5.1.3.10
+      - name: systemRackSlot
+        oid: 1.3.6.1.4.1.674.10892.5.1.3.11
+        type: OctetString
+        help: This attribute defines the Rack Slot locator of the system. - 1.3.6.1.4.1.674.10892.5.1.3.11
+      - name: systemModelName
+        oid: 1.3.6.1.4.1.674.10892.5.1.3.12
+        type: OctetString
+        help: This attribute defines the model name of the system. - 1.3.6.1.4.1.674.10892.5.1.3.12
+      - name: systemSystemID
+        oid: 1.3.6.1.4.1.674.10892.5.1.3.13
+        type: gauge
+        help: This attribute defines the system ID of the system. - 1.3.6.1.4.1.674.10892.5.1.3.13
+      - name: systemOSVersion
+        oid: 1.3.6.1.4.1.674.10892.5.1.3.14
+        type: OctetString
+        help: This attribute defines the version of the operating system that the host
+          is running. - 1.3.6.1.4.1.674.10892.5.1.3.14
+      - name: systemRoomName
+        oid: 1.3.6.1.4.1.674.10892.5.1.3.15
+        type: OctetString
+        help: This attribute defines the Room locator of the system. - 1.3.6.1.4.1.674.10892.5.1.3.15
+      - name: systemChassisSystemHeight
+        oid: 1.3.6.1.4.1.674.10892.5.1.3.16
+        type: gauge
+        help: This attribute defines the height of the system, in 'U's - 1.3.6.1.4.1.674.10892.5.1.3.16
+      - name: systemBladeGeometry
+        oid: 1.3.6.1.4.1.674.10892.5.1.3.17
+        type: gauge
+        help: This attribute defines the blade geometry for a blade system - 1.3.6.1.4.1.674.10892.5.1.3.17
+        enum_values:
+          1: other
+          2: unknown
+          3: singleWidthSingleHeight
+          4: dualWidthSingleHeight
+          5: singleWidthDualHeight
+          6: dualWidthDualHeight
+          7: singleWidthQuarterHeight
+      - name: globalSystemStatus
+        oid: 1.3.6.1.4.1.674.10892.5.2.1
+        type: gauge
+        help: This attribute defines the overall rollup status of all components in the
+          system being monitored by the remote access card - 1.3.6.1.4.1.674.10892.5.2.1
+        enum_values:
+          1: other
+          2: unknown
+          3: ok
+          4: nonCritical
+          5: critical
+          6: nonRecoverable
+      - name: systemLCDStatus
+        oid: 1.3.6.1.4.1.674.10892.5.2.2
+        type: gauge
+        help: This attribute defines the system status as it is reflected by the LCD front
+          panel - 1.3.6.1.4.1.674.10892.5.2.2
+        enum_values:
+          1: other
+          2: unknown
+          3: ok
+          4: nonCritical
+          5: critical
+          6: nonRecoverable
+      - name: globalStorageStatus
+        oid: 1.3.6.1.4.1.674.10892.5.2.3
+        type: gauge
+        help: This attribute defines the overall storage status being monitored by the
+          remote access card. - 1.3.6.1.4.1.674.10892.5.2.3
+        enum_values:
+          1: other
+          2: unknown
+          3: ok
+          4: nonCritical
+          5: critical
+          6: nonRecoverable
+      - name: systemPowerState
+        oid: 1.3.6.1.4.1.674.10892.5.2.4
+        type: gauge
+        help: This attribute defines the power state of the system. - 1.3.6.1.4.1.674.10892.5.2.4
+        enum_values:
+          1: other
+          2: unknown
+          3: "off"
+          4: "on"
+      - name: processorDevicechassisIndex
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.30.1.1
+        type: gauge
+        help: 1100.0030.0001.0001 This attribute defines the index (one based) of the
+          associated system chassis. - 1.3.6.1.4.1.674.10892.5.4.1100.30.1.1
+        indexes:
+        - labelname: processorDevicechassisIndex
+          type: gauge
+        - labelname: processorDeviceIndex
+          type: gauge
+      - name: processorDeviceIndex
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.30.1.2
+        type: gauge
+        help: 1100.0030.0001.0002 This attribute defines the index (one based) of the
+          processor device. - 1.3.6.1.4.1.674.10892.5.4.1100.30.1.2
+        indexes:
+        - labelname: processorDevicechassisIndex
+          type: gauge
+        - labelname: processorDeviceIndex
+          type: gauge
+      - name: processorDeviceStateCapabilities
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.30.1.3
+        type: gauge
+        help: 1100.0030.0001.0003 This attribute defines the state capabilities of the
+          processor device. - 1.3.6.1.4.1.674.10892.5.4.1100.30.1.3
+        indexes:
+        - labelname: processorDevicechassisIndex
+          type: gauge
+        - labelname: processorDeviceIndex
+          type: gauge
+        enum_values:
+          1: unknownCapabilities
+          2: enableCapable
+          4: notReadyCapable
+          6: enableAndNotReadyCapable
+      - name: processorDeviceStateSettings
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.30.1.4
+        type: gauge
+        help: 1100.0030.0001.0004 This attribute defines the state settings of the processor
+          device. - 1.3.6.1.4.1.674.10892.5.4.1100.30.1.4
+        indexes:
+        - labelname: processorDevicechassisIndex
+          type: gauge
+        - labelname: processorDeviceIndex
+          type: gauge
+        enum_values:
+          1: unknown
+          2: enabled
+          4: notReady
+          6: enabledAndNotReady
+      - name: processorDeviceStatus
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.30.1.5
+        type: gauge
+        help: 1100.0030.0001.0005 This attribute defines the status of the processor device.
+          - 1.3.6.1.4.1.674.10892.5.4.1100.30.1.5
+        indexes:
+        - labelname: processorDevicechassisIndex
+          type: gauge
+        - labelname: processorDeviceIndex
+          type: gauge
+        enum_values:
+          1: other
+          2: unknown
+          3: ok
+          4: nonCritical
+          5: critical
+          6: nonRecoverable
+      - name: processorDeviceType
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.30.1.7
+        type: gauge
+        help: 1100.0030.0001.0007 This attribute defines the type of the processor device.
+          - 1.3.6.1.4.1.674.10892.5.4.1100.30.1.7
+        indexes:
+        - labelname: processorDevicechassisIndex
+          type: gauge
+        - labelname: processorDeviceIndex
+          type: gauge
+        enum_values:
+          1: deviceTypeIsOther
+          2: deviceTypeIsUnknown
+          3: deviceTypeIsCPU
+          4: deviceTypeIsMathProcessor
+          5: deviceTypeIsDSP
+          6: deviceTypeIsAVideoProcessor
+      - name: processorDeviceManufacturerName
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.30.1.8
+        type: OctetString
+        help: 1100.0030.0001.0008 This attribute defines the name of the manufacturer
+          of the processor device. - 1.3.6.1.4.1.674.10892.5.4.1100.30.1.8
+        indexes:
+        - labelname: processorDevicechassisIndex
+          type: gauge
+        - labelname: processorDeviceIndex
+          type: gauge
+      - name: processorDeviceStatusState
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.30.1.9
+        type: gauge
+        help: 1100.0030.0001.0009 This attribute defines the status state of the processor
+          device. - 1.3.6.1.4.1.674.10892.5.4.1100.30.1.9
+        indexes:
+        - labelname: processorDevicechassisIndex
+          type: gauge
+        - labelname: processorDeviceIndex
+          type: gauge
+        enum_values:
+          1: other
+          2: unknown
+          3: enabled
+          4: userDisabled
+          5: biosDisabled
+          6: idle
+      - name: processorDeviceFamily
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.30.1.10
+        type: gauge
+        help: 1100.0030.0001.0010 This attribute defines the family of the processor device.
+          - 1.3.6.1.4.1.674.10892.5.4.1100.30.1.10
+        indexes:
+        - labelname: processorDevicechassisIndex
+          type: gauge
+        - labelname: processorDeviceIndex
+          type: gauge
+        enum_values:
+          1: deviceFamilyIsOther
+          2: deviceFamilyIsUnknown
+          3: deviceFamilyIs8086
+          4: deviceFamilyIs80286
+          5: deviceFamilyIsIntel386
+          6: deviceFamilyIsIntel486
+          7: deviceFamilyIs8087
+          8: deviceFamilyIs80287
+          9: deviceFamilyIs80387
+          10: deviceFamilyIs80487
+          11: deviceFamilyIsPentium
+          12: deviceFamilyIsPentiumPro
+          13: deviceFamilyIsPentiumII
+          14: deviceFamilyIsPentiumMMX
+          15: deviceFamilyIsCeleron
+          16: deviceFamilyIsPentiumIIXeon
+          17: deviceFamilyIsPentiumIII
+          18: deviceFamilyIsPentiumIIIXeon
+          19: deviceFamilyIsPentiumIIISpeedStep
+          20: deviceFamilyIsItanium
+          21: deviceFamilyIsIntelXeon
+          22: deviceFamilyIsPentium4
+          23: deviceFamilyIsIntelXeonMP
+          24: deviceFamilyIsIntelItanium2
+          25: deviceFamilyIsK5
+          26: deviceFamilyIsK6
+          27: deviceFamilyIsK6-2
+          28: deviceFamilyIsK6-3
+          29: deviceFamilyIsAMDAthlon
+          30: deviceFamilyIsAMD2900
+          31: deviceFamilyIsK6-2Plus
+          32: deviceFamilyIsPowerPC
+          33: deviceFamilyIsPowerPC601
+          34: deviceFamilyIsPowerPC603
+          35: deviceFamilyIsPowerPC603Plus
+          36: deviceFamilyIsPowerPC604
+          37: deviceFamilyIsPowerPC620
+          38: deviceFamilyIsPowerPCx704
+          39: deviceFamilyIsPowerPC750
+          40: deviceFamilyIsIntelCoreDuo
+          41: deviceFamilyIsIntelCoreDuoMobile
+          42: deviceFamilyIsIntelCoreSoloMobile
+          43: deviceFamilyIsIntelAtom
+          48: deviceFamilyIsAlpha
+          49: deviceFamilyIsAlpha21064
+          50: deviceFamilyIsAlpha21066
+          51: deviceFamilyIsAlpha21164
+          52: deviceFamilyIsAlpha21164PC
+          53: deviceFamilyIsAlpha21164a
+          54: deviceFamilyIsAlpha21264
+          55: deviceFamilyIsAlpha21364
+          56: deviceFamilyIsAMDTurionIIUltraDualMobileM
+          57: deviceFamilyIsAMDTurionIIDualMobileM
+          58: deviceFamilyIsAMDAthlonIIDualMobileM
+          59: deviceFamilyIsAMDOpteron6100
+          60: deviceFamilyIsAMDOpteron4100
+          61: deviceFamilyIsAMDOpteron6200
+          62: deviceFamilyIsAMDOpteron4200
+          64: deviceFamilyIsMIPS
+          65: deviceFamilyIsMIPSR4000
+          66: deviceFamilyIsMIPSR4200
+          67: deviceFamilyIsMIPSR4400
+          68: deviceFamilyIsMIPSR4600
+          69: deviceFamilyIsMIPSR10000
+          80: deviceFamilyIsSPARC
+          81: deviceFamilyIsSuperSPARC
+          82: deviceFamilyIsmicroSPARCII
+          83: deviceFamilyIsmicroSPARCIIep
+          84: deviceFamilyIsUltraSPARC
+          85: deviceFamilyIsUltraSPARCII
+          86: deviceFamilyIsUltraSPARCIIi
+          87: deviceFamilyIsUltraSPARCIII
+          88: deviceFamilyIsUltraSPARCIIIi
+          96: deviceFamilyIs68040
+          97: deviceFamilyIs68xxx
+          98: deviceFamilyIs68000
+          99: deviceFamilyIs68010
+          100: deviceFamilyIs68020
+          101: deviceFamilyIs68030
+          112: deviceFamilyIsHobbit
+          120: deviceFamilyIsCrusoeTM5000
+          121: deviceFamilyIsCrusoeTM3000
+          122: deviceFamilyIsEfficeonTM8000
+          128: deviceFamilyIsWeitek
+          130: deviceFamilyIsIntelCeleronM
+          131: deviceFamilyIsAMDAthlon64
+          132: deviceFamilyIsAMDOpteron
+          133: deviceFamilyIsAMDSempron
+          134: deviceFamilyIsAMDTurion64Mobile
+          135: deviceFamilyIsDualCoreAMDOpteron
+          136: deviceFamilyIsAMDAthlon64X2DualCore
+          137: deviceFamilyIsAMDTurion64X2Mobile
+          138: deviceFamilyIsQuadCoreAMDOpteron
+          139: deviceFamilyIsThirdGenerationAMDOpteron
+          140: deviceFamilyIsAMDPhenomFXQuadCore
+          141: deviceFamilyIsAMDPhenomX4QuadCore
+          142: deviceFamilyIsAMDPhenomX2DualCore
+          143: deviceFamilyIsAMDAthlonX2DualCore
+          144: deviceFamilyIsPA-RISC
+          145: deviceFamilyIsPA-RISC8500
+          146: deviceFamilyIsPA-RISC8000
+          147: deviceFamilyIsPA-RISC7300LC
+          148: deviceFamilyIsPA-RISC7200
+          149: deviceFamilyIsPA-RISC7100LC
+          150: deviceFamilyIsPA-RISC7100
+          160: deviceFamilyIsV30
+          161: deviceFamilyIsQuadCoreIntelXeon3200
+          162: deviceFamilyIsDualCoreIntelXeon3000
+          163: deviceFamilyIsQuadCoreIntelXeon5300
+          164: deviceFamilyIsDualCoreIntelXeon5100
+          165: deviceFamilyIsDualCoreIntelXeon5000
+          166: deviceFamilyIsDualCoreIntelXeonLV
+          167: deviceFamilyIsDualCoreIntelXeonULV
+          168: deviceFamilyIsDualCoreIntelXeon7100
+          169: deviceFamilyIsQuadCoreIntelXeon5400
+          170: deviceFamilyIsQuadCoreIntelXeon
+          171: deviceFamilyIsDualCoreIntelXeon5200
+          172: deviceFamilyIsDualCoreIntelXeon7200
+          173: deviceFamilyIsQuadCoreIntelXeon7300
+          174: deviceFamilyIsQuadCoreIntelXeon7400
+          175: deviceFamilyIsMultiCoreIntelXeon7400
+          176: deviceFamilyIsM1
+          177: deviceFamilyIsM2
+          179: deviceFamilyIsIntelPentium4HT
+          180: deviceFamilyIsAS400
+          182: deviceFamilyIsAMDAthlonXP
+          183: deviceFamilyIsAMDAthlonMP
+          184: deviceFamilyIsAMDDuron
+          185: deviceFamilyIsIntelPentiumM
+          186: deviceFamilyIsIntelCeleronD
+          187: deviceFamilyIsIntelPentiumD
+          188: deviceFamilyIsIntelPentiumExtreme
+          189: deviceFamilyIsIntelCoreSolo
+          190: deviceFamilyIsIntelCore2
+          191: deviceFamilyIsIntelCore2Duo
+          192: deviceFamilyIsIntelCore2Solo
+          193: deviceFamilyIsIntelCore2Extreme
+          194: deviceFamilyIsIntelCore2Quad
+          195: deviceFamilyIsIntelCore2ExtremeMobile
+          196: deviceFamilyIsIntelCore2DuoMobile
+          197: deviceFamilyIsIntelCore2SoloMobile
+          198: deviceFamilyIsIntelCorei7
+          199: deviceFamilyIsDualCoreIntelCeleron
+          200: deviceFamilyIsIBM390
+          201: deviceFamilyIsG4
+          202: deviceFamilyIsG5
+          203: deviceFamilyIsESA390G6
+          204: deviceFamilyIszArchitectur
+          205: deviceFamilyIsIntelCorei5
+          206: deviceFamilyIsIntelCorei3
+          210: deviceFamilyIsVIAC7-M
+          211: deviceFamilyIsVIAC7-D
+          212: deviceFamilyIsVIAC7
+          213: deviceFamilyIsVIAEden
+          214: deviceFamilyIsMultiCoreIntelXeon
+          215: deviceFamilyIsDualCoreIntelXeon3xxx
+          216: deviceFamilyIsQuadCoreIntelXeon3xxx
+          217: deviceFamilyIsVIANano
+          218: deviceFamilyIsDualCoreIntelXeon5xxx
+          219: deviceFamilyIsQuadCoreIntelXeon5xxx
+          221: deviceFamilyIsDualCoreIntelXeon7xxx
+          222: deviceFamilyIsQuadCoreIntelXeon7xxx
+          223: deviceFamilyIsMultiCoreIntelXeon7xxx
+          224: deviceFamilyIsMultiCoreIntelXeon3400
+          230: deviceFamilyIsEmbeddedAMDOpertonQuadCore
+          231: deviceFamilyIsAMDPhenomTripleCore
+          232: deviceFamilyIsAMDTurionUltraDualCoreMobile
+          233: deviceFamilyIsAMDTurionDualCoreMobile
+          234: deviceFamilyIsAMDAthlonDualCore
+          235: deviceFamilyIsAMDSempronSI
+          236: deviceFamilyIsAMDPhenomII
+          237: deviceFamilyIsAMDAthlonII
+          238: deviceFamilyIsSixCoreAMDOpteron
+          239: deviceFamilyIsAMDSempronM
+          250: deviceFamilyIsi860
+          251: deviceFamilyIsi960
+      - name: processorDeviceMaximumSpeed
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.30.1.11
+        type: gauge
+        help: 1100.0030.0001.0011 This attribute defines the maximum speed of the processor
+          device in MHz - 1.3.6.1.4.1.674.10892.5.4.1100.30.1.11
+        indexes:
+        - labelname: processorDevicechassisIndex
+          type: gauge
+        - labelname: processorDeviceIndex
+          type: gauge
+      - name: processorDeviceCurrentSpeed
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.30.1.12
+        type: gauge
+        help: 1100.0030.0001.0012 This attribute defines the current speed of the processor
+          device in MHz - 1.3.6.1.4.1.674.10892.5.4.1100.30.1.12
+        indexes:
+        - labelname: processorDevicechassisIndex
+          type: gauge
+        - labelname: processorDeviceIndex
+          type: gauge
+      - name: processorDeviceExternalClockSpeed
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.30.1.13
+        type: gauge
+        help: 1100.0030.0001.0013 This attribute defines the speed of the external clock
+          for the processor device in MHz - 1.3.6.1.4.1.674.10892.5.4.1100.30.1.13
+        indexes:
+        - labelname: processorDevicechassisIndex
+          type: gauge
+        - labelname: processorDeviceIndex
+          type: gauge
+      - name: processorDeviceVoltage
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.30.1.14
+        type: gauge
+        help: 1100.0030.0001.0014 This attribute defines the voltage powering the processor
+          device in millivolts - 1.3.6.1.4.1.674.10892.5.4.1100.30.1.14
+        indexes:
+        - labelname: processorDevicechassisIndex
+          type: gauge
+        - labelname: processorDeviceIndex
+          type: gauge
+      - name: processorDeviceVersionName
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.30.1.16
+        type: OctetString
+        help: 1100.0030.0001.0016 This attribute defines the version of the processor
+          device - 1.3.6.1.4.1.674.10892.5.4.1100.30.1.16
+        indexes:
+        - labelname: processorDevicechassisIndex
+          type: gauge
+        - labelname: processorDeviceIndex
+          type: gauge
+      - name: processorDeviceCoreCount
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.30.1.17
+        type: gauge
+        help: 1100.0030.0001.0017 This attribute defines the number of processor cores
+          detected for the processor device. - 1.3.6.1.4.1.674.10892.5.4.1100.30.1.17
+        indexes:
+        - labelname: processorDevicechassisIndex
+          type: gauge
+        - labelname: processorDeviceIndex
+          type: gauge
+      - name: processorDeviceCoreEnabledCount
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.30.1.18
+        type: gauge
+        help: 1100.0030.0001.0018 This attribute defines the number of processor cores
+          enabled for the processor device. - 1.3.6.1.4.1.674.10892.5.4.1100.30.1.18
+        indexes:
+        - labelname: processorDevicechassisIndex
+          type: gauge
+        - labelname: processorDeviceIndex
+          type: gauge
+      - name: processorDeviceThreadCount
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.30.1.19
+        type: gauge
+        help: 1100.0030.0001.0019 This attribute defines the number of processor threads
+          detected for the processor device. - 1.3.6.1.4.1.674.10892.5.4.1100.30.1.19
+        indexes:
+        - labelname: processorDevicechassisIndex
+          type: gauge
+        - labelname: processorDeviceIndex
+          type: gauge
+      - name: processorDeviceCharacteristics
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.30.1.20
+        type: gauge
+        help: 1100.0030.0001.0020 This attribute defines characteristics of the processor
+          device - 1.3.6.1.4.1.674.10892.5.4.1100.30.1.20
+        indexes:
+        - labelname: processorDevicechassisIndex
+          type: gauge
+        - labelname: processorDeviceIndex
+          type: gauge
+      - name: processorDeviceExtendedCapabilities
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.30.1.21
+        type: gauge
+        help: 1100.0030.0001.0021 This attribute defines extended capabilities of the
+          processor device - 1.3.6.1.4.1.674.10892.5.4.1100.30.1.21
+        indexes:
+        - labelname: processorDevicechassisIndex
+          type: gauge
+        - labelname: processorDeviceIndex
+          type: gauge
+      - name: processorDeviceExtendedSettings
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.30.1.22
+        type: gauge
+        help: 1100.0030.0001.0022 This attribute defines extended settings of the processor
+          device - 1.3.6.1.4.1.674.10892.5.4.1100.30.1.22
+        indexes:
+        - labelname: processorDevicechassisIndex
+          type: gauge
+        - labelname: processorDeviceIndex
+          type: gauge
+      - name: processorDeviceBrandName
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.30.1.23
+        type: OctetString
+        help: 1100.0030.0001.0023 This attribute defines the brand of the processor device.
+          - 1.3.6.1.4.1.674.10892.5.4.1100.30.1.23
+        indexes:
+        - labelname: processorDevicechassisIndex
+          type: gauge
+        - labelname: processorDeviceIndex
+          type: gauge
+      - name: processorDeviceFQDD
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.30.1.26
+        type: OctetString
+        help: 1100.0030.0001.0026 Fully qualified device descriptor (FQDD) of the processor
+          device. - 1.3.6.1.4.1.674.10892.5.4.1100.30.1.26
+        indexes:
+        - labelname: processorDevicechassisIndex
+          type: gauge
+        - labelname: processorDeviceIndex
+          type: gauge
+      - name: processorDeviceStatusChassisIndex
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.32.1.1
+        type: gauge
+        help: 1100.0032.0001.0001 This attribute defines the index (one based) of the
+          associated system chassis. - 1.3.6.1.4.1.674.10892.5.4.1100.32.1.1
+        indexes:
+        - labelname: processorDeviceStatusChassisIndex
+          type: gauge
+        - labelname: processorDeviceStatusIndex
+          type: gauge
+      - name: processorDeviceStatusIndex
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.32.1.2
+        type: gauge
+        help: 1100.0032.0001.0002 This attribute defines the index (one based) of the
+          processor device status probe. - 1.3.6.1.4.1.674.10892.5.4.1100.32.1.2
+        indexes:
+        - labelname: processorDeviceStatusChassisIndex
+          type: gauge
+        - labelname: processorDeviceStatusIndex
+          type: gauge
+      - name: processorDeviceStatusStateCapabilities
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.32.1.3
+        type: gauge
+        help: 1100.0032.0001.0003 This attribute defines the state capabilities of the
+          processor device status probe. - 1.3.6.1.4.1.674.10892.5.4.1100.32.1.3
+        indexes:
+        - labelname: processorDeviceStatusChassisIndex
+          type: gauge
+        - labelname: processorDeviceStatusIndex
+          type: gauge
+        enum_values:
+          1: unknownCapabilities
+          2: enableCapable
+          4: notReadyCapable
+          6: enableAndNotReadyCapable
+      - name: processorDeviceStatusStateSettings
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.32.1.4
+        type: gauge
+        help: 1100.0032.0001.0004 This attribute defines the state settings of the processor
+          device status probe. - 1.3.6.1.4.1.674.10892.5.4.1100.32.1.4
+        indexes:
+        - labelname: processorDeviceStatusChassisIndex
+          type: gauge
+        - labelname: processorDeviceStatusIndex
+          type: gauge
+        enum_values:
+          1: unknown
+          2: enabled
+          4: notReady
+          6: enabledAndNotReady
+      - name: processorDeviceStatusStatus
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.32.1.5
+        type: gauge
+        help: 1100.0032.0001.0005 This attribute defines the status of the processor device
+          status probe - 1.3.6.1.4.1.674.10892.5.4.1100.32.1.5
+        indexes:
+        - labelname: processorDeviceStatusChassisIndex
+          type: gauge
+        - labelname: processorDeviceStatusIndex
+          type: gauge
+        enum_values:
+          1: other
+          2: unknown
+          3: ok
+          4: nonCritical
+          5: critical
+          6: nonRecoverable
+      - name: processorDeviceStatusReading
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.32.1.6
+        type: gauge
+        help: 1100.0032.0001.0006 This attribute defines the reading of the processor
+          device status probe. - 1.3.6.1.4.1.674.10892.5.4.1100.32.1.6
+        indexes:
+        - labelname: processorDeviceStatusChassisIndex
+          type: gauge
+        - labelname: processorDeviceStatusIndex
+          type: gauge
+        enum_values:
+          1: internalError
+          2: thermalTrip
+          32: configurationError
+          128: processorPresent
+          256: processorDisabled
+          512: terminatorPresent
+          1024: processorThrottled
+      - name: processorDeviceStatusLocationName
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.32.1.7
+        type: OctetString
+        help: 1100.0032.0001.0007 This attribute defines the location name of the processor
+          device status probe. - 1.3.6.1.4.1.674.10892.5.4.1100.32.1.7
+        indexes:
+        - labelname: processorDeviceStatusChassisIndex
+          type: gauge
+        - labelname: processorDeviceStatusIndex
+          type: gauge
+      - name: memoryDevicechassisIndex
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.50.1.1
+        type: gauge
+        help: 1100.0050.0001.0001 This attribute defines the index (one based) of the
+          associated system chassis. - 1.3.6.1.4.1.674.10892.5.4.1100.50.1.1
+        indexes:
+        - labelname: memoryDevicechassisIndex
+          type: gauge
+        - labelname: memoryDeviceIndex
+          type: gauge
+      - name: memoryDeviceIndex
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.50.1.2
+        type: gauge
+        help: 1100.0050.0001.0002 This attribute defines the index (one based) of the
+          memory device. - 1.3.6.1.4.1.674.10892.5.4.1100.50.1.2
+        indexes:
+        - labelname: memoryDevicechassisIndex
+          type: gauge
+        - labelname: memoryDeviceIndex
+          type: gauge
+      - name: memoryDeviceStateCapabilities
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.50.1.3
+        type: gauge
+        help: 1100.0050.0001.0003 This attribute defines the state capabilities of the
+          memory device. - 1.3.6.1.4.1.674.10892.5.4.1100.50.1.3
+        indexes:
+        - labelname: memoryDevicechassisIndex
+          type: gauge
+        - labelname: memoryDeviceIndex
+          type: gauge
+        enum_values:
+          1: unknownCapabilities
+          2: enableCapable
+          4: notReadyCapable
+          6: enableAndNotReadyCapable
+      - name: memoryDeviceStateSettings
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.50.1.4
+        type: gauge
+        help: 1100.0050.0001.0004 This attribute defines the state settings of the memory
+          device. - 1.3.6.1.4.1.674.10892.5.4.1100.50.1.4
+        indexes:
+        - labelname: memoryDevicechassisIndex
+          type: gauge
+        - labelname: memoryDeviceIndex
+          type: gauge
+        enum_values:
+          1: unknown
+          2: enabled
+          4: notReady
+          6: enabledAndNotReady
+      - name: memoryDeviceStatus
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.50.1.5
+        type: gauge
+        help: 1100.0050.0001.0005 This attribute defines the status of the memory device.
+          - 1.3.6.1.4.1.674.10892.5.4.1100.50.1.5
+        indexes:
+        - labelname: memoryDevicechassisIndex
+          type: gauge
+        - labelname: memoryDeviceIndex
+          type: gauge
+        enum_values:
+          1: other
+          2: unknown
+          3: ok
+          4: nonCritical
+          5: critical
+          6: nonRecoverable
+      - name: memoryDeviceType
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.50.1.7
+        type: EnumAsInfo
+        help: 1100.0050.0001.0007 This attribute defines the type of the memory device.
+          - 1.3.6.1.4.1.674.10892.5.4.1100.50.1.7
+        indexes:
+        - labelname: memoryDevicechassisIndex
+          type: gauge
+        - labelname: memoryDeviceIndex
+          type: gauge
+        enum_values:
+          1: deviceTypeIsOther
+          2: deviceTypeIsUnknown
+          3: deviceTypeIsDRAM
+          4: deviceTypeIsEDRAM
+          5: deviceTypeIsVRAM
+          6: deviceTypeIsSRAM
+          7: deviceTypeIsRAM
+          8: deviceTypeIsROM
+          9: deviceTypeIsFLASH
+          10: deviceTypeIsEEPROM
+          11: deviceTypeIsFEPROM
+          12: deviceTypeIsEPROM
+          13: deviceTypeIsCDRAM
+          14: deviceTypeIs3DRAM
+          15: deviceTypeIsSDRAM
+          16: deviceTypeIsSGRAM
+          17: deviceTypeIsRDRAM
+          18: deviceTypeIsDDR
+          19: deviceTypeIsDDR2
+          20: deviceTypeIsDDR2FBDIMM
+          24: deviceTypeIsDDR3
+          25: deviceTypeIsFBD2
+      - name: memoryDeviceLocationName
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.50.1.8
+        type: DisplayString
+        help: 1100.0050.0001.0008 This attribute defines the location of the memory device.
+          - 1.3.6.1.4.1.674.10892.5.4.1100.50.1.8
+        indexes:
+        - labelname: memoryDevicechassisIndex
+          type: gauge
+        - labelname: memoryDeviceIndex
+          type: gauge
+      - name: memoryDeviceBankLocationName
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.50.1.10
+        type: DisplayString
+        help: 1100.0050.0001.0010 This attribute defines the location of the bank for
+          the memory device. - 1.3.6.1.4.1.674.10892.5.4.1100.50.1.10
+        indexes:
+        - labelname: memoryDevicechassisIndex
+          type: gauge
+        - labelname: memoryDeviceIndex
+          type: gauge
+      - name: memoryDeviceSize
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.50.1.14
+        type: gauge
+        help: 1100.0050.0001.0014 This attribute defines the size in KBytes of the memory
+          device - 1.3.6.1.4.1.674.10892.5.4.1100.50.1.14
+        indexes:
+        - labelname: memoryDevicechassisIndex
+          type: gauge
+        - labelname: memoryDeviceIndex
+          type: gauge
+      - name: memoryDeviceSpeed
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.50.1.15
+        type: gauge
+        help: 1100.0050.0001.0015 This attribute defines the speed in nanoseconds of the
+          memory device - 1.3.6.1.4.1.674.10892.5.4.1100.50.1.15
+        indexes:
+        - labelname: memoryDevicechassisIndex
+          type: gauge
+        - labelname: memoryDeviceIndex
+          type: gauge
+      - name: memoryDeviceManufacturerName
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.50.1.21
+        type: DisplayString
+        help: 1100.0050.0001.0021 This attribute defines the manufacturer of the memory
+          device. - 1.3.6.1.4.1.674.10892.5.4.1100.50.1.21
+        indexes:
+        - labelname: memoryDevicechassisIndex
+          type: gauge
+        - labelname: memoryDeviceIndex
+          type: gauge
+      - name: memoryDevicePartNumberName
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.50.1.22
+        type: DisplayString
+        help: 1100.0050.0001.0022 This attribute defines the manufacturer's part number
+          for the memory device. - 1.3.6.1.4.1.674.10892.5.4.1100.50.1.22
+        indexes:
+        - labelname: memoryDevicechassisIndex
+          type: gauge
+        - labelname: memoryDeviceIndex
+          type: gauge
+      - name: memoryDeviceSerialNumberName
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.50.1.23
+        type: DisplayString
+        help: 1100.0050.0001.0023 This attribute defines the serial number of the memory
+          device. - 1.3.6.1.4.1.674.10892.5.4.1100.50.1.23
+        indexes:
+        - labelname: memoryDevicechassisIndex
+          type: gauge
+        - labelname: memoryDeviceIndex
+          type: gauge
+      - name: memoryDeviceFQDD
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.50.1.26
+        type: OctetString
+        help: 1100.0050.0001.0026 Fully qualified device descriptor (FQDD) of the memory
+          device. - 1.3.6.1.4.1.674.10892.5.4.1100.50.1.26
+        indexes:
+        - labelname: memoryDevicechassisIndex
+          type: gauge
+        - labelname: memoryDeviceIndex
+          type: gauge
+      - name: pCIDevicechassisIndex
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.80.1.1
+        type: gauge
+        help: 1100.0080.0001.0001 This attribute defines the index (one based) of the
+          associated system chassis. - 1.3.6.1.4.1.674.10892.5.4.1100.80.1.1
+        indexes:
+        - labelname: pCIDevicechassisIndex
+          type: gauge
+        - labelname: pCIDeviceIndex
+          type: gauge
+      - name: pCIDeviceIndex
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.80.1.2
+        type: gauge
+        help: 1100.0080.0001.0002 This attribute defines the index (one based) of the
+          PCI device. - 1.3.6.1.4.1.674.10892.5.4.1100.80.1.2
+        indexes:
+        - labelname: pCIDevicechassisIndex
+          type: gauge
+        - labelname: pCIDeviceIndex
+          type: gauge
+      - name: pCIDeviceStateCapabilities
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.80.1.3
+        type: gauge
+        help: 1100.0080.0001.0003 This attribute defines the state capabilities of the
+          PCI device. - 1.3.6.1.4.1.674.10892.5.4.1100.80.1.3
+        indexes:
+        - labelname: pCIDevicechassisIndex
+          type: gauge
+        - labelname: pCIDeviceIndex
+          type: gauge
+        enum_values:
+          1: unknownCapabilities
+          2: enableCapable
+          4: notReadyCapable
+          6: enableAndNotReadyCapable
+      - name: pCIDeviceStateSettings
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.80.1.4
+        type: gauge
+        help: 1100.0080.0001.0004 This attribute defines the state settings of the PCI
+          device. - 1.3.6.1.4.1.674.10892.5.4.1100.80.1.4
+        indexes:
+        - labelname: pCIDevicechassisIndex
+          type: gauge
+        - labelname: pCIDeviceIndex
+          type: gauge
+        enum_values:
+          1: unknown
+          2: enabled
+          4: notReady
+          6: enabledAndNotReady
+      - name: pCIDeviceStatus
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.80.1.5
+        type: gauge
+        help: 1100.0080.0001.0005 This attribute defines the status of the PCI device.
+          - 1.3.6.1.4.1.674.10892.5.4.1100.80.1.5
+        indexes:
+        - labelname: pCIDevicechassisIndex
+          type: gauge
+        - labelname: pCIDeviceIndex
+          type: gauge
+        enum_values:
+          1: other
+          2: unknown
+          3: ok
+          4: nonCritical
+          5: critical
+          6: nonRecoverable
+      - name: pCIDeviceDataBusWidth
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.80.1.7
+        type: gauge
+        help: 1100.0080.0001.0007 This attribute defines the width of the data bus of
+          the PCI device - 1.3.6.1.4.1.674.10892.5.4.1100.80.1.7
+        indexes:
+        - labelname: pCIDevicechassisIndex
+          type: gauge
+        - labelname: pCIDeviceIndex
+          type: gauge
+      - name: pCIDeviceManufacturerName
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.80.1.8
+        type: DisplayString
+        help: 1100.0080.0001.0008 This attribute defines the name of the manufacturer
+          of the PCI device. - 1.3.6.1.4.1.674.10892.5.4.1100.80.1.8
+        indexes:
+        - labelname: pCIDevicechassisIndex
+          type: gauge
+        - labelname: pCIDeviceIndex
+          type: gauge
+      - name: pCIDeviceDescriptionName
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.80.1.9
+        type: DisplayString
+        help: 1100.0080.0001.0009 This attribute defines the description of the PCI device.
+          - 1.3.6.1.4.1.674.10892.5.4.1100.80.1.9
+        indexes:
+        - labelname: pCIDevicechassisIndex
+          type: gauge
+        - labelname: pCIDeviceIndex
+          type: gauge
+      - name: pCIDeviceFQDD
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.80.1.12
+        type: DisplayString
+        help: 1100.0080.0001.0012 Fully qualified device descriptor (FQDD) of the PCI
+          device. - 1.3.6.1.4.1.674.10892.5.4.1100.80.1.12
+        indexes:
+        - labelname: pCIDevicechassisIndex
+          type: gauge
+        - labelname: pCIDeviceIndex
+          type: gauge
+      - name: networkDeviceChassisIndex
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.90.1.1
+        type: gauge
+        help: 1100.0090.0001.0001 This attribute defines the index (one based) of the
+          system chassis that contains the network device. - 1.3.6.1.4.1.674.10892.5.4.1100.90.1.1
+        indexes:
+        - labelname: networkDeviceChassisIndex
+          type: gauge
+        - labelname: networkDeviceIndex
+          type: gauge
+      - name: networkDeviceIndex
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.90.1.2
+        type: gauge
+        help: 1100.0090.0001.0002 This attribute defines the index (one based) of the
+          network device. - 1.3.6.1.4.1.674.10892.5.4.1100.90.1.2
+        indexes:
+        - labelname: networkDeviceChassisIndex
+          type: gauge
+        - labelname: networkDeviceIndex
+          type: gauge
+      - name: networkDeviceStatus
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.90.1.3
+        type: gauge
+        help: 1100.0090.0001.0003 This attribute defines the status of the network device.
+          - 1.3.6.1.4.1.674.10892.5.4.1100.90.1.3
+        indexes:
+        - labelname: networkDeviceChassisIndex
+          type: gauge
+        - labelname: networkDeviceIndex
+          type: gauge
+        enum_values:
+          1: other
+          2: unknown
+          3: ok
+          4: nonCritical
+          5: critical
+          6: nonRecoverable
+      - name: networkDeviceConnectionStatus
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.90.1.4
+        type: gauge
+        help: 1100.0090.0001.0004 This attribute defines the connection status of the
+          network device. - 1.3.6.1.4.1.674.10892.5.4.1100.90.1.4
+        indexes:
+        - labelname: networkDeviceChassisIndex
+          type: gauge
+        - labelname: networkDeviceIndex
+          type: gauge
+        enum_values:
+          1: connected
+          2: disconnected
+          3: driverBad
+          4: driverDisabled
+          10: hardwareInitalizing
+          11: hardwareResetting
+          12: hardwareClosing
+          13: hardwareNotReady
+      - name: networkDeviceProductName
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.90.1.6
+        type: DisplayString
+        help: 1100.0090.0001.0006 This attribute defines the product name of the network
+          device. - 1.3.6.1.4.1.674.10892.5.4.1100.90.1.6
+        indexes:
+        - labelname: networkDeviceChassisIndex
+          type: gauge
+        - labelname: networkDeviceIndex
+          type: gauge
+      - name: networkDeviceVendorName
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.90.1.7
+        type: DisplayString
+        help: 1100.0090.0001.0007 This attribute defines the name of the vendor of the
+          network device. - 1.3.6.1.4.1.674.10892.5.4.1100.90.1.7
+        indexes:
+        - labelname: networkDeviceChassisIndex
+          type: gauge
+        - labelname: networkDeviceIndex
+          type: gauge
+      - name: networkDeviceCurrentMACAddress
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.90.1.15
+        type: OctetString
+        help: 1100.0090.0001.0015 This attribute defines the current MAC address of the
+          network device. - 1.3.6.1.4.1.674.10892.5.4.1100.90.1.15
+        indexes:
+        - labelname: networkDeviceChassisIndex
+          type: gauge
+        - labelname: networkDeviceIndex
+          type: gauge
+      - name: networkDevicePermanentMACAddress
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.90.1.16
+        type: OctetString
+        help: 1100.0090.0001.0016 This attribute defines the permanent MAC address of
+          the network device. - 1.3.6.1.4.1.674.10892.5.4.1100.90.1.16
+        indexes:
+        - labelname: networkDeviceChassisIndex
+          type: gauge
+        - labelname: networkDeviceIndex
+          type: gauge
+      - name: networkDevicePCIBusNumber
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.90.1.17
+        type: gauge
+        help: 1100.0090.0001.0017 This attribute defines the PCI bus number of the network
+          device. - 1.3.6.1.4.1.674.10892.5.4.1100.90.1.17
+        indexes:
+        - labelname: networkDeviceChassisIndex
+          type: gauge
+        - labelname: networkDeviceIndex
+          type: gauge
+      - name: networkDevicePCIDeviceNumber
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.90.1.18
+        type: gauge
+        help: 1100.0090.0001.0018 This attribute defines the PCI device number of the
+          network device. - 1.3.6.1.4.1.674.10892.5.4.1100.90.1.18
+        indexes:
+        - labelname: networkDeviceChassisIndex
+          type: gauge
+        - labelname: networkDeviceIndex
+          type: gauge
+      - name: networkDevicePCIFunctionNumber
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.90.1.19
+        type: gauge
+        help: 1100.0090.0001.0019 This attribute defines the PCI function number of the
+          network device. - 1.3.6.1.4.1.674.10892.5.4.1100.90.1.19
+        indexes:
+        - labelname: networkDeviceChassisIndex
+          type: gauge
+        - labelname: networkDeviceIndex
+          type: gauge
+      - name: networkDeviceTOECapabilityFlags
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.90.1.23
+        type: gauge
+        help: 1100.0090.0001.0023 This attribute defines the TCP/IP Offload Engine (TOE)
+          capability flags of the network device. - 1.3.6.1.4.1.674.10892.5.4.1100.90.1.23
+        indexes:
+        - labelname: networkDeviceChassisIndex
+          type: gauge
+        - labelname: networkDeviceIndex
+          type: gauge
+        enum_values:
+          1: unknown
+          2: available
+          4: notAvailable
+          8: cannotBeDetermined
+          16: driverNotResponding
+      - name: networkDeviceiSCSICapabilityFlags
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.90.1.27
+        type: gauge
+        help: 1100.0090.0001.0027 This attribute defines the Internet Small Computer System
+          Interface (iSCSI) capability flags of the network device. - 1.3.6.1.4.1.674.10892.5.4.1100.90.1.27
+        indexes:
+        - labelname: networkDeviceChassisIndex
+          type: gauge
+        - labelname: networkDeviceIndex
+          type: gauge
+        enum_values:
+          1: unknown
+          2: available
+          4: notAvailable
+          8: cannotBeDetermined
+          16: driverNotResponding
+      - name: networkDeviceiSCSIEnabled
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.90.1.28
+        type: gauge
+        help: 1100.0090.0001.0028 This attribute defines if iSCSI is enabled for the network
+          device. - 1.3.6.1.4.1.674.10892.5.4.1100.90.1.28
+        indexes:
+        - labelname: networkDeviceChassisIndex
+          type: gauge
+        - labelname: networkDeviceIndex
+          type: gauge
+      - name: networkDeviceCapabilities
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.90.1.29
+        type: gauge
+        help: 1100.0090.0001.0029 This attribute defines the capabilities of the network
+          device - 1.3.6.1.4.1.674.10892.5.4.1100.90.1.29
+        indexes:
+        - labelname: networkDeviceChassisIndex
+          type: gauge
+        - labelname: networkDeviceIndex
+          type: gauge
+        enum_values:
+          1: supported
+          2: toe
+          4: iscsiOffload
+          8: fcoeOffload
+      - name: networkDeviceFQDD
+        oid: 1.3.6.1.4.1.674.10892.5.4.1100.90.1.30
+        type: DisplayString
+        help: 1100.0090.0001.0030 Fully qualified device descriptor (FQDD) of the network
+          device. - 1.3.6.1.4.1.674.10892.5.4.1100.90.1.30
+        indexes:
+        - labelname: networkDeviceChassisIndex
+          type: gauge
+        - labelname: networkDeviceIndex
+          type: gauge
+      - name: fruChassisIndex
+        oid: 1.3.6.1.4.1.674.10892.5.4.2000.10.1.1
+        type: gauge
+        help: 2000.0010.0001.0001 This attribute defines the index (one based) of the
+          system chassis containing the field replaceable unit. - 1.3.6.1.4.1.674.10892.5.4.2000.10.1.1
+        indexes:
+        - labelname: fruChassisIndex
+          type: gauge
+        - labelname: fruIndex
+          type: gauge
+      - name: fruIndex
+        oid: 1.3.6.1.4.1.674.10892.5.4.2000.10.1.2
+        type: gauge
+        help: 2000.0010.0001.0002 This attribute defines the index (one based) of the
+          field replaceable unit. - 1.3.6.1.4.1.674.10892.5.4.2000.10.1.2
+        indexes:
+        - labelname: fruChassisIndex
+          type: gauge
+        - labelname: fruIndex
+          type: gauge
+      - name: fruInformationStatus
+        oid: 1.3.6.1.4.1.674.10892.5.4.2000.10.1.3
+        type: gauge
+        help: 2000.0010.0001.0003 This attribute defines the status of the field replaceable
+          unit information. - 1.3.6.1.4.1.674.10892.5.4.2000.10.1.3
+        indexes:
+        - labelname: fruChassisIndex
+          type: gauge
+        - labelname: fruIndex
+          type: gauge
+        enum_values:
+          1: other
+          2: unknown
+          3: ok
+          4: nonCritical
+          5: critical
+          6: nonRecoverable
+      - name: fruManufacturerName
+        oid: 1.3.6.1.4.1.674.10892.5.4.2000.10.1.6
+        type: DisplayString
+        help: 2000.0010.0001.0006 This attribute defines the manufacturer of the field
+          replaceable unit. - 1.3.6.1.4.1.674.10892.5.4.2000.10.1.6
+        indexes:
+        - labelname: fruChassisIndex
+          type: gauge
+        - labelname: fruIndex
+          type: gauge
+      - name: fruSerialNumberName
+        oid: 1.3.6.1.4.1.674.10892.5.4.2000.10.1.7
+        type: DisplayString
+        help: 2000.0010.0001.0007 This attribute defines the serial number of the field
+          replaceable unit. - 1.3.6.1.4.1.674.10892.5.4.2000.10.1.7
+        indexes:
+        - labelname: fruChassisIndex
+          type: gauge
+        - labelname: fruIndex
+          type: gauge
+      - name: fruPartNumberName
+        oid: 1.3.6.1.4.1.674.10892.5.4.2000.10.1.8
+        type: DisplayString
+        help: 2000.0010.0001.0008 This attribute defines the part number of the field
+          replaceable unit. - 1.3.6.1.4.1.674.10892.5.4.2000.10.1.8
+        indexes:
+        - labelname: fruChassisIndex
+          type: gauge
+        - labelname: fruIndex
+          type: gauge
+      - name: fruRevisionName
+        oid: 1.3.6.1.4.1.674.10892.5.4.2000.10.1.9
+        type: DisplayString
+        help: 2000.0010.0001.0009 This attribute defines the revision of the field replaceable
+          unit. - 1.3.6.1.4.1.674.10892.5.4.2000.10.1.9
+        indexes:
+        - labelname: fruChassisIndex
+          type: gauge
+        - labelname: fruIndex
+          type: gauge
+      - name: fruFQDD
+        oid: 1.3.6.1.4.1.674.10892.5.4.2000.10.1.12
+        type: DisplayString
+        help: 2000.0010.0001.0012 Fully qualified device descriptor (FQDD) of the field
+          replaceable unit. - 1.3.6.1.4.1.674.10892.5.4.2000.10.1.12
+        indexes:
+        - labelname: fruChassisIndex
+          type: gauge
+        - labelname: fruIndex
+          type: gauge
+      - name: numEventLogEntries
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.1
+        type: gauge
+        help: 0300.0001.0000 This attribute provides the number of entries currently in
+          the eventLogTable. - 1.3.6.1.4.1.674.10892.5.4.300.1
+      - name: systemBIOSchassisIndex
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.50.1.1
+        type: gauge
+        help: 0300.0050.0001.0001 This attribute defines the index (one based) of the
+          associated system chassis. - 1.3.6.1.4.1.674.10892.5.4.300.50.1.1
+        indexes:
+        - labelname: systemBIOSchassisIndex
+          type: gauge
+        - labelname: systemBIOSIndex
+          type: gauge
+      - name: systemBIOSIndex
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.50.1.2
+        type: gauge
+        help: 0300.0050.0001.0002 This attribute defines the index (one based) of the
+          system BIOS. - 1.3.6.1.4.1.674.10892.5.4.300.50.1.2
+        indexes:
+        - labelname: systemBIOSchassisIndex
+          type: gauge
+        - labelname: systemBIOSIndex
+          type: gauge
+      - name: systemBIOSStateCapabilities
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.50.1.3
+        type: gauge
+        help: 0300.0050.0001.0003 This attribute defines the state capabilities of the
+          system BIOS. - 1.3.6.1.4.1.674.10892.5.4.300.50.1.3
+        indexes:
+        - labelname: systemBIOSchassisIndex
+          type: gauge
+        - labelname: systemBIOSIndex
+          type: gauge
+        enum_values:
+          1: unknownCapabilities
+          2: enableCapable
+          4: notReadyCapable
+          6: enableAndNotReadyCapable
+      - name: systemBIOSStateSettings
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.50.1.4
+        type: gauge
+        help: 0300.0050.0001.0004 This attribute defines the state settings of the system
+          BIOS. - 1.3.6.1.4.1.674.10892.5.4.300.50.1.4
+        indexes:
+        - labelname: systemBIOSchassisIndex
+          type: gauge
+        - labelname: systemBIOSIndex
+          type: gauge
+        enum_values:
+          1: unknown
+          2: enabled
+          4: notReady
+          6: enabledAndNotReady
+      - name: systemBIOSStatus
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.50.1.5
+        type: gauge
+        help: 0300.0050.0001.0005 This attribute defines the status of the system BIOS.
+          - 1.3.6.1.4.1.674.10892.5.4.300.50.1.5
+        indexes:
+        - labelname: systemBIOSchassisIndex
+          type: gauge
+        - labelname: systemBIOSIndex
+          type: gauge
+        enum_values:
+          1: other
+          2: unknown
+          3: ok
+          4: nonCritical
+          5: critical
+          6: nonRecoverable
+      - name: systemBIOSReleaseDateName
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.50.1.7
+        type: OctetString
+        help: 0300.0050.0001.0007 This attribute defines the release date name of the
+          system BIOS. - 1.3.6.1.4.1.674.10892.5.4.300.50.1.7
+        indexes:
+        - labelname: systemBIOSchassisIndex
+          type: gauge
+        - labelname: systemBIOSIndex
+          type: gauge
+      - name: systemBIOSVersionName
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.50.1.8
+        type: DisplayString
+        help: 0300.0050.0001.0008 This attribute defines the version name of the system
+          BIOS. - 1.3.6.1.4.1.674.10892.5.4.300.50.1.8
+        indexes:
+        - labelname: systemBIOSchassisIndex
+          type: gauge
+        - labelname: systemBIOSIndex
+          type: gauge
+      - name: systemBIOSManufacturerName
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.50.1.11
+        type: DisplayString
+        help: 0300.0050.0001.0011 This attribute defines the name of the manufacturer
+          of the system BIOS. - 1.3.6.1.4.1.674.10892.5.4.300.50.1.11
+        indexes:
+        - labelname: systemBIOSchassisIndex
+          type: gauge
+        - labelname: systemBIOSIndex
+          type: gauge
+      - name: firmwarechassisIndex
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.60.1.1
+        type: gauge
+        help: 0300.0060.0001.0001 This attribute defines the index (one based) of the
+          associated system chassis. - 1.3.6.1.4.1.674.10892.5.4.300.60.1.1
+        indexes:
+        - labelname: firmwarechassisIndex
+          type: gauge
+        - labelname: firmwareIndex
+          type: gauge
+      - name: firmwareIndex
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.60.1.2
+        type: gauge
+        help: 0300.0060.0001.0002 This attribute defines the index (one based) of the
+          firmware. - 1.3.6.1.4.1.674.10892.5.4.300.60.1.2
+        indexes:
+        - labelname: firmwarechassisIndex
+          type: gauge
+        - labelname: firmwareIndex
+          type: gauge
+      - name: firmwareStateCapabilities
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.60.1.3
+        type: gauge
+        help: 0300.0060.0001.0003 This attribute defines the state capabilities of the
+          firmware. - 1.3.6.1.4.1.674.10892.5.4.300.60.1.3
+        indexes:
+        - labelname: firmwarechassisIndex
+          type: gauge
+        - labelname: firmwareIndex
+          type: gauge
+        enum_values:
+          1: unknownCapabilities
+          2: enableCapable
+          4: notReadyCapable
+          6: enableAndNotReadyCapable
+      - name: firmwareStateSettings
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.60.1.4
+        type: gauge
+        help: 0300.0060.0001.0004 This attribute defines the state settings of the firmware.
+          - 1.3.6.1.4.1.674.10892.5.4.300.60.1.4
+        indexes:
+        - labelname: firmwarechassisIndex
+          type: gauge
+        - labelname: firmwareIndex
+          type: gauge
+        enum_values:
+          1: unknown
+          2: enabled
+          4: notReady
+          6: enabledAndNotReady
+      - name: firmwareStatus
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.60.1.5
+        type: gauge
+        help: 0300.0060.0001.0005 This attribute defines the status of the firmware. -
+          1.3.6.1.4.1.674.10892.5.4.300.60.1.5
+        indexes:
+        - labelname: firmwarechassisIndex
+          type: gauge
+        - labelname: firmwareIndex
+          type: gauge
+        enum_values:
+          1: other
+          2: unknown
+          3: ok
+          4: nonCritical
+          5: critical
+          6: nonRecoverable
+      - name: firmwareSize
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.60.1.6
+        type: gauge
+        help: 0300.0060.0001.0006 This attribute defines the image size of the firmware
+          in KBytes - 1.3.6.1.4.1.674.10892.5.4.300.60.1.6
+        indexes:
+        - labelname: firmwarechassisIndex
+          type: gauge
+        - labelname: firmwareIndex
+          type: gauge
+      - name: firmwareType
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.60.1.7
+        type: gauge
+        help: 0300.0060.0001.0007 This attribute defines the type of firmware. - 1.3.6.1.4.1.674.10892.5.4.300.60.1.7
+        indexes:
+        - labelname: firmwarechassisIndex
+          type: gauge
+        - labelname: firmwareIndex
+          type: gauge
+        enum_values:
+          1: other
+          2: unknown
+          20: lifecycleController
+          21: iDRAC7
+      - name: firmwareTypeName
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.60.1.8
+        type: DisplayString
+        help: 0300.0060.0001.0008 This attribute defines the type name of the firmware.
+          - 1.3.6.1.4.1.674.10892.5.4.300.60.1.8
+        indexes:
+        - labelname: firmwarechassisIndex
+          type: gauge
+        - labelname: firmwareIndex
+          type: gauge
+      - name: firmwareUpdateCapabilities
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.60.1.9
+        type: gauge
+        help: 0300.0060.0001.0009 This attribute defines the bitmap of supported methods
+          for firmware update. - 1.3.6.1.4.1.674.10892.5.4.300.60.1.9
+        indexes:
+        - labelname: firmwarechassisIndex
+          type: gauge
+        - labelname: firmwareIndex
+          type: gauge
+      - name: firmwareVersionName
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.60.1.11
+        type: DisplayString
+        help: 0300.0060.0001.0011 This attribute defines the version of the firmware.
+          - 1.3.6.1.4.1.674.10892.5.4.300.60.1.11
+        indexes:
+        - labelname: firmwarechassisIndex
+          type: gauge
+        - labelname: firmwareIndex
+          type: gauge
+      - name: intrusionchassisIndex
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.70.1.1
+        type: gauge
+        help: 0300.0070.0001.0001 This attribute defines the index (one based) of the
+          associated system chassis. - 1.3.6.1.4.1.674.10892.5.4.300.70.1.1
+        indexes:
+        - labelname: intrusionchassisIndex
+          type: gauge
+        - labelname: intrusionIndex
+          type: gauge
+      - name: intrusionIndex
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.70.1.2
+        type: gauge
+        help: 0300.0070.0001.0002 This attribute defines the index (one based) of the
+          intrusion sensor. - 1.3.6.1.4.1.674.10892.5.4.300.70.1.2
+        indexes:
+        - labelname: intrusionchassisIndex
+          type: gauge
+        - labelname: intrusionIndex
+          type: gauge
+      - name: intrusionStateCapabilities
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.70.1.3
+        type: gauge
+        help: 0300.0070.0001.0003 This attribute defines the state capabilities of the
+          intrusion sensor. - 1.3.6.1.4.1.674.10892.5.4.300.70.1.3
+        indexes:
+        - labelname: intrusionchassisIndex
+          type: gauge
+        - labelname: intrusionIndex
+          type: gauge
+        enum_values:
+          1: unknownCapabilities
+          2: enableCapable
+          4: notReadyCapable
+          6: enableAndNotReadyCapable
+      - name: intrusionStateSettings
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.70.1.4
+        type: gauge
+        help: 0300.0070.0001.0004 This attribute defines the state settings of the intrusion
+          sensor. - 1.3.6.1.4.1.674.10892.5.4.300.70.1.4
+        indexes:
+        - labelname: intrusionchassisIndex
+          type: gauge
+        - labelname: intrusionIndex
+          type: gauge
+        enum_values:
+          1: unknown
+          2: enabled
+          4: notReady
+          6: enabledAndNotReady
+      - name: intrusionStatus
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.70.1.5
+        type: gauge
+        help: 0300.0070.0001.0005 This attribute defines the status of the intrusion sensor.
+          - 1.3.6.1.4.1.674.10892.5.4.300.70.1.5
+        indexes:
+        - labelname: intrusionchassisIndex
+          type: gauge
+        - labelname: intrusionIndex
+          type: gauge
+        enum_values:
+          1: other
+          2: unknown
+          3: ok
+          4: nonCritical
+          5: critical
+          6: nonRecoverable
+      - name: intrusionReading
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.70.1.6
+        type: gauge
+        help: 0300.0070.0001.0006 This attribute defines the reading of the intrusion
+          sensor. - 1.3.6.1.4.1.674.10892.5.4.300.70.1.6
+        indexes:
+        - labelname: intrusionchassisIndex
+          type: gauge
+        - labelname: intrusionIndex
+          type: gauge
+        enum_values:
+          1: chassisNotBreached
+          2: chassisBreached
+          3: chassisBreachedPrior
+          4: chassisBreachSensorFailure
+      - name: intrusionType
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.70.1.7
+        type: gauge
+        help: 0300.0070.0001.0007 This attribute defines the type of the intrusion sensor.
+          - 1.3.6.1.4.1.674.10892.5.4.300.70.1.7
+        indexes:
+        - labelname: intrusionchassisIndex
+          type: gauge
+        - labelname: intrusionIndex
+          type: gauge
+        enum_values:
+          1: chassisBreachDetectionWhenPowerON
+          2: chassisBreachDetectionWhenPowerOFF
+      - name: intrusionLocationName
+        oid: 1.3.6.1.4.1.674.10892.5.4.300.70.1.8
+        type: DisplayString
+        help: 0300.0070.0001.0008 This attribute defines the location of the intrusion
+          sensor. - 1.3.6.1.4.1.674.10892.5.4.300.70.1.8
+        indexes:
+        - labelname: intrusionchassisIndex
+          type: gauge
+        - labelname: intrusionIndex
+          type: gauge
+      - name: powerSupplychassisIndex
+        oid: 1.3.6.1.4.1.674.10892.5.4.600.12.1.1
+        type: gauge
+        help: 0600.0012.0001.0001 This attribute defines the index (one based) of the
+          system chassis. - 1.3.6.1.4.1.674.10892.5.4.600.12.1.1
+        indexes:
+        - labelname: powerSupplychassisIndex
+          type: gauge
+        - labelname: powerSupplyIndex
+          type: gauge
+      - name: powerSupplyIndex
+        oid: 1.3.6.1.4.1.674.10892.5.4.600.12.1.2
+        type: gauge
+        help: 0600.0012.0001.0002 This attribute defines the index (one based) of the
+          power supply. - 1.3.6.1.4.1.674.10892.5.4.600.12.1.2
+        indexes:
+        - labelname: powerSupplychassisIndex
+          type: gauge
+        - labelname: powerSupplyIndex
+          type: gauge
+      - name: powerSupplyStateCapabilitiesUnique
+        oid: 1.3.6.1.4.1.674.10892.5.4.600.12.1.3
+        type: gauge
+        help: 0600.0012.0001.0003 This attribute defines the state capabilities of the
+          power supply. - 1.3.6.1.4.1.674.10892.5.4.600.12.1.3
+        indexes:
+        - labelname: powerSupplychassisIndex
+          type: gauge
+        - labelname: powerSupplyIndex
+          type: gauge
+        enum_values:
+          1: unknown
+          2: onlineCapable
+          4: notReadyCapable
+      - name: powerSupplyStateSettingsUnique
+        oid: 1.3.6.1.4.1.674.10892.5.4.600.12.1.4
+        type: gauge
+        help: 0600.0012.0001.0004 This attribute defines the state settings of the power
+          supply. - 1.3.6.1.4.1.674.10892.5.4.600.12.1.4
+        indexes:
+        - labelname: powerSupplychassisIndex
+          type: gauge
+        - labelname: powerSupplyIndex
+          type: gauge
+        enum_values:
+          1: unknown
+          2: onLine
+          4: notReady
+          8: fanFailure
+          10: onlineAndFanFailure
+          16: powerSupplyIsON
+          32: powerSupplyIsOK
+          64: acSwitchIsON
+          66: onlineandAcSwitchIsON
+          128: acPowerIsON
+          130: onlineAndAcPowerIsON
+          210: onlineAndPredictiveFailure
+          242: acPowerAndSwitchAreOnPowerSupplyIsOnIsOkAndOnline
+      - name: powerSupplyStatus
+        oid: 1.3.6.1.4.1.674.10892.5.4.600.12.1.5
+        type: gauge
+        help: 0600.0012.0001.0005 This attribute defines the status of the power supply.
+          - 1.3.6.1.4.1.674.10892.5.4.600.12.1.5
+        indexes:
+        - labelname: powerSupplychassisIndex
+          type: gauge
+        - labelname: powerSupplyIndex
+          type: gauge
+        enum_values:
+          1: other
+          2: unknown
+          3: ok
+          4: nonCritical
+          5: critical
+          6: nonRecoverable
+      - name: powerSupplyOutputWatts
+        oid: 1.3.6.1.4.1.674.10892.5.4.600.12.1.6
+        type: gauge
+        help: 0600.0012.0001.0006 This attribute defines the maximum sustained output
+          wattage of the power supply (in tenths of Watts). - 1.3.6.1.4.1.674.10892.5.4.600.12.1.6
+        indexes:
+        - labelname: powerSupplychassisIndex
+          type: gauge
+        - labelname: powerSupplyIndex
+          type: gauge
+      - name: powerSupplyType
+        oid: 1.3.6.1.4.1.674.10892.5.4.600.12.1.7
+        type: gauge
+        help: 0600.0012.0001.0007 This attribute defines the type of the power supply.
+          - 1.3.6.1.4.1.674.10892.5.4.600.12.1.7
+        indexes:
+        - labelname: powerSupplychassisIndex
+          type: gauge
+        - labelname: powerSupplyIndex
+          type: gauge
+        enum_values:
+          1: powerSupplyTypeIsOther
+          2: powerSupplyTypeIsUnknown
+          3: powerSupplyTypeIsLinear
+          4: powerSupplyTypeIsSwitching
+          5: powerSupplyTypeIsBattery
+          6: powerSupplyTypeIsUPS
+          7: powerSupplyTypeIsConverter
+          8: powerSupplyTypeIsRegulator
+          9: powerSupplyTypeIsAC
+          10: powerSupplyTypeIsDC
+          11: powerSupplyTypeIsVRM
+      - name: powerSupplyLocationName
+        oid: 1.3.6.1.4.1.674.10892.5.4.600.12.1.8
+        type: DisplayString
+        help: 0600.0012.0001.0008 This attribute defines the location of the power supply.
+          - 1.3.6.1.4.1.674.10892.5.4.600.12.1.8
+        indexes:
+        - labelname: powerSupplychassisIndex
+          type: gauge
+        - labelname: powerSupplyIndex
+          type: gauge
+      - name: powerSupplyInputVoltage
+        oid: 1.3.6.1.4.1.674.10892.5.4.600.12.1.9
+        type: gauge
+        help: 0600.0012.0001.0009 This attribute defines the input voltage to the power
+          supply (in Volts). - 1.3.6.1.4.1.674.10892.5.4.600.12.1.9
+        indexes:
+        - labelname: powerSupplychassisIndex
+          type: gauge
+        - labelname: powerSupplyIndex
+          type: gauge
+      - name: powerSupplypowerUnitIndexReference
+        oid: 1.3.6.1.4.1.674.10892.5.4.600.12.1.10
+        type: gauge
+        help: 0600.0012.0001.0010 This attribute defines the index to the associated power
+          unit if the power supply is part of a power unit. - 1.3.6.1.4.1.674.10892.5.4.600.12.1.10
+        indexes:
+        - labelname: powerSupplychassisIndex
+          type: gauge
+        - labelname: powerSupplyIndex
+          type: gauge
+      - name: powerSupplySensorState
+        oid: 1.3.6.1.4.1.674.10892.5.4.600.12.1.11
+        type: gauge
+        help: 0600.0012.0001.0011 This attribute defines the state reported by the power
+          supply sensor - 1.3.6.1.4.1.674.10892.5.4.600.12.1.11
+        indexes:
+        - labelname: powerSupplychassisIndex
+          type: gauge
+        - labelname: powerSupplyIndex
+          type: gauge
+        enum_values:
+          1: presenceDetected
+          2: psFailureDetected
+          4: predictiveFailure
+          8: psACLost
+          16: acLostOrOutOfRange
+          32: acOutOfRangeButPresent
+          64: configurationError
+      - name: powerSupplyConfigurationErrorType
+        oid: 1.3.6.1.4.1.674.10892.5.4.600.12.1.12
+        type: gauge
+        help: 0600.0012.0001.0012 This attribute defines the type of configuration error
+          reported by the power supply sensor - 1.3.6.1.4.1.674.10892.5.4.600.12.1.12
+        indexes:
+        - labelname: powerSupplychassisIndex
+          type: gauge
+        - labelname: powerSupplyIndex
+          type: gauge
+        enum_values:
+          1: vendorMismatch
+          2: revisionMismatch
+          3: processorMissing
+      - name: powerSupplyPowerMonitorCapable
+        oid: 1.3.6.1.4.1.674.10892.5.4.600.12.1.13
+        type: gauge
+        help: 0600.0012.0001.0013 This attribute defines a boolean value that reports
+          whether the power supply is capable of monitoring power consumption. - 1.3.6.1.4.1.674.10892.5.4.600.12.1.13
+        indexes:
+        - labelname: powerSupplychassisIndex
+          type: gauge
+        - labelname: powerSupplyIndex
+          type: gauge
+      - name: powerSupplyRatedInputWattage
+        oid: 1.3.6.1.4.1.674.10892.5.4.600.12.1.14
+        type: gauge
+        help: 0600.0012.0001.0014 This attribute defines the rated input wattage of the
+          power supply (in tenths of Watts). - 1.3.6.1.4.1.674.10892.5.4.600.12.1.14
+        indexes:
+        - labelname: powerSupplychassisIndex
+          type: gauge
+        - labelname: powerSupplyIndex
+          type: gauge
+      - name: powerSupplyFQDD
+        oid: 1.3.6.1.4.1.674.10892.5.4.600.12.1.15
+        type: OctetString
+        help: 0600.0012.0001.0015 Fully qualified device descriptor (FQDD) of the power
+          supply. - 1.3.6.1.4.1.674.10892.5.4.600.12.1.15
+        indexes:
+        - labelname: powerSupplychassisIndex
+          type: gauge
+        - labelname: powerSupplyIndex
+          type: gauge
+      - name: systemBatteryChassisIndex
+        oid: 1.3.6.1.4.1.674.10892.5.4.600.50.1.1
+        type: gauge
+        help: 0600.0050.0001.0001 This attribute defines the index (one based) of the
+          system chassis that contains the battery. - 1.3.6.1.4.1.674.10892.5.4.600.50.1.1
+        indexes:
+        - labelname: systemBatteryChassisIndex
+          type: gauge
+        - labelname: systemBatteryIndex
+          type: gauge
+      - name: systemBatteryIndex
+        oid: 1.3.6.1.4.1.674.10892.5.4.600.50.1.2
+        type: gauge
+        help: 0600.0050.0001.0002 This attribute defines the index (one based) of the
+          battery. - 1.3.6.1.4.1.674.10892.5.4.600.50.1.2
+        indexes:
+        - labelname: systemBatteryChassisIndex
+          type: gauge
+        - labelname: systemBatteryIndex
+          type: gauge
+      - name: systemBatteryStateCapabilities
+        oid: 1.3.6.1.4.1.674.10892.5.4.600.50.1.3
+        type: gauge
+        help: 0600.0050.0001.0003 This attribute defines the state capabilities of the
+          battery. - 1.3.6.1.4.1.674.10892.5.4.600.50.1.3
+        indexes:
+        - labelname: systemBatteryChassisIndex
+          type: gauge
+        - labelname: systemBatteryIndex
+          type: gauge
+        enum_values:
+          1: unknownCapabilities
+          2: enableCapable
+          4: notReadyCapable
+          6: enableAndNotReadyCapable
+      - name: systemBatteryStateSettings
+        oid: 1.3.6.1.4.1.674.10892.5.4.600.50.1.4
+        type: gauge
+        help: 0600.0050.0001.0004 This attribute defines the state settings of the battery.
+          - 1.3.6.1.4.1.674.10892.5.4.600.50.1.4
+        indexes:
+        - labelname: systemBatteryChassisIndex
+          type: gauge
+        - labelname: systemBatteryIndex
+          type: gauge
+        enum_values:
+          1: unknown
+          2: enabled
+          4: notReady
+          6: enabledAndNotReady
+      - name: systemBatteryStatus
+        oid: 1.3.6.1.4.1.674.10892.5.4.600.50.1.5
+        type: gauge
+        help: 0600.0050.0001.0005 This attribute defines the status of the battery. -
+          1.3.6.1.4.1.674.10892.5.4.600.50.1.5
+        indexes:
+        - labelname: systemBatteryChassisIndex
+          type: gauge
+        - labelname: systemBatteryIndex
+          type: gauge
+        enum_values:
+          1: other
+          2: unknown
+          3: ok
+          4: nonCritical
+          5: critical
+          6: nonRecoverable
+      - name: systemBatteryReading
+        oid: 1.3.6.1.4.1.674.10892.5.4.600.50.1.6
+        type: gauge
+        help: 0600.0050.0001.0006 This attribute defines the reading of the battery. -
+          1.3.6.1.4.1.674.10892.5.4.600.50.1.6
+        indexes:
+        - labelname: systemBatteryChassisIndex
+          type: gauge
+        - labelname: systemBatteryIndex
+          type: gauge
+        enum_values:
+          1: predictiveFailure
+          2: failed
+          4: presenceDetected
+      - name: systemBatteryLocationName
+        oid: 1.3.6.1.4.1.674.10892.5.4.600.50.1.7
+        type: DisplayString
+        help: 0600.0050.0001.0007 This attribute defines the location of the battery.
+          - 1.3.6.1.4.1.674.10892.5.4.600.50.1.7
+        indexes:
+        - labelname: systemBatteryChassisIndex
+          type: gauge
+        - labelname: systemBatteryIndex
+          type: gauge
+      - name: coolingDeviceStatus
+        oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.5
+        type: gauge
+        help: 0700.0012.0001.0005 This attribute defines the probe status of the cooling
+          device. - 1.3.6.1.4.1.674.10892.5.4.700.12.1.5
+        indexes:
+        - labelname: coolingDevicechassisIndex
+          type: gauge
+        - labelname: coolingDeviceIndex
+          type: gauge
+        enum_values:
+          1: other
+          2: unknown
+          3: ok
+          4: nonCriticalUpper
+          5: criticalUpper
+          6: nonRecoverableUpper
+          7: nonCriticalLower
+          8: criticalLower
+          9: nonRecoverableLower
+          10: failed
+      - name: coolingDeviceLocationName
+        oid: 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+        type: DisplayString
+        help: 0700.0012.0001.0008 This attribute defines the location name of the cooling
+          device. - 1.3.6.1.4.1.674.10892.5.4.700.12.1.8
+        indexes:
+        - labelname: coolingDevicechassisIndex
+          type: gauge
+        - labelname: coolingDeviceIndex
+          type: gauge
+      - name: temperatureProbechassisIndex
+        oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.1
+        type: gauge
+        help: 0700.0020.0001.0001 This attribute defines the index (one based) of the
+          associated system chassis. - 1.3.6.1.4.1.674.10892.5.4.700.20.1.1
+        indexes:
+        - labelname: temperatureProbechassisIndex
+          type: gauge
+        - labelname: temperatureProbeIndex
+          type: gauge
+      - name: temperatureProbeIndex
+        oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.2
+        type: gauge
+        help: 0700.0020.0001.0002 This attribute defines the index (one based) of the
+          temperature probe. - 1.3.6.1.4.1.674.10892.5.4.700.20.1.2
+        indexes:
+        - labelname: temperatureProbechassisIndex
+          type: gauge
+        - labelname: temperatureProbeIndex
+          type: gauge
+      - name: temperatureProbeStateCapabilities
+        oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.3
+        type: gauge
+        help: 0700.0020.0001.0003 This attribute defines the state capabilities of the
+          temperature probe. - 1.3.6.1.4.1.674.10892.5.4.700.20.1.3
+        indexes:
+        - labelname: temperatureProbechassisIndex
+          type: gauge
+        - labelname: temperatureProbeIndex
+          type: gauge
+        enum_values:
+          1: unknownCapabilities
+          2: enableCapable
+          4: notReadyCapable
+          6: enableAndNotReadyCapable
+      - name: temperatureProbeStateSettings
+        oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.4
+        type: gauge
+        help: 0700.0020.0001.0004 This attribute defines the state settings of the temperature
+          probe. - 1.3.6.1.4.1.674.10892.5.4.700.20.1.4
+        indexes:
+        - labelname: temperatureProbechassisIndex
+          type: gauge
+        - labelname: temperatureProbeIndex
+          type: gauge
+        enum_values:
+          1: unknown
+          2: enabled
+          4: notReady
+          6: enabledAndNotReady
+      - name: temperatureProbeStatus
+        oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.5
+        type: gauge
+        help: 0700.0020.0001.0005 This attribute defines the probe status of the temperature
+          probe. - 1.3.6.1.4.1.674.10892.5.4.700.20.1.5
+        indexes:
+        - labelname: temperatureProbechassisIndex
+          type: gauge
+        - labelname: temperatureProbeIndex
+          type: gauge
+        enum_values:
+          1: other
+          2: unknown
+          3: ok
+          4: nonCriticalUpper
+          5: criticalUpper
+          6: nonRecoverableUpper
+          7: nonCriticalLower
+          8: criticalLower
+          9: nonRecoverableLower
+          10: failed
+      - name: temperatureProbeReading
+        oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.6
+        type: gauge
+        help: 0700.0020.0001.0006 This attribute defines the reading for a temperature
+          probe of type other than temperatureProbeTypeIsDiscrete - 1.3.6.1.4.1.674.10892.5.4.700.20.1.6
+        indexes:
+        - labelname: temperatureProbechassisIndex
+          type: gauge
+        - labelname: temperatureProbeIndex
+          type: gauge
+      - name: temperatureProbeType
+        oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.7
+        type: gauge
+        help: 0700.0020.0001.0007 This attribute defines the type of the temperature probe.
+          - 1.3.6.1.4.1.674.10892.5.4.700.20.1.7
+        indexes:
+        - labelname: temperatureProbechassisIndex
+          type: gauge
+        - labelname: temperatureProbeIndex
+          type: gauge
+        enum_values:
+          1: temperatureProbeTypeIsOther
+          2: temperatureProbeTypeIsUnknown
+          3: temperatureProbeTypeIsAmbientESM
+          16: temperatureProbeTypeIsDiscrete
+      - name: temperatureProbeLocationName
+        oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.8
+        type: DisplayString
+        help: 0700.0020.0001.0008 This attribute defines the location name of the temperature
+          probe. - 1.3.6.1.4.1.674.10892.5.4.700.20.1.8
+        indexes:
+        - labelname: temperatureProbechassisIndex
+          type: gauge
+        - labelname: temperatureProbeIndex
+          type: gauge
+      - name: temperatureProbeUpperNonRecoverableThreshold
+        oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.9
+        type: gauge
+        help: 0700.0020.0001.0009 This attribute defines the upper nonrecoverable threshold
+          of the temperature probe - 1.3.6.1.4.1.674.10892.5.4.700.20.1.9
+        indexes:
+        - labelname: temperatureProbechassisIndex
+          type: gauge
+        - labelname: temperatureProbeIndex
+          type: gauge
+      - name: temperatureProbeUpperCriticalThreshold
+        oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.10
+        type: gauge
+        help: 0700.0020.0001.0010 This attribute defines the upper critical threshold
+          of the temperature probe - 1.3.6.1.4.1.674.10892.5.4.700.20.1.10
+        indexes:
+        - labelname: temperatureProbechassisIndex
+          type: gauge
+        - labelname: temperatureProbeIndex
+          type: gauge
+      - name: temperatureProbeUpperNonCriticalThreshold
+        oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.11
+        type: gauge
+        help: 0700.0020.0001.0011 This attribute defines the upper noncritical threshold
+          of the temperature probe - 1.3.6.1.4.1.674.10892.5.4.700.20.1.11
+        indexes:
+        - labelname: temperatureProbechassisIndex
+          type: gauge
+        - labelname: temperatureProbeIndex
+          type: gauge
+      - name: temperatureProbeLowerNonCriticalThreshold
+        oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.12
+        type: gauge
+        help: 0700.0020.0001.0012 This attribute defines the lower noncritical threshold
+          of the temperature probe - 1.3.6.1.4.1.674.10892.5.4.700.20.1.12
+        indexes:
+        - labelname: temperatureProbechassisIndex
+          type: gauge
+        - labelname: temperatureProbeIndex
+          type: gauge
+      - name: temperatureProbeLowerCriticalThreshold
+        oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.13
+        type: gauge
+        help: 0700.0020.0001.0013 This attribute defines the lower critical threshold
+          of the temperature probe - 1.3.6.1.4.1.674.10892.5.4.700.20.1.13
+        indexes:
+        - labelname: temperatureProbechassisIndex
+          type: gauge
+        - labelname: temperatureProbeIndex
+          type: gauge
+      - name: temperatureProbeLowerNonRecoverableThreshold
+        oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.14
+        type: gauge
+        help: 0700.0020.0001.0014 This attribute defines the lower nonrecoverable threshold
+          of the temperature probe - 1.3.6.1.4.1.674.10892.5.4.700.20.1.14
+        indexes:
+        - labelname: temperatureProbechassisIndex
+          type: gauge
+        - labelname: temperatureProbeIndex
+          type: gauge
+      - name: temperatureProbeProbeCapabilities
+        oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.15
+        type: gauge
+        help: 0700.0020.0001.0015 This attribute defines the probe capabilities of the
+          temperature probe. - 1.3.6.1.4.1.674.10892.5.4.700.20.1.15
+        indexes:
+        - labelname: temperatureProbechassisIndex
+          type: gauge
+        - labelname: temperatureProbeIndex
+          type: gauge
+        enum_values:
+          1: upperNonCriticalThresholdSetCapable
+          2: lowerNonCriticalThresholdSetCapable
+          4: upperNonCriticalThresholdDefaultCapable
+          8: lowerNonCriticalThresholdDefaultCapable
+      - name: temperatureProbeDiscreteReading
+        oid: 1.3.6.1.4.1.674.10892.5.4.700.20.1.16
+        type: gauge
+        help: 0700.0020.0001.0016 This attribute defines the reading for a temperature
+          probe of type temperatureProbeTypeIsDiscrete - 1.3.6.1.4.1.674.10892.5.4.700.20.1.16
+        indexes:
+        - labelname: temperatureProbechassisIndex
+          type: gauge
+        - labelname: temperatureProbeIndex
+          type: gauge
+        enum_values:
+          1: temperatureIsGood
+          2: temperatureIsBad
+      - name: controllerNumber
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.1
+        type: gauge
+        help: Instance number of this controller entry. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.1
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+      - name: controllerName
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.2
+        type: DisplayString
+        help: The controller's name as represented in Storage Management. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.2
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+      - name: controllerRebuildRate
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.7
+        type: gauge
+        help: !!binary |
+          VGhlIHJlYnVpbGQgcmF0ZSBpcyB0aGUgcGVyY2VudGFnZSBvZiB0aGUgY29udHJvbGxlcp
+          JzIHJlc291cmNlcyBkZWRpY2F0ZWQgdG8gcmVidWlsZGluZyBhIGZhaWxlZCBkaXNrIHdo
+          ZW4gYSByZWJ1aWxkIGlzIG5lY2Vzc2FyeS4gLSAxLjMuNi4xLjQuMS42NzQuMTA4OTIuNS
+          41LjEuMjAuMTMwLjEuMS43
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+      - name: controllerFWVersion
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.8
+        type: DisplayString
+        help: The controller's current firmware version. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.8
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+      - name: controllerCacheSizeInMB
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.9
+        type: gauge
+        help: The controller's current amount of cache memory in megabytes. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.9
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+      - name: controllerRollUpStatus
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.37
+        type: gauge
+        help: Severity of the controller state - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.37
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+        enum_values:
+          1: other
+          2: unknown
+          3: ok
+          4: nonCritical
+          5: critical
+          6: nonRecoverable
+      - name: controllerComponentStatus
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.38
+        type: gauge
+        help: The status of the controller itself without the propagation of any contained
+          component status - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.38
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+        enum_values:
+          1: other
+          2: unknown
+          3: ok
+          4: nonCritical
+          5: critical
+          6: nonRecoverable
+      - name: controllerDriverVersion
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.41
+        type: DisplayString
+        help: Currently installed driver version for this controller on the host. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.41
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+      - name: controllerPCISlot
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.42
+        type: DisplayString
+        help: The PCI slot on the server where the controller is seated - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.42
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+      - name: controllerReconstructRate
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.48
+        type: gauge
+        help: !!binary |
+          VGhlIHJlY29uc3RydWN0IHJhdGUgaXMgdGhlIHBlcmNlbnRhZ2Ugb2YgdGhlIGNvbnRyb2
+          xsZXKScyByZXNvdXJjZXMgZGVkaWNhdGVkIHRvIHJlY29uc3RydWN0aW5nIGEgZGlzayBn
+          cm91cCBhZnRlciBhZGRpbmcgYSBwaHlzaWNhbCBkaXNrIG9yIGNoYW5naW5nIHRoZSBSQU
+          lEIGxldmVsIG9mIGEgdmlydHVhbCBkaXNrIHJlc2lkaW5nIG9uIHRoZSBkaXNrIGdyb3Vw
+          LiAtIDEuMy42LjEuNC4xLjY3NC4xMDg5Mi41LjUuMS4yMC4xMzAuMS4xLjQ4
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+      - name: controllerPatrolReadRate
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.49
+        type: gauge
+        help: !!binary |
+          VGhlIHBhdHJvbCByZWFkIHJhdGUgaXMgdGhlIHBlcmNlbnRhZ2Ugb2YgdGhlIGNvbnRyb2
+          xsZXKScyByZXNvdXJjZXMgZGVkaWNhdGVkIHRvIHBlcmZvcm0gYSBwYXRyb2wgcmVhZCBv
+          biBkaXNrcyBwYXJ0aWNpcGF0aW5nIGluIGEgdmlydHVhbCBkaXNrIG9yIGhvdCBzcGFyZX
+          MuIC0gMS4zLjYuMS40LjEuNjc0LjEwODkyLjUuNS4xLjIwLjEzMC4xLjEuNDk=
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+      - name: controllerBGIRate
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.50
+        type: gauge
+        help: !!binary |
+          VGhlIGJhY2tncm91bmQgaW5pdGlhbGl6YXRpb24gKEJHSSkgcmF0ZSBpcyB0aGUgcGVyY2
+          VudGFnZSBvZiB0aGUgY29udHJvbGxlcpJzIHJlc291cmNlcyBkZWRpY2F0ZWQgdG8gcGVy
+          Zm9ybWluZyB0aGUgYmFja2dyb3VuZCBpbml0aWFsaXphdGlvbiBvZiBhIHJlZHVuZGFudC
+          B2aXJ0dWFsIGRpc2sgYWZ0ZXIgaXQgaXMgY3JlYXRlZC4gLSAxLjMuNi4xLjQuMS42NzQu
+          MTA4OTIuNS41LjEuMjAuMTMwLjEuMS41MA==
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+      - name: controllerCheckConsistencyRate
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.51
+        type: gauge
+        help: !!binary |
+          VGhlIGNoZWNrIGNvbnNpc3RlbmN5IHJhdGUgaXMgdGhlIHBlcmNlbnRhZ2Ugb2YgdGhlIG
+          NvbnRyb2xsZXKScyByZXNvdXJjZXMgZGVkaWNhdGVkIHRvIHBlcmZvcm1pbmcgYSBjaGVj
+          ayBjb25zaXN0ZW5jeSBvbiBhIHJlZHVuZGFudCB2aXJ0dWFsIGRpc2suIC0gMS4zLjYuMS
+          40LjEuNjc0LjEwODkyLjUuNS4xLjIwLjEzMC4xLjEuNTE=
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+      - name: controllerPatrolReadMode
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.52
+        type: gauge
+        help: Identifies the patrol read mode setting for the controller - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.52
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+        enum_values:
+          1: other
+          2: notSupported
+          3: disabled
+          4: auto
+          5: manual
+      - name: controllerPatrolReadState
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.53
+        type: gauge
+        help: This property displays the current state of the patrol read process - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.53
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+        enum_values:
+          1: other
+          2: stopped
+          3: active
+      - name: controllerPersistentHotSpare
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.59
+        type: gauge
+        help: Indicates whether hot spare drives would be restored on insertion into the
+          same slot. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.59
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+      - name: controllerSpinDownUnconfiguredDrives
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.60
+        type: gauge
+        help: Indicates whether un-configured drives would be put in power save mode by
+          the controller. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.60
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+      - name: controllerSpinDownHotSpareDrives
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.61
+        type: gauge
+        help: Indicates whether hot spare drives would be put in power save mode by the
+          controller. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.61
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+      - name: controllerSpinDownTimeInterval
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.62
+        type: gauge
+        help: The duration in minutes after which, the unconfigured or hot spare drives
+          will be spun down to power save mode. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.62
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+      - name: controllerPreservedCache
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.69
+        type: gauge
+        help: Indicates whether preserved cache or pinned cache is present on the controller.
+          - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.69
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+      - name: controllerCheckConsistencyMode
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.70
+        type: gauge
+        help: The current check consistency mode setting for the controller - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.70
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+        enum_values:
+          1: other
+          2: unsupported
+          3: normal
+          4: stopOnError
+      - name: controllerCopyBackMode
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.71
+        type: gauge
+        help: The current copy back mode setting for the controller - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.71
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+        enum_values:
+          1: other
+          2: unsupported
+          3: "on"
+          4: onWithSmart
+          5: "off"
+      - name: controllerSecurityStatus
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.72
+        type: gauge
+        help: The controller's current security/encryption status. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.72
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+        enum_values:
+          1: unknown
+          2: none
+          3: lkm
+      - name: controllerEncryptionKeyPresent
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.73
+        type: gauge
+        help: Indicates whether encryption key is assigned for the controller. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.73
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+      - name: controllerEncryptionCapability
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.74
+        type: gauge
+        help: The type of encryption supported by the controller - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.74
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+        enum_values:
+          1: other
+          2: none
+          3: lkm
+      - name: controllerLoadBalanceSetting
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.75
+        type: gauge
+        help: The ability of the controller to automatically use both controller ports
+          (or connectors) connected to the same enclosure in order to route I/O requests
+          - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.75
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+        enum_values:
+          1: other
+          2: unsupported
+          3: auto
+          4: none
+      - name: controllerMaxCapSpeed
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.76
+        type: gauge
+        help: The maximum speed of the controller.in Gigbits per second (Gbps) - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.76
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+        enum_values:
+          1: unknown
+          2: oneDotFiveGbps
+          3: threeGbps
+          4: sixGbps
+      - name: controllerSASAddress
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.77
+        type: DisplayString
+        help: The SAS address of the controller. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.77
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+      - name: controllerFQDD
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.78
+        type: OctetString
+        help: The controller's Fully Qualified Device Descriptor (FQDD) as represented
+          in Storage Management. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.78
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+      - name: controllerDisplayName
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.79
+        type: DisplayString
+        help: The controller's friendly FQDD as represented in Storage Management. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.79
+        indexes:
+        - labelname: controllerNumber
+          type: gauge
+      - name: physicalDiskNumber
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.1
+        type: gauge
+        help: Instance number of this physical disk entry. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.1
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+      - name: physicalDiskName
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.2
+        type: DisplayString
+        help: The physical disk's name as represented in Storage Management. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.2
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+      - name: physicalDiskManufacturer
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.3
+        type: DisplayString
+        help: The name of the physical disk's manufacturer. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.3
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+      - name: physicalDiskState
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.4
+        type: gauge
+        help: The current state of this physical disk - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.4
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+        enum_values:
+          1: unknown
+          2: ready
+          3: online
+          4: foreign
+          5: offline
+          6: blocked
+          7: failed
+          8: non-raid
+          9: removed
+      - name: physicalDiskProductID
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.6
+        type: DisplayString
+        help: The model number of the physical disk. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.6
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+      - name: physicalDiskSerialNo
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.7
+        type: DisplayString
+        help: The physical disk's unique identification number from the manufacturer.
+          - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.7
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+      - name: physicalDiskRevision
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.8
+        type: DisplayString
+        help: The firmware version of the physical disk. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.8
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+      - name: physicalDiskCapacityInMB
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.11
+        type: gauge
+        help: The size of the physical disk in megabytes. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.11
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+      - name: physicalDiskUsedSpaceInMB
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.17
+        type: gauge
+        help: The amount of used space in megabytes on the physical disk. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.17
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+      - name: physicalDiskFreeSpaceInMB
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.19
+        type: gauge
+        help: The amount of free space in megabytes on the physical disk. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.19
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+      - name: physicalDiskBusType
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.21
+        type: gauge
+        help: The bus type of the physical disk - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.21
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+        enum_values:
+          1: unknown
+          2: scsi
+          3: sas
+          4: sata
+          5: fibre
+      - name: physicalDiskSpareState
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.22
+        type: gauge
+        help: The status of the array disk as a spare - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.22
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+        enum_values:
+          1: notASpare
+          2: dedicatedHotSpare
+          3: globalHotSpare
+      - name: physicalDiskComponentStatus
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.24
+        type: gauge
+        help: The status of the physical disk itself without the propagation of any contained
+          component status - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.24
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+        enum_values:
+          1: other
+          2: unknown
+          3: ok
+          4: nonCritical
+          5: critical
+          6: nonRecoverable
+      - name: physicalDiskPartNumber
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.27
+        type: DisplayString
+        help: The part number of the disk. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.27
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+      - name: physicalDiskSASAddress
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.28
+        type: DisplayString
+        help: The SAS address of the physical disk. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.28
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+      - name: physicalDiskNegotiatedSpeed
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.29
+        type: gauge
+        help: The data transfer speed that the disk negotiated while spinning up in Gigbits
+          per second (Gbps) - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.29
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+        enum_values:
+          1: unknown
+          2: oneDotFiveGbps
+          3: threeGbps
+          4: sixGbps
+      - name: physicalDiskCapableSpeed
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.30
+        type: gauge
+        help: The maximum data transfer speed supported by the disk in Gigbits per second
+          (Gbps) - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.30
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+        enum_values:
+          1: unknown
+          2: oneDotFiveGbps
+          3: threeGbps
+          4: sixGbps
+      - name: physicalDiskSmartAlertIndication
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.31
+        type: gauge
+        help: Indicates whether the physical disk has received a predictive failure alert.
+          - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.31
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+      - name: physicalDiskManufactureDay
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.32
+        type: DisplayString
+        help: The day of the week (1=Sunday thru 7=Saturday) on which the physical disk
+          was manufactured. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.32
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+      - name: physicalDiskManufactureWeek
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.33
+        type: DisplayString
+        help: The week (1 thru 53) in which the physical disk was manufactured. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.33
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+      - name: physicalDiskManufactureYear
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.34
+        type: DisplayString
+        help: The four digit year in which the physical disk was manufactured. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.34
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+      - name: physicalDiskMediaType
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.35
+        type: gauge
+        help: The media type of the physical disk - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.35
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+        enum_values:
+          1: unknown
+          2: hdd
+          3: ssd
+      - name: physicalDiskPowerState
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.42
+        type: gauge
+        help: The power state of the physical disk - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.42
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+        enum_values:
+          1: other
+          2: spunUp
+          3: spunDown
+          4: transition
+      - name: physicalDiskOperationalState
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.50
+        type: gauge
+        help: The state of the physical disk when there are progressive operations ongoing
+          - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.50
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+        enum_values:
+          1: notApplicable
+          2: rebuild
+          3: clear
+          4: copyback
+      - name: physicalDiskProgress
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.51
+        type: gauge
+        help: The progress percentage of the operation that is being performed on the
+          physical disk - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.51
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+      - name: physicalDiskSecurityStatus
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.52
+        type: gauge
+        help: The security/encryption status of the physical disk - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.52
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+        enum_values:
+          1: other
+          2: notSupported
+          3: secured
+          4: locked
+          5: foreign
+      - name: physicalDiskFormFactor
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.53
+        type: gauge
+        help: The form factor of the physical disk - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.53
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+        enum_values:
+          1: unknown
+          2: oneDotEight
+          3: twoDotFive
+          4: threeDotFive
+      - name: physicalDiskFQDD
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.54
+        type: DisplayString
+        help: The physical disk's Fully Qualified Device Descriptor (FQDD) as represented
+          in Storage Management. - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.54
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+      - name: physicalDiskDisplayName
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.55
+        type: DisplayString
+        help: The physical disk's friendly FQDD as represented in Storage Management.
+          - 1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.55
+        indexes:
+        - labelname: physicalDiskNumber
+          type: gauge
+      - name: virtualDiskNumber
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.1
+        type: gauge
+        help: Instance number of this virtual disk entry. - 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.1
+        indexes:
+        - labelname: virtualDiskNumber
+          type: gauge
+      - name: virtualDiskName
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.2
+        type: DisplayString
+        help: The virtual disk's label as entered by the user. - 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.2
+        indexes:
+        - labelname: virtualDiskNumber
+          type: gauge
+      - name: virtualDiskState
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.4
+        type: gauge
+        help: 'The current state of this virtual disk (which includes any member physical
+          disks.) Possible states: 1: The current state could not be determined - 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.4'
+        indexes:
+        - labelname: virtualDiskNumber
+          type: gauge
+        enum_values:
+          1: unknown
+          2: online
+          3: failed
+          4: degraded
+      - name: virtualDiskSizeInMB
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.6
+        type: gauge
+        help: The size of the virtual disk in megabytes. - 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.6
+        indexes:
+        - labelname: virtualDiskNumber
+          type: gauge
+      - name: virtualDiskWritePolicy
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.10
+        type: gauge
+        help: The write policy used by the controller for write operations on this virtual
+          disk - 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.10
+        indexes:
+        - labelname: virtualDiskNumber
+          type: gauge
+        enum_values:
+          1: writeThrough
+          2: writeBack
+          3: writeBackForce
+      - name: virtualDiskReadPolicy
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.11
+        type: gauge
+        help: The read policy used by the controller for read operations on this virtual
+          disk - 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.11
+        indexes:
+        - labelname: virtualDiskNumber
+          type: gauge
+        enum_values:
+          1: noReadAhead
+          2: readAhead
+          3: adaptiveReadAhead
+      - name: virtualDiskLayout
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.13
+        type: gauge
+        help: The virtual disk's RAID type - 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.13
+        indexes:
+        - labelname: virtualDiskNumber
+          type: gauge
+        enum_values:
+          1: other
+          2: r0
+          3: r1
+          4: r5
+          5: r6
+          6: r10
+          7: r50
+          8: r60
+          9: concatRaid-1
+          10: concatRaid-5
+      - name: virtualDiskStripeSize
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.14
+        type: gauge
+        help: The stripe size of this virtual disk - 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.14
+        indexes:
+        - labelname: virtualDiskNumber
+          type: gauge
+        enum_values:
+          1: other
+          2: default
+          3: fiveHundredAndTwelvebytes
+          4: oneKilobytes
+          5: twoKilobytes
+          6: fourKilobytes
+          7: eightKilobytes
+          8: sixteenKilobytes
+          9: thirtyTwoKilobytes
+          10: sixtyFourKilobytes
+          11: oneTwentyEightKilobytes
+          12: twoFiftySixKilobytes
+          13: fiveOneTwoKilobytes
+          14: oneMegabye
+          15: twoMegabytes
+          16: fourMegabytes
+          17: eightMegabytes
+          18: sixteenMegabytes
+      - name: virtualDiskComponentStatus
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.20
+        type: gauge
+        help: The status of the virtual disk itself without the propagation of any contained
+          component status - 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.20
+        indexes:
+        - labelname: virtualDiskNumber
+          type: gauge
+        enum_values:
+          1: other
+          2: unknown
+          3: ok
+          4: nonCritical
+          5: critical
+          6: nonRecoverable
+      - name: virtualDiskBadBlocksDetected
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.23
+        type: gauge
+        help: Indicates whether the virtual disk has bad blocks. - 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.23
+        indexes:
+        - labelname: virtualDiskNumber
+          type: gauge
+      - name: virtualDiskSecured
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.24
+        type: gauge
+        help: Indicates whether the virtual disk is secured or not. - 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.24
+        indexes:
+        - labelname: virtualDiskNumber
+          type: gauge
+      - name: virtualDiskIsCacheCade
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.25
+        type: gauge
+        help: Indicates whether the virtual disk is being used as a secondary cache by
+          the controller. - 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.25
+        indexes:
+        - labelname: virtualDiskNumber
+          type: gauge
+      - name: virtualDiskDiskCachePolicy
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.26
+        type: gauge
+        help: 'The cache policy of the physical disks that are part of this virtual disk
+          Possible values: 1: Enabled - 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.26'
+        indexes:
+        - labelname: virtualDiskNumber
+          type: gauge
+        enum_values:
+          1: enabled
+          2: disabled
+          3: defullt
+      - name: virtualDiskOperationalState
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.30
+        type: gauge
+        help: The state of the virtual disk when there are progressive operations ongoing
+          - 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.30
+        indexes:
+        - labelname: virtualDiskNumber
+          type: gauge
+        enum_values:
+          1: notApplicable
+          2: reconstructing
+          3: resynching
+          4: initializing
+          5: backgroundInit
+      - name: virtualDiskProgress
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.31
+        type: gauge
+        help: The progress percentage of the operation that is being performed on the
+          virtual disk - 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.31
+        indexes:
+        - labelname: virtualDiskNumber
+          type: gauge
+      - name: virtualDiskAvailableProtocols
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.32
+        type: DisplayString
+        help: List of protocols support by physical disks part of this virtual disk -
+          1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.32
+        indexes:
+        - labelname: virtualDiskNumber
+          type: gauge
+      - name: virtualDiskMediaType
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.33
+        type: DisplayString
+        help: List of media types of the physical disks part of this virtual disk - 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.33
+        indexes:
+        - labelname: virtualDiskNumber
+          type: gauge
+      - name: virtualDiskRemainingRedundancy
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.34
+        type: gauge
+        help: The number of physical disks which can be lost before the virtual disk loses
+          its redundancy. - 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.34
+        indexes:
+        - labelname: virtualDiskNumber
+          type: gauge
+      - name: virtualDiskFQDD
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.35
+        type: OctetString
+        help: The virtual disk's Fully Qualified Device Descriptor (FQDD) as represented
+          in Storage Management. - 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.35
+        indexes:
+        - labelname: virtualDiskNumber
+          type: gauge
+      - name: virtualDiskDisplayName
+        oid: 1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.36
+        type: DisplayString
+        help: The virtual disk's friendly FQDD as represented in Storage Management. -
+          1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.36
+        indexes:
+        - labelname: virtualDiskNumber
+          type: gauge
+    if_mib:
+      walk:
+      - 1.3.6.1.2.1.2
+      - 1.3.6.1.2.1.31.1.1
+      get:
+      - 1.3.6.1.2.1.1.3.0
+      metrics:
+      - name: sysUpTime
+        oid: 1.3.6.1.2.1.1.3
+        type: gauge
+        help: The time (in hundredths of a second) since the network management portion
+          of the system was last re-initialized. - 1.3.6.1.2.1.1.3
+      - name: ifNumber
+        oid: 1.3.6.1.2.1.2.1
+        type: gauge
+        help: The number of network interfaces (regardless of their current state) present
+          on this system. - 1.3.6.1.2.1.2.1
+      - name: ifIndex
+        oid: 1.3.6.1.2.1.2.2.1.1
+        type: gauge
+        help: A unique value, greater than zero, for each interface - 1.3.6.1.2.1.2.2.1.1
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifType
+        oid: 1.3.6.1.2.1.2.2.1.3
+        type: EnumAsInfo
+        help: The type of interface - 1.3.6.1.2.1.2.2.1.3
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+        enum_values:
+          1: other
+          2: regular1822
+          3: hdh1822
+          4: ddnX25
+          5: rfc877x25
+          6: ethernetCsmacd
+          7: iso88023Csmacd
+          8: iso88024TokenBus
+          9: iso88025TokenRing
+          10: iso88026Man
+          11: starLan
+          12: proteon10Mbit
+          13: proteon80Mbit
+          14: hyperchannel
+          15: fddi
+          16: lapb
+          17: sdlc
+          18: ds1
+          19: e1
+          20: basicISDN
+          21: primaryISDN
+          22: propPointToPointSerial
+          23: ppp
+          24: softwareLoopback
+          25: eon
+          26: ethernet3Mbit
+          27: nsip
+          28: slip
+          29: ultra
+          30: ds3
+          31: sip
+          32: frameRelay
+          33: rs232
+          34: para
+          35: arcnet
+          36: arcnetPlus
+          37: atm
+          38: miox25
+          39: sonet
+          40: x25ple
+          41: iso88022llc
+          42: localTalk
+          43: smdsDxi
+          44: frameRelayService
+          45: v35
+          46: hssi
+          47: hippi
+          48: modem
+          49: aal5
+          50: sonetPath
+          51: sonetVT
+          52: smdsIcip
+          53: propVirtual
+          54: propMultiplexor
+          55: ieee80212
+          56: fibreChannel
+          57: hippiInterface
+          58: frameRelayInterconnect
+          59: aflane8023
+          60: aflane8025
+          61: cctEmul
+          62: fastEther
+          63: isdn
+          64: v11
+          65: v36
+          66: g703at64k
+          67: g703at2mb
+          68: qllc
+          69: fastEtherFX
+          70: channel
+          71: ieee80211
+          72: ibm370parChan
+          73: escon
+          74: dlsw
+          75: isdns
+          76: isdnu
+          77: lapd
+          78: ipSwitch
+          79: rsrb
+          80: atmLogical
+          81: ds0
+          82: ds0Bundle
+          83: bsc
+          84: async
+          85: cnr
+          86: iso88025Dtr
+          87: eplrs
+          88: arap
+          89: propCnls
+          90: hostPad
+          91: termPad
+          92: frameRelayMPI
+          93: x213
+          94: adsl
+          95: radsl
+          96: sdsl
+          97: vdsl
+          98: iso88025CRFPInt
+          99: myrinet
+          100: voiceEM
+          101: voiceFXO
+          102: voiceFXS
+          103: voiceEncap
+          104: voiceOverIp
+          105: atmDxi
+          106: atmFuni
+          107: atmIma
+          108: pppMultilinkBundle
+          109: ipOverCdlc
+          110: ipOverClaw
+          111: stackToStack
+          112: virtualIpAddress
+          113: mpc
+          114: ipOverAtm
+          115: iso88025Fiber
+          116: tdlc
+          117: gigabitEthernet
+          118: hdlc
+          119: lapf
+          120: v37
+          121: x25mlp
+          122: x25huntGroup
+          123: transpHdlc
+          124: interleave
+          125: fast
+          126: ip
+          127: docsCableMaclayer
+          128: docsCableDownstream
+          129: docsCableUpstream
+          130: a12MppSwitch
+          131: tunnel
+          132: coffee
+          133: ces
+          134: atmSubInterface
+          135: l2vlan
+          136: l3ipvlan
+          137: l3ipxvlan
+          138: digitalPowerline
+          139: mediaMailOverIp
+          140: dtm
+          141: dcn
+          142: ipForward
+          143: msdsl
+          144: ieee1394
+          145: if-gsn
+          146: dvbRccMacLayer
+          147: dvbRccDownstream
+          148: dvbRccUpstream
+          149: atmVirtual
+          150: mplsTunnel
+          151: srp
+          152: voiceOverAtm
+          153: voiceOverFrameRelay
+          154: idsl
+          155: compositeLink
+          156: ss7SigLink
+          157: propWirelessP2P
+          158: frForward
+          159: rfc1483
+          160: usb
+          161: ieee8023adLag
+          162: bgppolicyaccounting
+          163: frf16MfrBundle
+          164: h323Gatekeeper
+          165: h323Proxy
+          166: mpls
+          167: mfSigLink
+          168: hdsl2
+          169: shdsl
+          170: ds1FDL
+          171: pos
+          172: dvbAsiIn
+          173: dvbAsiOut
+          174: plc
+          175: nfas
+          176: tr008
+          177: gr303RDT
+          178: gr303IDT
+          179: isup
+          180: propDocsWirelessMaclayer
+          181: propDocsWirelessDownstream
+          182: propDocsWirelessUpstream
+          183: hiperlan2
+          184: propBWAp2Mp
+          185: sonetOverheadChannel
+          186: digitalWrapperOverheadChannel
+          187: aal2
+          188: radioMAC
+          189: atmRadio
+          190: imt
+          191: mvl
+          192: reachDSL
+          193: frDlciEndPt
+          194: atmVciEndPt
+          195: opticalChannel
+          196: opticalTransport
+          197: propAtm
+          198: voiceOverCable
+          199: infiniband
+          200: teLink
+          201: q2931
+          202: virtualTg
+          203: sipTg
+          204: sipSig
+          205: docsCableUpstreamChannel
+          206: econet
+          207: pon155
+          208: pon622
+          209: bridge
+          210: linegroup
+          211: voiceEMFGD
+          212: voiceFGDEANA
+          213: voiceDID
+          214: mpegTransport
+          215: sixToFour
+          216: gtp
+          217: pdnEtherLoop1
+          218: pdnEtherLoop2
+          219: opticalChannelGroup
+          220: homepna
+          221: gfp
+          222: ciscoISLvlan
+          223: actelisMetaLOOP
+          224: fcipLink
+          225: rpr
+          226: qam
+          227: lmp
+          228: cblVectaStar
+          229: docsCableMCmtsDownstream
+          230: adsl2
+          231: macSecControlledIF
+          232: macSecUncontrolledIF
+          233: aviciOpticalEther
+          234: atmbond
+          235: voiceFGDOS
+          236: mocaVersion1
+          237: ieee80216WMAN
+          238: adsl2plus
+          239: dvbRcsMacLayer
+          240: dvbTdm
+          241: dvbRcsTdma
+          242: x86Laps
+          243: wwanPP
+          244: wwanPP2
+          245: voiceEBS
+          246: ifPwType
+          247: ilan
+          248: pip
+          249: aluELP
+          250: gpon
+          251: vdsl2
+          252: capwapDot11Profile
+          253: capwapDot11Bss
+          254: capwapWtpVirtualRadio
+          255: bits
+          256: docsCableUpstreamRfPort
+          257: cableDownstreamRfPort
+          258: vmwareVirtualNic
+          259: ieee802154
+          260: otnOdu
+          261: otnOtu
+          262: ifVfiType
+          263: g9981
+          264: g9982
+          265: g9983
+          266: aluEpon
+          267: aluEponOnu
+          268: aluEponPhysicalUni
+          269: aluEponLogicalLink
+          270: aluGponOnu
+          271: aluGponPhysicalUni
+          272: vmwareNicTeam
+          277: docsOfdmDownstream
+          278: docsOfdmaUpstream
+          279: gfast
+          280: sdci
+          281: xboxWireless
+          282: fastdsl
+          283: docsCableScte55d1FwdOob
+          284: docsCableScte55d1RetOob
+          285: docsCableScte55d2DsOob
+          286: docsCableScte55d2UsOob
+          287: docsCableNdf
+          288: docsCableNdr
+          289: ptm
+          290: ghn
+          291: otnOtsi
+          292: otnOtuc
+          293: otnOduc
+          294: otnOtsig
+          295: microwaveCarrierTermination
+          296: microwaveRadioLinkTerminal
+          297: ieee8021axDrni
+          298: ax25
+          299: ieee19061nanocom
+          300: cpri
+          301: omni
+          302: roe
+          303: p2pOverLan
+      - name: ifMtu
+        oid: 1.3.6.1.2.1.2.2.1.4
+        type: gauge
+        help: The size of the largest packet which can be sent/received on the interface,
+          specified in octets - 1.3.6.1.2.1.2.2.1.4
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifSpeed
+        oid: 1.3.6.1.2.1.2.2.1.5
+        type: gauge
+        help: An estimate of the interface's current bandwidth in bits per second - 1.3.6.1.2.1.2.2.1.5
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifPhysAddress
+        oid: 1.3.6.1.2.1.2.2.1.6
+        type: PhysAddress48
+        help: The interface's address at its protocol sub-layer - 1.3.6.1.2.1.2.2.1.6
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifAdminStatus
+        oid: 1.3.6.1.2.1.2.2.1.7
+        type: gauge
+        help: The desired state of the interface - 1.3.6.1.2.1.2.2.1.7
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+        enum_values:
+          1: up
+          2: down
+          3: testing
+      - name: ifOperStatus
+        oid: 1.3.6.1.2.1.2.2.1.8
+        type: gauge
+        help: The current operational state of the interface - 1.3.6.1.2.1.2.2.1.8
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+        enum_values:
+          1: up
+          2: down
+          3: testing
+          4: unknown
+          5: dormant
+          6: notPresent
+          7: lowerLayerDown
+      - name: ifLastChange
+        oid: 1.3.6.1.2.1.2.2.1.9
+        type: gauge
+        help: The value of sysUpTime at the time the interface entered its current operational
+          state - 1.3.6.1.2.1.2.2.1.9
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifInOctets
+        oid: 1.3.6.1.2.1.2.2.1.10
+        type: counter
+        help: The total number of octets received on the interface, including framing
+          characters - 1.3.6.1.2.1.2.2.1.10
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifInUcastPkts
+        oid: 1.3.6.1.2.1.2.2.1.11
+        type: counter
+        help: The number of packets, delivered by this sub-layer to a higher (sub-)layer,
+          which were not addressed to a multicast or broadcast address at this sub-layer
+          - 1.3.6.1.2.1.2.2.1.11
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifInNUcastPkts
+        oid: 1.3.6.1.2.1.2.2.1.12
+        type: counter
+        help: The number of packets, delivered by this sub-layer to a higher (sub-)layer,
+          which were addressed to a multicast or broadcast address at this sub-layer -
+          1.3.6.1.2.1.2.2.1.12
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifInDiscards
+        oid: 1.3.6.1.2.1.2.2.1.13
+        type: counter
+        help: The number of inbound packets which were chosen to be discarded even though
+          no errors had been detected to prevent their being deliverable to a higher-layer
+          protocol - 1.3.6.1.2.1.2.2.1.13
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifInErrors
+        oid: 1.3.6.1.2.1.2.2.1.14
+        type: counter
+        help: For packet-oriented interfaces, the number of inbound packets that contained
+          errors preventing them from being deliverable to a higher-layer protocol - 1.3.6.1.2.1.2.2.1.14
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifInUnknownProtos
+        oid: 1.3.6.1.2.1.2.2.1.15
+        type: counter
+        help: For packet-oriented interfaces, the number of packets received via the interface
+          which were discarded because of an unknown or unsupported protocol - 1.3.6.1.2.1.2.2.1.15
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifOutOctets
+        oid: 1.3.6.1.2.1.2.2.1.16
+        type: counter
+        help: The total number of octets transmitted out of the interface, including framing
+          characters - 1.3.6.1.2.1.2.2.1.16
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifOutUcastPkts
+        oid: 1.3.6.1.2.1.2.2.1.17
+        type: counter
+        help: The total number of packets that higher-level protocols requested be transmitted,
+          and which were not addressed to a multicast or broadcast address at this sub-layer,
+          including those that were discarded or not sent - 1.3.6.1.2.1.2.2.1.17
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifOutNUcastPkts
+        oid: 1.3.6.1.2.1.2.2.1.18
+        type: counter
+        help: The total number of packets that higher-level protocols requested be transmitted,
+          and which were addressed to a multicast or broadcast address at this sub-layer,
+          including those that were discarded or not sent - 1.3.6.1.2.1.2.2.1.18
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifOutDiscards
+        oid: 1.3.6.1.2.1.2.2.1.19
+        type: counter
+        help: The number of outbound packets which were chosen to be discarded even though
+          no errors had been detected to prevent their being transmitted - 1.3.6.1.2.1.2.2.1.19
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifOutErrors
+        oid: 1.3.6.1.2.1.2.2.1.20
+        type: counter
+        help: For packet-oriented interfaces, the number of outbound packets that could
+          not be transmitted because of errors - 1.3.6.1.2.1.2.2.1.20
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifOutQLen
+        oid: 1.3.6.1.2.1.2.2.1.21
+        type: gauge
+        help: The length of the output packet queue (in packets). - 1.3.6.1.2.1.2.2.1.21
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifSpecific
+        oid: 1.3.6.1.2.1.2.2.1.22
+        type: OctetString
+        help: A reference to MIB definitions specific to the particular media being used
+          to realize the interface - 1.3.6.1.2.1.2.2.1.22
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifInMulticastPkts
+        oid: 1.3.6.1.2.1.31.1.1.1.2
+        type: counter
+        help: The number of packets, delivered by this sub-layer to a higher (sub-)layer,
+          which were addressed to a multicast address at this sub-layer - 1.3.6.1.2.1.31.1.1.1.2
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifInBroadcastPkts
+        oid: 1.3.6.1.2.1.31.1.1.1.3
+        type: counter
+        help: The number of packets, delivered by this sub-layer to a higher (sub-)layer,
+          which were addressed to a broadcast address at this sub-layer - 1.3.6.1.2.1.31.1.1.1.3
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifOutMulticastPkts
+        oid: 1.3.6.1.2.1.31.1.1.1.4
+        type: counter
+        help: The total number of packets that higher-level protocols requested be transmitted,
+          and which were addressed to a multicast address at this sub-layer, including
+          those that were discarded or not sent - 1.3.6.1.2.1.31.1.1.1.4
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifOutBroadcastPkts
+        oid: 1.3.6.1.2.1.31.1.1.1.5
+        type: counter
+        help: The total number of packets that higher-level protocols requested be transmitted,
+          and which were addressed to a broadcast address at this sub-layer, including
+          those that were discarded or not sent - 1.3.6.1.2.1.31.1.1.1.5
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifHCInOctets
+        oid: 1.3.6.1.2.1.31.1.1.1.6
+        type: counter
+        help: The total number of octets received on the interface, including framing
+          characters - 1.3.6.1.2.1.31.1.1.1.6
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifHCInUcastPkts
+        oid: 1.3.6.1.2.1.31.1.1.1.7
+        type: counter
+        help: The number of packets, delivered by this sub-layer to a higher (sub-)layer,
+          which were not addressed to a multicast or broadcast address at this sub-layer
+          - 1.3.6.1.2.1.31.1.1.1.7
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifHCInMulticastPkts
+        oid: 1.3.6.1.2.1.31.1.1.1.8
+        type: counter
+        help: The number of packets, delivered by this sub-layer to a higher (sub-)layer,
+          which were addressed to a multicast address at this sub-layer - 1.3.6.1.2.1.31.1.1.1.8
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifHCInBroadcastPkts
+        oid: 1.3.6.1.2.1.31.1.1.1.9
+        type: counter
+        help: The number of packets, delivered by this sub-layer to a higher (sub-)layer,
+          which were addressed to a broadcast address at this sub-layer - 1.3.6.1.2.1.31.1.1.1.9
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifHCOutOctets
+        oid: 1.3.6.1.2.1.31.1.1.1.10
+        type: counter
+        help: The total number of octets transmitted out of the interface, including framing
+          characters - 1.3.6.1.2.1.31.1.1.1.10
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifHCOutUcastPkts
+        oid: 1.3.6.1.2.1.31.1.1.1.11
+        type: counter
+        help: The total number of packets that higher-level protocols requested be transmitted,
+          and which were not addressed to a multicast or broadcast address at this sub-layer,
+          including those that were discarded or not sent - 1.3.6.1.2.1.31.1.1.1.11
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifHCOutMulticastPkts
+        oid: 1.3.6.1.2.1.31.1.1.1.12
+        type: counter
+        help: The total number of packets that higher-level protocols requested be transmitted,
+          and which were addressed to a multicast address at this sub-layer, including
+          those that were discarded or not sent - 1.3.6.1.2.1.31.1.1.1.12
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifHCOutBroadcastPkts
+        oid: 1.3.6.1.2.1.31.1.1.1.13
+        type: counter
+        help: The total number of packets that higher-level protocols requested be transmitted,
+          and which were addressed to a broadcast address at this sub-layer, including
+          those that were discarded or not sent - 1.3.6.1.2.1.31.1.1.1.13
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifLinkUpDownTrapEnable
+        oid: 1.3.6.1.2.1.31.1.1.1.14
+        type: gauge
+        help: Indicates whether linkUp/linkDown traps should be generated for this interface
+          - 1.3.6.1.2.1.31.1.1.1.14
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+        enum_values:
+          1: enabled
+          2: disabled
+      - name: ifHighSpeed
+        oid: 1.3.6.1.2.1.31.1.1.1.15
+        type: gauge
+        help: An estimate of the interface's current bandwidth in units of 1,000,000 bits
+          per second - 1.3.6.1.2.1.31.1.1.1.15
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+      - name: ifPromiscuousMode
+        oid: 1.3.6.1.2.1.31.1.1.1.16
+        type: gauge
+        help: This object has a value of false(2) if this interface only accepts packets/frames
+          that are addressed to this station - 1.3.6.1.2.1.31.1.1.1.16
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+        enum_values:
+          1: "true"
+          2: "false"
+      - name: ifConnectorPresent
+        oid: 1.3.6.1.2.1.31.1.1.1.17
+        type: gauge
+        help: This object has the value 'true(1)' if the interface sublayer has a physical
+          connector and the value 'false(2)' otherwise. - 1.3.6.1.2.1.31.1.1.1.17
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
+        enum_values:
+          1: "true"
+          2: "false"
+      - name: ifCounterDiscontinuityTime
+        oid: 1.3.6.1.2.1.31.1.1.1.19
+        type: gauge
+        help: The value of sysUpTime on the most recent occasion at which any one or more
+          of this interface's counters suffered a discontinuity - 1.3.6.1.2.1.31.1.1.1.19
+        indexes:
+        - labelname: ifIndex
+          type: gauge
+        lookups:
+        - labels:
+          - ifIndex
+          labelname: ifAlias
+          oid: 1.3.6.1.2.1.31.1.1.1.18
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifDescr
+          oid: 1.3.6.1.2.1.2.2.1.2
+          type: DisplayString
+        - labels:
+          - ifIndex
+          labelname: ifName
+          oid: 1.3.6.1.2.1.31.1.1.1.1
+          type: DisplayString
