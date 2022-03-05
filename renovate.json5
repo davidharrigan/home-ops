@@ -1,5 +1,54 @@
 {
   "extends": [
     "config:base"
-  ]
+  ],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true
+    }
+  ],
+  "suppressNotifications": ["prIgnoreNotification"],
+  "rebaseWhen": "conflicted",
+
+  // package rules
+  "packageRules": [
+    {
+      "matchDatasources": [
+        "helm"
+      ],
+      "ignoreDeprecated": true
+    },
+    {
+      "matchDatasources": [
+        "docker"
+      ],
+      "commitMessageExtra": "to {{newVersion}}"
+    },
+  ],
+
+  // manager rules: https://docs.renovatebot.com/modules/manager/
+  "helm-values": {
+    "fileMatch": [
+      "cluster/.+/helm-release\\.yaml$"
+    ]
+  },
+  "helmv3": {
+    "fileMatch": [
+      "charts/.+/Chart\\.yaml$"
+    ]
+  },
+  "kubernetes": {
+    "fileMatch": [
+      "cluster/.+\\.yaml$"
+    ],
+    "ignorePaths": [
+      "cluster/base/"
+    ]
+  },
+  "flux": {
+    "fileMatch": [
+      "cluster/.+\\.yaml$"
+    ]
+  },
 }
