@@ -12,6 +12,7 @@
       "automerge": true,
       "automergeType": "pr",
       "automergeStrategy": "rebase",
+      "platformAutomerge": true,
     },
     {
       "matchDatasources": [
@@ -51,4 +52,41 @@
       "cluster/.+\\.yaml$"
     ]
   },
+
+  "regexManagers": [
+    // Read and process GitHub Releases
+    {
+      "fileMatch": [
+        "cluster/.+\\.ya?ml$",
+        "ansible/.+\\.ya?ml$",
+      ],
+      "matchStrings": [
+        "datasource=(?<datasource>.*?)\n *url: https:\/\/github\\.com\/(?<depName>.*?)\\.git\n *ref:\n *tag: (?<currentValue>.*)\n",
+        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)\n.*?_version: \"(?<currentValue>.*)\"\n",
+        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)\n.*?_VERSION=\"(?<currentValue>.*)\"\n"
+      ],
+      "datasourceTemplate": "github-releases"
+    },
+    // Read and process Custom Resource Definitions
+    {
+      "fileMatch": [
+        "cluster/.+\\.ya?ml$"
+      ],
+      "matchStrings": [
+        "registryUrl=(?<registryUrl>.*?)\n *tag: (?<depName>[a-zA-Z-]+)-(?<currentValue>.*)\n",
+        "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n.*\\/(?<currentValue>.*?)\\/"
+      ],
+      "datasourceTemplate": "helm"
+    },
+    // Read and process Custom Resources
+    {
+      "fileMatch": [
+        "cluster/.+\\.ya?ml$"
+      ],
+      "matchStrings": [
+        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)\n .*: (?<currentValue>.*=?)"
+      ],
+      "datasourceTemplate": "docker"
+    }
+  ],
 }
