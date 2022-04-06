@@ -1,0 +1,45 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: heimdall
+  namespace: default
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: code-server
+      version: 8.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: code-server-charts
+        namespace: flux-system
+      interval: 30m
+  values:
+    env:
+      TZ: "America/New_York"
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        hosts:
+          - host: &host "code.${DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+          - host: "${DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+              - "${DOMAIN}"
+    podSecurityContext:
+      supplementalGroups:
+        - 100
+    persistence:
+      enabled: true
+      accessMode: ReadWriteOnce
+      storageClass: longhorn
+      size: 10Gi
