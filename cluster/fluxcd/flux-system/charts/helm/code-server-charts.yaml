@@ -6,5 +6,5 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
-  url: https://github.com/coder/code-server/ci/helm-chart
+  url: https://github.com/coder/code-server
   timeout: 3m
