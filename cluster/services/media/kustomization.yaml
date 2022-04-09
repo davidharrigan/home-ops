@@ -13,3 +13,4 @@ resources:
   - lidarr
   - readarr
   - sonarr
+  - transmission

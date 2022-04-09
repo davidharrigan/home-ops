@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: ovpn-auth-secret
+    namespace: media
+stringData:
+    VPN_AUTH: ENC[AES256_GCM,data:1r7rm3wQ4ajxRAY6LJK/aftQDE38Fc2O0lyWDZY=,iv:3MtTE25zs+3g4SZ6rXbANOPceHymMfjOCvxpVxrzfBI=,tag:XTPpHmpO/+0WvORNjchrXQ==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1cyfh7x9qffez0eutk5c928m42k3kftjjwn8qveledrzl83y3544s5yjm8q
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBOWk9KR0ZsTUxUL0UyaGNG
+            YXBONUdlcTNzNTFaUmFTem9VREtRYnEyUmxJCkVJRmtrbHBzVWVuVjhyT05KMWwv
+            ZEc1VHpsMm1tekd3cVpRSzVWRWs4Q0UKLS0tIGpZTXM1ZlZPRHZPcFdFWjJpZ2c3
+            aDN0ekVqWnBvU21RM0FRcWIyeFVhbWMKZOFWuiWhqzkT86bSV2DJ0oIzp4s2FqFD
+            FgNwgt2UVVDlMFEPg0ylRjaaQoHlKc8Zscsw+xhWSEahxK4KI3vIhg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2022-04-09T18:42:54Z"
+    mac: ENC[AES256_GCM,data:XOt5i+iFStgO4zHxvD6QWTyp/Z8IPEewXdAqPwbF0a1g8DPaoCZ5DOgAS0vTcz3d1nkz+4qoa5cr3Xx1rYZKIspw0rBwom+WZcc8ulbuahC8mHbeBgAtgxByienYTG7MRFfFI/KsWX05l1Z/Ik46lqUzLI96tlNwXCYbLstkuMY=,iv:k5kN+YzPCWNG1fOd+6b6DRXeIEyTjOttXLbb+sg5pY0=,tag:ZRJeRCjwpzLgiKvQrsHVRA==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.1
