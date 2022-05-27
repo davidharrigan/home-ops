@@ -12,7 +12,7 @@
       "automerge": true,
       "automergeType": "pr",
       "automergeStrategy": "rebase",
-      "platformAutomerge": true,
+      "platformAutomerge": false,
     },
     {
       "matchDatasources": [
