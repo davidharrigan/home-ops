@@ -5,7 +5,7 @@ namespace: media
 configMapGenerator:
   - name: sonarr-dashboard
     files:
-      - sonarr-dashboard.json=https://raw.githubusercontent.com/onedr0p/home-ops/main/cluster/apps/media/sonarr/dashboard/dashboard.json
+      - sonarr-dashboard.json=https://raw.githubusercontent.com/onedr0p/home-ops/6cb5b3b3a6cae2e961f8de50660dd7e384514855/cluster/apps/media/sonarr/dashboard/dashboard.json
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
