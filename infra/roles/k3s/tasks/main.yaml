@@ -1,0 +1,5 @@
+---
+- name: Install and configure k3s
+  include_tasks: k3s.yaml
+  tags:
+    - packages
