@@ -60,3 +60,8 @@ flux/reconcile:
 # ------------------------------------------------
 # Terraform
 # ------------------------------------------------
+vm/plan:
+	cd ./infra/vm && terraform plan
+
+vm/apply:
+	cd ./infra/vm && terraform apply
