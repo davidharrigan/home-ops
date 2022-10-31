@@ -1,19 +1,28 @@
 ---
 k3s_control_node: true
 
-k3s_server_manifests_templates: []
+k3s_server_manifests_templates:
+  - kube-vip-daemonset.yaml.j2
+
+k3s_server_manifests_urls:
+  - url: "https://kube-vip.io/manifests/rbac.yaml"
+    filename: "kube-vip-rbac.yaml"
+
 k3s_server:
   node-ip: "{{ ansible_host }}"
+  tls-san:
+    # kube-vip
+    - "{{ k3s_registration_address }}"
   docker: false
   disable:
     - traefik
     - servicelb
-    - metrics-server
     - local-storage
   # Network CIDR to use for pod IPs
   cluster-cidr: "10.42.0.0/16"
   # Network CIDR to use for service IPs
   service-cidr: "10.43.0.0/16"
+  write-kubeconfig-mode: "644"
   # Required to monitor component with kube-prometheus-stack
   etcd-expose-metrics: true
   kubelet-arg:
