@@ -16,14 +16,14 @@
     - /etc/rancher/k3s
     - /etc/rancher/node
 
-- name: Create manifests directory on first master
+- name: Create manifests directory on first server
   file:
     path: /var/lib/rancher/k3s/server/manifests
     state: directory
     owner: root
     group: root
     mode: 0644
-  when: ansible_hostname == hostvars[groups['master'][0]]['ansible_hostname']
+  when: ansible_hostname == hostvars[groups['server'][0]]['ansible_hostname']
 
 - name: Install Kubernetes
   ansible.builtin.include_role:
@@ -40,12 +40,12 @@
 
 - name: Write Kubernetes config file with the correct cluster address
   ansible.builtin.copy:
-    content: "{{ kubeconfig_base64.content | b64decode | replace('127.0.0.1', hostvars[groups['master'][0]].ansible_host) }}"
+    content: "{{ kubeconfig_base64.content | b64decode | replace('127.0.0.1', hostvars[groups['server'][0]].ansible_host) }}"
     dest: "{{ playbook_dir }}/../../kubeconfig.yaml"
     mode: 0600
   delegate_to: localhost
   run_once: true
-  when: ansible_hostname == hostvars[groups['master'][0]]['ansible_hostname']
+  when: ansible_hostname == hostvars[groups['server'][0]]['ansible_hostname']
 
 - name: Get contents of manifests folder
   find:
