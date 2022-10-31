@@ -41,6 +41,18 @@ ansible/playbook/destroy_cluster:
 # ------------------------------------------------
 # FluxCD
 # ------------------------------------------------
+FLUXCD_DIR="./cluster/fluxcd"
+
+.PHONY: _check_sops_defined
+_check_sops_defined:
+	test ${SOPS_AGE_KEY_FILE}
+
+.PHONY: flux/install
+flux/install: _check_sops_defined
+	kubectl apply --kustomize ${FLUXCD_DIR}/bootstrap/
+	cat ${SOPS_AGE_KEY_FILE} | kubectl -n flux-system create secret generic sops-age --from-file=age.agekey=/dev/stdin
+	kubectl apply --kustomize ${FLUXCD_DIR}/flux-system/
+
 .PHONY: flux/reconcile
 flux/reconcile:
 	flux reconcile source git flux-system
