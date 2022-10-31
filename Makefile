@@ -33,3 +33,7 @@ ansible/playbook/prepare:
 .PHONY: ansible/playbook/create_cluster
 ansible/playbook/create_cluster:
 	ansible-playbook -i ${ANSIBLE_INVENTORY_DIR}/hosts.yaml ${ANSIBLE_PLAYBOOK_DIR}/create_cluster.yaml
+
+.PHONY: ansible/playbook/destroy_cluster
+ansible/playbook/destroy_cluster:
+	ansible-playbook -i ${ANSIBLE_INVENTORY_DIR}/hosts.yaml ${ANSIBLE_PLAYBOOK_DIR}/destroy_cluster.yaml
