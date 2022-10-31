@@ -50,8 +50,9 @@ _check_sops_defined:
 .PHONY: flux/install
 flux/install: _check_sops_defined
 	kubectl apply --kustomize ${FLUXCD_DIR}/bootstrap/
-	cat ${SOPS_AGE_KEY_FILE} | kubectl -n flux-system create secret generic sops-age --from-file=age.agekey=/dev/stdin
+	cat ${SOPS_AGE_KEY_FILE} | kubectl -n flux-system create secret generic sops-age --from-file=age.agekey=/dev/stdin --save-config --dry-run=client -o yaml | kubectl apply -f -
 	kubectl apply --kustomize ${FLUXCD_DIR}/flux-system/
+	sops -d ${FLUXCD_DIR}/bootstrap/github-deploy-key.sops.yaml | kubectl apply -f -
 
 .PHONY: flux/reconcile
 flux/reconcile:
