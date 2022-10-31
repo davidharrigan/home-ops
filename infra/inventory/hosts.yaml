@@ -1,0 +1,17 @@
+---
+kubernetes:
+  children:
+    master:
+      hosts:
+        k8s-01:
+          ansible_host: 192.168.11.5
+        k8s-02:
+          ansible_host: 192.168.11.6
+        k8s-03:
+          ansible_host: 192.168.11.7
+    worker:
+      hosts:
+        k8s-04:
+          ansible_host: 192.168.11.8
+        k8s-05:
+          ansible_host: 192.168.11.9

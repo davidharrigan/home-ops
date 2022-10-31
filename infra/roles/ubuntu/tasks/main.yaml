@@ -1,0 +1,27 @@
+---
+- name: Set timezone
+  community.general.timezone:
+    name: "{{ timezone }}"
+  when:
+    - timezone is defined
+- name: Enable IPv4 forwarding
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: "1"
+    state: present
+    reload: yes
+- include_tasks: packages.yaml
+  tags:
+    - packages
+- name: Disable swap
+  command: swapoff -a
+  changed_when: true
+  when: ansible_swaptotal_mb > 0
+- name: Remove swap from fstab
+  lineinfile:
+    path: '/etc/fstab'
+    regexp: '\sswap\s'
+    state: 'absent'
+- name: Reboot to apply swap disable
+  reboot:
+    reboot_timeout: 180 #allow 3 minutes for reboot to happen
