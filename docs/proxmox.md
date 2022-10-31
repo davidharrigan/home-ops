@@ -45,4 +45,22 @@ qm set 8000 --boot c --bootdisk scsi0
 qm set 8000 --serial0 socket --vga serial0
 ```
 
-Now enter cloudinit options from the Proxmox UI and create template.
+- Enable QEMU
+
+```bash
+qm set 8000 --agent enabled=1
+```
+
+- Enter cloudinit options from the Proxmox UI
+
+- Boot VM and Install QEMU guest agent
+
+```bash
+sudo apt install qemu-guest-agent
+```
+
+Now turn the VM into a template from Proxmox UI.
+
+```bash
+sudo qm template 8000
+```
