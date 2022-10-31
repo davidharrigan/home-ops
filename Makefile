@@ -37,3 +37,14 @@ ansible/playbook/create_cluster:
 .PHONY: ansible/playbook/destroy_cluster
 ansible/playbook/destroy_cluster:
 	ansible-playbook -i ${ANSIBLE_INVENTORY_DIR}/hosts.yaml ${ANSIBLE_PLAYBOOK_DIR}/destroy_cluster.yaml
+
+# ------------------------------------------------
+# FluxCD
+# ------------------------------------------------
+.PHONY: flux/reconcile
+flux/reconcile:
+	flux reconcile source git flux-system
+
+# ------------------------------------------------
+# Terraform
+# ------------------------------------------------
