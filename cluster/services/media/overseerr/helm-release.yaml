@@ -44,5 +44,9 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: overseerr-config
-        mountPath: /app/config
+        type: custom
+        volumeSpec:
+          nfs:
+            server: ${NFS_SERVER}
+            path: /volume1/Lab/config/overseerr
+        mountPath: /config

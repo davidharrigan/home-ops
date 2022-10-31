@@ -52,7 +52,12 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: readarr-config
+        type: custom
+        volumeSpec:
+          nfs:
+            server: ${NFS_SERVER}
+            path: /volume1/Lab/config/readarr
+        mountPath: /config
       media:
         enabled: true
         type: custom

@@ -52,7 +52,12 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: lidarr-config
+        type: custom
+        volumeSpec:
+          nfs:
+            server: ${NFS_SERVER}
+            path: /volume1/Lab/config/lidarr
+        mountPath: /config
       media:
         enabled: true
         type: custom

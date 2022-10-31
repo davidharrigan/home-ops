@@ -63,7 +63,12 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: sonarr-config
+        type: custom
+        volumeSpec:
+          nfs:
+            server: ${NFS_SERVER}
+            path: /volume1/Lab/config/sonarr
+        mountPath: /config
       media:
         enabled: true
         type: custom

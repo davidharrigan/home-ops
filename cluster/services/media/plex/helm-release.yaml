@@ -47,7 +47,11 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: plex-config
+        type: custom
+        volumeSpec:
+          nfs:
+            server: ${NFS_SERVER}
+            path: /volume1/Lab/config/plex
         mountPath: /config
       media:
         enabled: true
