@@ -52,19 +52,6 @@ kubectl get pods -n flux-system
 secret is not there yet, the resource fails to be created. Workaround now is to
 comment out the wildcard `certificate` resource on a fresh install.
 
-### Nginx Ingress Controller
-
-Something is already installing nginx? Have to remove these manually:
-
-```bash
-kubectl delete validatingwebhookconfiguration ingress-nginx-admission
-kubectl delete clusterrolebinding ingress-nginx-admission
-kubectl delete clusterrole ingress-nginx-admission
-kubectl delete clusterrolebinding ingress-nginx
-kubectl delete clusterrole ingress-nginx
-kubectl delete ingressclass nginx
-```
-
 ### Setting up plex server
 
 Plex server setup can't be done through external IP. We need to port-foward the
