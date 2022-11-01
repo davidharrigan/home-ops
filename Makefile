@@ -30,6 +30,10 @@ ansible/ping:
 ansible/playbook/prepare:
 	ansible-playbook -i ${ANSIBLE_INVENTORY_DIR}/hosts.yaml ${ANSIBLE_PLAYBOOK_DIR}/prepare.yaml
 
+.PHONY: ansible/playbook/get_kubeconfig
+ansible/playbook/get_kubeconfig:
+	ansible-playbook -i ${ANSIBLE_INVENTORY_DIR}/hosts.yaml ${ANSIBLE_PLAYBOOK_DIR}/get_kubeconfig.yaml
+
 .PHONY: ansible/playbook/create_cluster
 ansible/playbook/create_cluster:
 	ansible-playbook -i ${ANSIBLE_INVENTORY_DIR}/hosts.yaml ${ANSIBLE_PLAYBOOK_DIR}/create_cluster.yaml
