@@ -49,4 +49,4 @@ spec:
           nfs:
             server: ${NFS_SERVER}
             path: /volume1/Lab/config/overseerr
-        mountPath: /config
+        mountPath: /app/config
