@@ -4,5 +4,4 @@ kind: Kustomization
 resources:
   - metallb-system
   - networking
-  - cert-manager
   - longhorn-system
