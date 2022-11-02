@@ -15,3 +15,6 @@ spec:
         kind: HelmRepository
         name: longhorn-charts
         namespace: flux-system
+  values:
+    defaultSettings:
+      backupTarget: "nfs://${NFS_SERVER}:/volume1/Lab/backups"
