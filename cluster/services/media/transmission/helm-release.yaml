@@ -40,12 +40,7 @@ spec:
     persistence:
       config:
         enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            server: ${NFS_SERVER}
-            path: /volume1/Lab/config/transmission
-        mountPath: /config
+        existingClaim: transmission-config
       media:
         enabled: true
         type: custom

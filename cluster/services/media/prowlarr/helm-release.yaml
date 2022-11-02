@@ -46,9 +46,4 @@ spec:
     persistence:
       config:
         enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            server: ${NFS_SERVER}
-            path: /volume1/Lab/config/prowlarr
-        mountPath: /config
+        existingClaim: prowlarr-config

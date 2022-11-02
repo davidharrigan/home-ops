@@ -48,12 +48,7 @@ spec:
     persistence:
       config:
         enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            server: ${NFS_SERVER}
-            path: /volume1/Lab/config/nzbget
-        mountPath: /config
+        existingClaim: nzbget-config
       media:
         enabled: true
         type: custom

@@ -63,12 +63,7 @@ spec:
     persistence:
       config:
         enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            server: ${NFS_SERVER}
-            path: /volume1/Lab/config/radarr
-        mountPath: /config
+        existingClaim: radarr-config
       media:
         enabled: true
         type: custom
