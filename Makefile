@@ -14,10 +14,12 @@ K3S_ANSIBLE_INVENTORY_DIR="${K3S_DIR}/inventory"
 K3S_ANSIBLE_PLAYBOOK_DIR="${K3S_DIR}/playbooks"
 
 DB_DIR="./infra/db"
+DB_ANSIBLE_INVENTORY_DIR="${DB_DIR}/inventory"
+DB_ANSIBLE_PLAYBOOK_DIR="${DB_DIR}/playbooks"
 
-.PHONY: k3s/ansible-deps
-k3s/ansible-deps:
-	ansible-galaxy install -r ${K3S_DIR}/requirements.yaml --force
+.PHONY: ansible/deps
+ansible/deps:
+	ansible-galaxy install -r ./infra/requirements.yaml --force
 
 .PHONY: k3s/list-hosts
 k3s/list-hosts:
@@ -42,6 +44,22 @@ k3s/playbook/create_cluster:
 .PHONY: k3s/playbook/destroy_cluster
 k3s/playbook/destroy_cluster:
 	ansible-playbook -i ${K3S_ANSIBLE_INVENTORY_DIR}/hosts.yaml ${K3S_ANSIBLE_PLAYBOOK_DIR}/destroy_cluster.yaml
+
+.PHONY: db/list-hosts
+db/list-hosts:
+	ansible all -i ${DB_ANSIBLE_INVENTORY_DIR}/hosts.yaml --list-hosts
+
+.PHONY: db/ping
+db/ping:
+	ansible all -i ${DB_DIR}/inventory/hosts.yaml --one-line -m 'ping'
+
+.PHONY: db/playbook/prepare
+db/playbook/prepare:
+	ansible-playbook -i ${DB_ANSIBLE_INVENTORY_DIR}/hosts.yaml ${DB_ANSIBLE_PLAYBOOK_DIR}/prepare.yaml
+
+.PHONY: db/playbook/db
+db/playbook/db:
+	ansible-playbook -i ${DB_ANSIBLE_INVENTORY_DIR}/hosts.yaml ${DB_ANSIBLE_PLAYBOOK_DIR}/db.yaml
 
 # ------------------------------------------------
 # Terraform

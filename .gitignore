@@ -12,8 +12,9 @@ kubeconfig
 
 ### Ansible ###
 *.retry
-xanmanning.k3s*
-geerlingguy.docker*
+xanmanning.k3s
+geerlingguy.docker
+geerlingguy.postgresql
 
 ### Terraform ###
 # Local .terraform directories
