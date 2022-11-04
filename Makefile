@@ -13,6 +13,8 @@ K3S_DIR="./infra/k3s"
 K3S_ANSIBLE_INVENTORY_DIR="${K3S_DIR}/inventory"
 K3S_ANSIBLE_PLAYBOOK_DIR="${K3S_DIR}/playbooks"
 
+DB_DIR="./infra/db"
+
 .PHONY: k3s/ansible-deps
 k3s/ansible-deps:
 	ansible-galaxy install -r ${K3S_DIR}/requirements.yaml --force
@@ -49,6 +51,12 @@ k3s/terraform/plan:
 
 k3s/terraform/apply:
 	cd ${K3S_DIR}/terraform && terraform apply
+
+db/terraform/plan:
+	cd ${DB_DIR}/terraform && terraform plan
+
+db/terraform/apply:
+	cd ${DB_DIR}/terraform && terraform apply
 
 # ------------------------------------------------
 # FluxCD
