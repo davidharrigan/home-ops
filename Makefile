@@ -6,41 +6,49 @@ pre-commit/init:
 	pre-commit install --install-hooks
 	pre-commit run --all-files
 
-
 # ------------------------------------------------
 # Ansible operations
 # ------------------------------------------------
-ANSIBLE_DIR="./infra"
-ANSIBLE_INVENTORY_DIR="${ANSIBLE_DIR}/inventory"
-ANSIBLE_PLAYBOOK_DIR="${ANSIBLE_DIR}/playbooks"
+K3S_DIR="./infra/k3s"
+K3S_ANSIBLE_INVENTORY_DIR="${K3S_DIR}/inventory"
+K3S_ANSIBLE_PLAYBOOK_DIR="${K3S_DIR}/playbooks"
 
-.PHONY: ansible/deps
-ansible/deps:
-	ansible-galaxy install -r ${ANSIBLE_DIR}/requirements.yaml --force
+.PHONY: k3s/ansible-deps
+k3s/ansible-deps:
+	ansible-galaxy install -r ${K3S_DIR}/requirements.yaml --force
 
-.PHONY: ansible/list
-ansible/list:
-	ansible all -i ${ANSIBLE_INVENTORY_DIR}/hosts.yaml --list-hosts
+.PHONY: k3s/list-hosts
+k3s/list-hosts:
+	ansible all -i ${K3S_ANSIBLE_INVENTORY_DIR}/hosts.yaml --list-hosts
 
 .PHONY: ping
-ansible/ping:
-	ansible all -i ${ANSIBLE_DIR}/inventory/hosts.yaml --one-line -m 'ping'
+k3s/ping:
+	ansible all -i ${K3S_DIR}/inventory/hosts.yaml --one-line -m 'ping'
 
-.PHONY: ansible/playbook/prepare
-ansible/playbook/prepare:
-	ansible-playbook -i ${ANSIBLE_INVENTORY_DIR}/hosts.yaml ${ANSIBLE_PLAYBOOK_DIR}/prepare.yaml
+.PHONY: k3s/playbook/prepare
+k3s/playbook/prepare:
+	ansible-playbook -i ${K3S_ANSIBLE_INVENTORY_DIR}/hosts.yaml ${K3S_ANSIBLE_PLAYBOOK_DIR}/prepare.yaml
 
-.PHONY: ansible/playbook/get_kubeconfig
-ansible/playbook/get_kubeconfig:
-	ansible-playbook -i ${ANSIBLE_INVENTORY_DIR}/hosts.yaml ${ANSIBLE_PLAYBOOK_DIR}/get_kubeconfig.yaml
+.PHONY: k3s/playbook/get_kubeconfig
+k3s/playbook/get_kubeconfig:
+	ansible-playbook -i ${K3S_ANSIBLE_INVENTORY_DIR}/hosts.yaml ${K3S_ANSIBLE_PLAYBOOK_DIR}/get_kubeconfig.yaml
 
-.PHONY: ansible/playbook/create_cluster
-ansible/playbook/create_cluster:
-	ansible-playbook -i ${ANSIBLE_INVENTORY_DIR}/hosts.yaml ${ANSIBLE_PLAYBOOK_DIR}/create_cluster.yaml
+.PHONY: k3s/playbook/create_cluster
+k3s/playbook/create_cluster:
+	ansible-playbook -i ${K3S_ANSIBLE_INVENTORY_DIR}/hosts.yaml ${K3S_ANSIBLE_PLAYBOOK_DIR}/create_cluster.yaml
 
-.PHONY: ansible/playbook/destroy_cluster
-ansible/playbook/destroy_cluster:
-	ansible-playbook -i ${ANSIBLE_INVENTORY_DIR}/hosts.yaml ${ANSIBLE_PLAYBOOK_DIR}/destroy_cluster.yaml
+.PHONY: k3s/playbook/destroy_cluster
+k3s/playbook/destroy_cluster:
+	ansible-playbook -i ${K3S_ANSIBLE_INVENTORY_DIR}/hosts.yaml ${K3S_ANSIBLE_PLAYBOOK_DIR}/destroy_cluster.yaml
+
+# ------------------------------------------------
+# Terraform
+# ------------------------------------------------
+k3s/terraform/plan:
+	cd ${K3S_DIR}/terraform && terraform plan
+
+k3s/terraform/apply:
+	cd ${K3S_DIR}/terraform && terraform apply
 
 # ------------------------------------------------
 # FluxCD
@@ -61,12 +69,3 @@ flux/install: _check_sops_defined
 .PHONY: flux/reconcile
 flux/reconcile:
 	flux reconcile source git flux-system
-
-# ------------------------------------------------
-# Terraform
-# ------------------------------------------------
-vm/plan:
-	cd ./infra/vm && terraform plan
-
-vm/apply:
-	cd ./infra/vm && terraform apply
