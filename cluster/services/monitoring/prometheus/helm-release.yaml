@@ -24,7 +24,18 @@ spec:
   values:
     fullnameOverride: prometheus
     kube-state-metrics:
-      fullnameOverride: kube-state-metrics
+      metricLabelsAllowlist:
+        - "persistentvolumeclaims=[*]"
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels:
+                - __meta_kubernetes_pod_node_name
+              targetLabel: kubernetes_node
     prometheus-node-exporter:
       fullnameOverride: node-exporter
       prometheus:
@@ -42,21 +53,45 @@ spec:
       defaultDashboardsEnabled: true
       defaultDashboardsTimezone: America/New_York
       forceDeployDashboards: true
-      # sidecar:
-      #   dashboards:
-      #     multicluster:
-      #       etcd:
-      #         enabled: true
+      sidecar:
+        dashboards:
+          multicluster:
+            etcd:
+              enabled: true
     kubelet:
       enabled: true
+      serviceMonitor:
+        metricRelabelings:
+          - action: replace
+            sourceLabels:
+              - node
+            targetLabel: instance
     kubeApiServer:
       enabled: true
     kubeControllerManager:
       enabled: true
+      endpoints:
+        - 192.168.20.1
+        - 192.168.20.2
+        - 192.168.20.3
+    kubeEtcd:
+      enabled: true
+      endpoints:
+        - 192.168.20.1
+        - 192.168.20.2
+        - 192.168.20.3
     kubeScheduler:
       enabled: true
+      endpoints:
+        - 192.168.20.1
+        - 192.168.20.2
+        - 192.168.20.3
     kubeProxy:
       enabled: true
+      endpoints:
+        - 192.168.20.1
+        - 192.168.20.2
+        - 192.168.20.3
     prometheusOperator:
       prometheusConfigReloader:
         resources:
@@ -66,6 +101,28 @@ spec:
           limits:
             cpu: 200m
             memory: 100Mi
+    alertmanager:
+      fullnameOverride: alertmanager
+      enabled: true
+      ingress:
+        enabled: true
+        pathType: Prefix
+        ingressClassName: "nginx"
+        hosts:
+          - &host "alertmanager.${DOMAIN}"
+        tls:
+          - hosts:
+              - *host
+            secretName: "alertmanager-tls"
+        alertmanagerSpec:
+          replicas: 1
+          storageSpec:
+            volumeClaimTemplate:
+              spec:
+                storageClassName: "longhorn"
+                resources:
+                  requests:
+                    storage: 1Gi
     prometheus:
       ingress:
         enabled: true
@@ -89,14 +146,13 @@ spec:
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
-        retention: 24h
+        retention: 12h
         enableAdminAPI: true
         walCompression: true
         storageSpec:
           volumeClaimTemplate:
             spec:
               storageClassName: "longhorn"
-              accessModes: ["ReadWriteOnce"]
               resources:
                 requests:
                   storage: 5Gi
