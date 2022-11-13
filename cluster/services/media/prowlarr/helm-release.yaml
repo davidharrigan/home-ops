@@ -20,7 +20,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/prowlarr-develop
-      tag: 0.4.7.2016
+      tag: 0.4.9.2083
     env:
       TZ: "America/New_York"
     podSecurityContext:
