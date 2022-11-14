@@ -1,0 +1,23 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: scrape-job
+  namespace: manga-scraper
+spec:
+  schedule: "*/11 * * * *"
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: scrape-cron
+              image: curlimages/curl:7.86.0
+              args:
+                - /bin/sh
+                - -ec
+                - "curl -X POST \"http://manga-scraper.manga-scraper/scrape\""
+          restartPolicy: Never
