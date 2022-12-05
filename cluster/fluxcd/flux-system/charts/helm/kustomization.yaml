@@ -9,3 +9,4 @@ resources:
   - grafana-charts.yaml
   - jetstack-charts.yaml
   - ingress-nginx-charts.yaml
+  - bjw-s-charts.yaml
