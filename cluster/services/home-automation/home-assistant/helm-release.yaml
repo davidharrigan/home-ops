@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: ghcr.io/home-assistant/home-assistant
-      tag: stable
+      tag: 2023.4
     strategy:
       type: Recreate
     resources:
@@ -61,9 +61,11 @@ spec:
           - hosts:
               - *host
     persistence:
-      config:
+      configuration:
         enabled: true
-        type: pvc
-        accessMode: ReadWriteOnce
-        size: 1Gi
+        type: custom
+        volumeSpec:
+          nfs:
+            server: ${NFS_SERVER}
+            path: /volume1/Lab/config/home-assistant
         mountPath: /config
