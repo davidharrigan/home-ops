@@ -69,38 +69,22 @@ spec:
     kubeApiServer:
       enabled: true
     kubeControllerManager:
-      enabled: true
-      endpoints:
-        - 192.168.20.1
-        - 192.168.20.2
-        - 192.168.20.3
+      enabled: false
     kubeEtcd:
-      enabled: true
-      endpoints:
-        - 192.168.20.1
-        - 192.168.20.2
-        - 192.168.20.3
+      enabled: false
     kubeScheduler:
-      enabled: true
-      endpoints:
-        - 192.168.20.1
-        - 192.168.20.2
-        - 192.168.20.3
+      enabled: false
     kubeProxy:
-      enabled: true
-      endpoints:
-        - 192.168.20.1
-        - 192.168.20.2
-        - 192.168.20.3
+      enabled: false
     prometheusOperator:
       prometheusConfigReloader:
         resources:
           requests:
-            cpu: 100m
-            memory: 50Mi
-          limits:
-            cpu: 200m
+            cpu: 50m
             memory: 100Mi
+          limits:
+            memory: 400Mi
+
     alertmanager:
       fullnameOverride: alertmanager
       enabled: true
@@ -147,6 +131,8 @@ spec:
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
         retention: 12h
+        retentionSize: "3GB"
+        scrapeInterval: 1m
         enableAdminAPI: true
         walCompression: true
         storageSpec:
