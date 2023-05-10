@@ -145,8 +145,7 @@ spec:
         additionalScrapeConfigs:
           - job_name: 'pve'
             static_configs:
-              - targets:
-                  - 192.168.11.4
+              - targets: ['192.168.11.4']
             metrics_path: /pve
             params:
               module: [default]
@@ -156,4 +155,4 @@ spec:
               - source_labels: [__param_target]
                 target_label: instance
               - target_label: __address__
-                replacement: proxmox-pve-exporter.monitoring:9221
+                replacement: prometheus-pve-exporter.monitoring:9221

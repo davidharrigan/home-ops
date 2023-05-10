@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: proxmox-pve-exporter
+  name: prometheus-pve-exporter
   namespace: monitoring
 spec:
   interval: 30m
@@ -23,7 +23,5 @@ spec:
     keepHistory: false
   values:
     pve:
-      target:
-        - 192.168.11.4:8006
       user: ${PROXMOX_USER}
       password: ${PROXMOX_PASSWORD}
