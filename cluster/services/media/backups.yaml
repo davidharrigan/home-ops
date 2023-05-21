@@ -1,3 +1,4 @@
+---
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
 metadata:
@@ -10,5 +11,4 @@ spec:
   retain: 1
   cron: 0 0 * * *
   groups:
-  - Media
-
+    - Media
