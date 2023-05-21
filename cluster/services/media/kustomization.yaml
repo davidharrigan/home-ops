@@ -13,3 +13,4 @@ resources:
   - readarr
   - sonarr
   - transmission
+  - backups.yaml
