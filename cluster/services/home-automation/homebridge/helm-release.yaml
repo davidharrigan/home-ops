@@ -30,9 +30,9 @@ spec:
     resources:
       requests:
         cpu: 10m
-        memory: 50Mi
+        memory: 100Mi
       limits:
-        memory: 250Mi
+        memory: 800Mi
     env:
       TZ: "America/New_York"
     service:
@@ -54,6 +54,9 @@ spec:
         tls:
           - hosts:
               - *host
+    probes:
+      liveness:
+        enabled: false  # TODO
     persistence:
       config:
         enabled: true
