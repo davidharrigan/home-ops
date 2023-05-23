@@ -9,7 +9,6 @@ resources:
   - overseerr
   - nzbget
   - prowlarr
-  - lidarr
   - readarr
   - sonarr
   - transmission
