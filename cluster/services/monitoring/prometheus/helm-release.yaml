@@ -76,6 +76,8 @@ spec:
       enabled: false
     kubeProxy:
       enabled: false
+    kubeStateMetrics:
+      enabled: true
     prometheusOperator:
       prometheusConfigReloader:
         resources:
