@@ -17,7 +17,7 @@ resource "proxmox_vm_qemu" "k8s-server" {
 
   disk {
     slot     = 0
-    size     = "50G"
+    size     = "100G"
     type     = "scsi"
     storage  = "ssd"
     iothread = 1
@@ -53,7 +53,7 @@ resource "proxmox_vm_qemu" "k8s-agent" {
 
   disk {
     slot     = 0
-    size     = "60G"
+    size     = "100G"
     type     = "scsi"
     storage  = "ssd"
     iothread = 1
