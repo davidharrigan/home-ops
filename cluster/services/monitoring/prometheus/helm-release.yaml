@@ -135,7 +135,7 @@ spec:
           routes:
             - receiver: "null" # quote
               matchers:
-                - alertname =~ "InfoInhibitor"
+                - alertname =~ "InfoInhibitor|Watchdog"
             - receiver: pushover
               matchers:
                 - severity = "critical"
