@@ -5,30 +5,24 @@ metadata:
   name: plex
   namespace: media
 spec:
-  interval: 5m
   chart:
     spec:
-      chart: plex
-      version: 6.4.3
+      chart: app-template
+      version: 1.5.0
+      interval: 30m
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
-      interval: 5m
-  install:
-    createNamespace: true
+  interval: 30m
   values:
+    controller:
+      type: statefulset
+
     image:
-      repository: ghcr.io/k8s-at-home/plex
-      tag: v1.25.6.5577-c8bd13540
-    env:
-      TZ: "America/New_York"
-    podSecurityContext:
-      supplementalGroups:
-        - 44
-        - 109
-        - 100
-      fsGroup: 100
+      repository: ghcr.io/onedr0p/plex
+      tag: 1.32.2.7100-248a2daf0@sha256:e169d7ba4c37de7fa416a63cb86fe8642b8552ecaf135271c670fa97abd0fee5
+
     ingress:
       main:
         enabled: true
@@ -44,6 +38,7 @@ spec:
         tls:
           - hosts:
               - *host
+
     persistence:
       config:
         enabled: true
@@ -61,3 +56,20 @@ spec:
         enabled: true
         type: emptyDir
         medium: Memory
+
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+        - 44
+        - 109
+        - 65539
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 1500Mi
+      limits:
+        memory: 3000Mi
