@@ -31,6 +31,8 @@ spec:
       RADARR__PORT: &port 80
       RADARR__APPLICATION_URL: "https://{{ .Release.Name }}.${DOMAIN}"
       RADARR__LOG_LEVEL: info
+    controller:
+      type: statefulset
     service:
       main:
         ports:
