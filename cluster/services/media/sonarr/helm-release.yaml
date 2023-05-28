@@ -34,6 +34,8 @@ spec:
       SONARR__INSTANCE_NAME: Sonarr
       SONARR__PORT: &port 80
       SONARR__LOG_LEVEL: info
+    controller:
+      type: statefulset
     service:
       main:
         ports:
