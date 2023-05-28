@@ -188,8 +188,8 @@ spec:
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
-        retention: 12h
-        retentionSize: "3GB"
+        retention: 48h
+        retentionSize: "10GB"
         scrapeInterval: 1m
         enableAdminAPI: true
         walCompression: true
@@ -199,7 +199,7 @@ spec:
               storageClassName: "longhorn"
               resources:
                 requests:
-                  storage: 5Gi
+                  storage: 20Gi
         additionalScrapeConfigs:
           - job_name: 'pve'
             static_configs:
