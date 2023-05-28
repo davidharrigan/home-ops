@@ -9,7 +9,6 @@ resources:
   - overseerr
   - nzbget
   - prowlarr
-  - readarr
   - sonarr
   - transmission
   - backups.yaml
