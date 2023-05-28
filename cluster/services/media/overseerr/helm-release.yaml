@@ -30,7 +30,7 @@ spec:
       repository: ghcr.io/sct/overseerr
       tag: 1.32.5
     controller:
-      strategy: RollingUpdate
+      type: statefulset
     env:
       TZ: America/New_York
       LOG_LEVEL: "info"
