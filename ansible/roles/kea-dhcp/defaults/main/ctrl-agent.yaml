@@ -1,0 +1,2 @@
+kea_ctrl_agent:
+  enabled: true

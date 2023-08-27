@@ -1,0 +1,11 @@
+---
+- name: restart kea services
+  systemd:
+    name: "{{ item }}"
+    state: restarted
+  loop:
+    - kea-ctrl-agent
+    - kea-dhcp-ddns
+    - kea-dhcp4
+    - kea-dhcp6
+  when: vars[item | replace('-', '_')].enabled | default(false)
