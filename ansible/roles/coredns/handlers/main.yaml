@@ -1,0 +1,7 @@
+---
+- name: restart coredns
+  systemd:
+    name: "coredns"
+    enabled: true
+    state: restarted
+

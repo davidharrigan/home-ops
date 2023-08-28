@@ -1,0 +1,31 @@
+---
+- name: check the version of coredns installed
+  command: coredns --version
+  register: coredns_version_output
+  ignore_errors: true
+  changed_when: false
+
+- name: parse the version output
+  set_fact:
+    coredns_installed_version: "{{ coredns_version_output.stdout_lines[0].split('-')[0] }}"
+  when: coredns_version_output.stdout_lines[0] is defined
+
+- name: download coredns binary
+  get_url:
+    url: "https://github.com/coredns/coredns/releases/download/v{{ coredns.version }}/coredns_{{ coredns.version }}_{{ coredns.arch }}.tgz"
+    dest: "/tmp/coredns_{{ coredns.version }}_{{ coredns.arch }}.tgz"
+  register: _download_binary
+  until: _download_binary is succeeded
+  when: coredns_installed_version is not defined or coredns_installed_version != coredns.version
+
+- name: unpack coredns binary
+  unarchive:
+    remote_src: true
+    src: "/tmp/coredns_{{ coredns.version }}_{{ coredns.arch }}.tgz"
+    dest: "/usr/bin/"
+    owner: "{{ coredns.system_user }}"
+    group: "{{ coredns.system_group }}"
+    mode: 0750
+  when: _download_binary
+  notify: restart coredns
+

@@ -7,3 +7,4 @@
     - dns
   roles:
     - kea-dhcp
+    - coredns

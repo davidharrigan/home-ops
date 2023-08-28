@@ -1,0 +1,58 @@
+---
+- name: create the coredns group
+  group:
+    name: "{{ coredns.system_group }}"
+    state: present
+    system: true
+
+- name: create the coredns user
+  user:
+    name: "{{ coredns.system_user }}"
+    groups: "{{ coredns.system_group }}"
+    system: true
+    createhome: false
+
+- name: ensure systemd-resolved is stopped
+  systemd:
+    name: "systemd-resolved.service"
+    enabled: false
+    state: stopped
+
+- name: create coredns configuration directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  with_items:
+    - /etc/coredns
+    - /etc/coredns/keys
+    - /etc/coredns/zones
+
+- name: configure coredns systemd
+  template:
+    src: "{{ item.key + '.j2' }}"
+    dest: "{{ item.value }}"
+    mode: 0644
+    owner: root
+    group: root
+  with_dict:
+    coredns-log.conf: /etc/logrotate.d/coredns-log.conf
+    coredns-sysusers.conf: /usr/lib/sysusers.d/coredns-sysusers.conf
+    coredns-tmpfiles.conf: /usr/lib/tmpfiles.d/coredns-tmpfiles.conf
+    coredns.service: /etc/systemd/system/coredns.service
+
+- name: download coredns
+  import_tasks: download.yaml
+
+- name: configure coredns
+  template:
+    src: "{{ item.key + '.j2' }}"
+    dest: "{{ item.value }}"
+    mode: 0644
+  notify:
+    - restart coredns
+  with_dict:
+    Corefile: /etc/coredns/Corefile
+
