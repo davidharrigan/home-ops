@@ -2,6 +2,7 @@
 
 ### Development
 
+- direnv
 - [talosctl](https://www.talos.dev/latest/introduction/quickstart/)
 
 ## Networking
