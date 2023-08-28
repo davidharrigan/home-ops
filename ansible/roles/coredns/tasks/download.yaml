@@ -7,7 +7,7 @@
 
 - name: parse the version output
   set_fact:
-    coredns_installed_version: "{{ coredns_version_output.stdout_lines[0].split('-')[0] }}"
+    coredns_installed_version: "{{ coredns_version_output.stdout_lines[0].split('-')[1] }}"
   when: coredns_version_output.stdout_lines[0] is defined
 
 - name: download coredns binary
