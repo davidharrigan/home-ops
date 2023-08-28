@@ -1,0 +1,5 @@
+coredns:
+  arch: linux_amd64
+  version: 1.11.1
+  system_user: coredns
+  system_group: coredns
