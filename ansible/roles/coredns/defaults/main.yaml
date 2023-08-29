@@ -3,3 +3,6 @@ coredns:
   version: 1.11.1
   system_user: coredns
   system_group: coredns
+
+zones: []
+

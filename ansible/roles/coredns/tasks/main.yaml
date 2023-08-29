@@ -12,12 +12,6 @@
     system: true
     createhome: false
 
-- name: ensure systemd-resolved is stopped
-  systemd:
-    name: "systemd-resolved.service"
-    enabled: false
-    state: stopped
-
 - name: create coredns configuration directories
   file:
     path: "{{ item }}"
@@ -46,6 +40,12 @@
 - name: download coredns
   import_tasks: download.yaml
 
+- name: ensure systemd-resolved is stopped
+  systemd:
+    name: "systemd-resolved.service"
+    enabled: false
+    state: stopped
+
 - name: configure coredns
   template:
     src: "{{ item.key + '.j2' }}"
@@ -55,4 +55,5 @@
     - restart coredns
   with_dict:
     Corefile: /etc/coredns/Corefile
+
 
