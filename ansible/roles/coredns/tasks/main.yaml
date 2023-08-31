@@ -24,6 +24,13 @@
     - /etc/coredns/keys
     - /etc/coredns/zones
 
+- name: create zone files
+  template:
+    src: db.zonefile.j2
+    dest: "/etc/coredns/zones/db.{{ item.domain }}"
+    mode: 0644
+  with_items: "{{ zones }}"
+
 - name: configure coredns systemd
   template:
     src: "{{ item.key + '.j2' }}"
