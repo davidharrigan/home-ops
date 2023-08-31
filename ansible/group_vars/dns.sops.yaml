@@ -1,4 +1,10 @@
-test: ENC[AES256_GCM,data:qj90wb0=,iv:jjkWPLcR18nuYiQWF4+LzGIBnztUg5aZgVjlfkkE6pA=,tag:h78qi5dLBRXKxLPifw6x6A==,type:str]
+zones:
+    - domain: ENC[AES256_GCM,data:NgxUPJoje2W+JZaa8/QfLMyDRF0BA6I=,iv:mLvYssZvdiFlu4DeRT3bWG1IiHECURriw+t1/pM3/k8=,tag:/WAbjH+pRjB3lV0IRSwQUw==,type:str]
+      serial: ENC[AES256_GCM,data:yQ==,iv:Dk/nH4/GE5iRDgEPictoLnka+Si2PCkgWD+Rx8Gvu9w=,tag:yc3lvM68nXkiMs91G46lQg==,type:int]
+      refresh: ENC[AES256_GCM,data:YtYHzw==,iv:ccx1sddN7DoTUxNBx6aXWCpwuXCYo9Gw7/aTY1yiMIg=,tag:FNTUGKeYeY0x40Y6Y9uk9Q==,type:int]
+      retry: ENC[AES256_GCM,data:Eai5YQ==,iv:Iud+d7L0EMRXd1AWMseX7E5Y0e+vUdEWiMlrFcJOzPc=,tag:R7wt7ipWkOke6dZ81QKr8Q==,type:int]
+      expire: ENC[AES256_GCM,data:GhG4SxLX,iv:hdQtck/7eQPI0MthAqd08Mah3Ff96q2m+lIhJnfYNaA=,tag:b9NACkKx3YFO2mfIRuk5bQ==,type:int]
+      minimum_ttl: ENC[AES256_GCM,data:G5Tm+MM=,iv:YwOG1/D/6zxfc92/YpmI5AZQl5ZZqoR8ttVLmRZDaa8=,tag:Mc+hOwKGa7gDoN8ksnkWEw==,type:int]
 sops:
     kms: []
     gcp_kms: []
@@ -14,9 +20,8 @@ sops:
             L0pwMDk3V25tbWFuYzdOR1ZHbUNsdkkKEChVGnfslmcbflYqFr2faIEtucSQde91
             I+cBkHC4Dyo4x0u7+4AtESBjIW2OqQp1CWwKB524QJ/ynoJhramp8Q==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-08-29T00:24:15Z"
-    mac: ENC[AES256_GCM,data:El3IJNWQjk09R6WTXKhNafB2PWFI0HYHabHIwM49YafB+NtPy3iZDXP7nUN3FzAqBoloKuMPpECakSLLgWnRpWWsfiieOLMkuZRvJYEU9cXox63uE6/xQa6N67RsJDDKBwObjfe9OUpsotl4PsyZbcz0iheOdLFM0CU3dRiLZFE=,iv:8OmhlvrIQ48UPS3oVJPro64Mm24KIF+E0b8fE9K8MnA=,tag:ZtR7DwsMbAjhzqJeQ7UB9Q==,type:str]
+    lastmodified: "2023-08-31T03:49:33Z"
+    mac: ENC[AES256_GCM,data:SVanArTRW3vQMa8uuzU/Q11TvYtSoMleJ5LQI+b4EXjWrnmceb8rptqc7lq99IJAXE++3q/epsPfDGSdvQK+WD6mK5qif6YwWJ7qxf/uTjDLBudBMUMiaQwDd8O4/Qf6d0cmgvz7/f5LoLrlaPnl72jBgULlPcopKjMOnHTfMbk=,iv:YqfV8AT+AP8FRA4liPUsAs3E7k1LON7OFzeRXLXhmY0=,tag:uMxcMMmOPuuV1fpxbhp0PA==,type:str]
     pgp: []
     unencrypted_regex: ^(kind)$
     version: 3.7.3
-

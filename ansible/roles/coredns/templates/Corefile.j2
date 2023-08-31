@@ -4,3 +4,10 @@
     forward . 1.1.1.1:53
 }
 
+{% for zone in zones %}
+{{zone.domain}} {
+    log
+    errors
+    file zones/db.{{zone.domain}}
+}
+{% endfor %}
