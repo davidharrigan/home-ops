@@ -4,5 +4,7 @@ collections:
     version: 7.1.0
   - name: community.sops
     version: 1.6.4
-roles: []
+roles:
+  - name: r_pufky.pihole
+    version: 3.0.4
 
