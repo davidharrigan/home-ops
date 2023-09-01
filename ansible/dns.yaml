@@ -5,6 +5,11 @@
   any_errors_fatal: true
   hosts:
     - dns
+  pre_tasks:
+    - name: install packages
+      package:
+        name: sqlite3
+        state: present
   roles:
-    - kea-dhcp
-    - coredns
+    - r_pufky.pihole
+
