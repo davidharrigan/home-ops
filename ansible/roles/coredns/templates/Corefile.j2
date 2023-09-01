@@ -9,5 +9,21 @@
     log
     errors
     file zones/db.{{zone.domain}}
+
+{% if zone.tsig %}
+    tsig {
+      {% for key, value in zone.tsig.items() %}
+      {{ key }} {{ value }}
+      {% endfor %}
+    }
+{% endif %}
+
+{% if zone.transfer %}
+    transfer {
+      {% for t in zone.transfer %}
+      to {{ t }}
+      {% endfor %}
+    }
+{% endif %}
 }
 {% endfor %}

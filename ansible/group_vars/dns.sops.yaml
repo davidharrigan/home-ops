@@ -5,6 +5,11 @@ zones:
       retry: ENC[AES256_GCM,data:Eai5YQ==,iv:Iud+d7L0EMRXd1AWMseX7E5Y0e+vUdEWiMlrFcJOzPc=,tag:R7wt7ipWkOke6dZ81QKr8Q==,type:int]
       expire: ENC[AES256_GCM,data:GhG4SxLX,iv:hdQtck/7eQPI0MthAqd08Mah3Ff96q2m+lIhJnfYNaA=,tag:b9NACkKx3YFO2mfIRuk5bQ==,type:int]
       minimum_ttl: ENC[AES256_GCM,data:G5Tm+MM=,iv:YwOG1/D/6zxfc92/YpmI5AZQl5ZZqoR8ttVLmRZDaa8=,tag:Mc+hOwKGa7gDoN8ksnkWEw==,type:int]
+      tsig:
+        secret: ENC[AES256_GCM,data:d1yvJljPMVi9VTkOM/CBeLO7FnqzwZmoPaxHl2wFFzPot/Vdy1VB25E816omfrNAa2JEKMdPnDxH8Oql+7niHaUnTrK9,iv:fJtrrTsYITH+1oZyk6G7ZxwO9T78iKOlQ1M0YnLEw+I=,tag:3AmSscgrAxYttVbX0lZ+JQ==,type:str]
+        require: ENC[AES256_GCM,data:B56EWdU5K0xn,iv:yaDpGXKbXdjnAEInfDwVf5gxW49jPco6NKt+d+LH560=,tag:ORR28TIKI2Egk9JNb6sdMw==,type:str]
+      transfer:
+        - ENC[AES256_GCM,data:7w==,iv:Vswa6QKiwgatWJaNc9XPMw1Z6ZndfrSiM/qdHp7ftEA=,tag:BrfKjEheUii4ROmlqpRmaA==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -20,8 +25,8 @@ sops:
             L0pwMDk3V25tbWFuYzdOR1ZHbUNsdkkKEChVGnfslmcbflYqFr2faIEtucSQde91
             I+cBkHC4Dyo4x0u7+4AtESBjIW2OqQp1CWwKB524QJ/ynoJhramp8Q==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-08-31T03:49:33Z"
-    mac: ENC[AES256_GCM,data:SVanArTRW3vQMa8uuzU/Q11TvYtSoMleJ5LQI+b4EXjWrnmceb8rptqc7lq99IJAXE++3q/epsPfDGSdvQK+WD6mK5qif6YwWJ7qxf/uTjDLBudBMUMiaQwDd8O4/Qf6d0cmgvz7/f5LoLrlaPnl72jBgULlPcopKjMOnHTfMbk=,iv:YqfV8AT+AP8FRA4liPUsAs3E7k1LON7OFzeRXLXhmY0=,tag:uMxcMMmOPuuV1fpxbhp0PA==,type:str]
+    lastmodified: "2023-09-01T00:21:23Z"
+    mac: ENC[AES256_GCM,data:eAyZihqo8S7kGhn7l+K1vkzxbWHeTc9f8KZCc+uU/OOIRhdbAuw1+qw6HClPABETiEMWpQNz/xCscHfqGPPieXXE9t4YFgYy87DPLmC4bMr9HDUty1++Xv+L+9oNVeJ0YV8rmN/vnAPbjQC2Uk0FhzxoeHQyGAjmdefA/gSmDXA=,iv:6PLtVuiSQxrTdT/mtHXWx9GTchWWMVvGIpy0RYIEuYw=,tag:+oX6qTenYtJorykY4agh9Q==,type:str]
     pgp: []
     unencrypted_regex: ^(kind)$
     version: 3.7.3
