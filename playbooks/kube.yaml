@@ -1,0 +1,8 @@
+---
+- name: configure k8s servers
+  gather_facts: false
+  any_errors_fatal: true
+  hosts:
+    - kube
+  roles:
+    - talos

@@ -1,0 +1,16 @@
+---
+- name: generate talos config
+  include_tasks: config.yaml
+  tags:
+    - config
+# - name: apply talos control plane configuration
+#   shell:
+#     cmd: talosctl apply-config -e {{ ansible_host }} -n {{ ansible_host }} --insecure --talosconfig={{ temp_config.path }}/talosconfig --file={{ temp_config.path }}/{{ inventory_hostname }}.yaml
+#   delegate_to: 127.0.0.1
+#   when: controlplane is defined
+#
+# - name: apply talos worker configuration
+#   shell:
+#     cmd: talosctl apply-config -n {{ ansible_host }} --insecure --talosconfig={{ temp_config.path }}/talosconfig --file={{ temp_config.path }}/{{ inventory_hostname }}.yaml
+#   delegate_to: 127.0.0.1
+#   when: worker is defined
