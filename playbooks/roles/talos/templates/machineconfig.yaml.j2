@@ -1,0 +1,12 @@
+---
+version: {{ kube.version }}
+debug: {{ kube.debug | lower }}
+persist: {{ kube.persist | lower }}
+
+# Provides machine specific configuration options.
+machine:
+  {{ kube.machine | to_nice_yaml(indent=2) | indent(2) }}
+
+# Provides cluster specific configuration options.
+cluster:
+  {{ kube.cluster | to_nice_yaml(indent=2) | indent(2) }}

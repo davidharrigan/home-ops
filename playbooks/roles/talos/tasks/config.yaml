@@ -1,0 +1,37 @@
+---
+- name: create a temp directory for talos config
+  tempfile:
+    state: directory
+    suffix: talos
+  register: temp_config
+  delegate_to: 127.0.0.1
+
+- name: generate talos config
+  template:
+    src: templates/talosconfig.j2
+    dest: "{{ temp_config.path }}/talosconfig"
+  delegate_to: 127.0.0.1
+
+- name: generate controlplane machineconfig vars
+  set_fact:
+    kube: "{{ kube | combine(controlplane, recursive=True) }}"
+  when: controlplane is defined
+
+- name: generate worker machineconfig vars
+  set_fact:
+    kube: "{{ kube | combine(worker, recursive=True) }}"
+  when: worker is defined
+
+- name: generate machineconfig
+  template:
+    src: templates/machineconfig.yaml.j2
+    dest: "{{ temp_config.path }}/{{ inventory_hostname }}.yaml"
+  delegate_to: 127.0.0.1
+
+- name: copy talos configuration
+  copy:
+    src: "{{ temp_config.path }}/"
+    dest: "{{ playbook_dir }}/../talos/"
+    mode: 0644
+  delegate_to: localhost
+  run_once: true
