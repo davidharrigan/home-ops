@@ -1,0 +1,9 @@
+---
+worker:
+  machine:
+    type: "worker"
+    ca:
+      crt: "{{ certs.machine.crt }}"
+  cluster:
+    ca:
+      crt: "{{ certs.cluster.crt }}"

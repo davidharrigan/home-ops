@@ -1,7 +1,7 @@
 ---
-version: {{ kube.version }}
-debug: {{ kube.debug | lower }}
-persist: {{ kube.persist | lower }}
+version: v1alpha1 # Indicates the schema used to decode the contents.
+debug: false # Enable verbose logging to the console.
+persist: true # Indicates whether to pull the machine config upon every boot.
 
 # Provides machine specific configuration options.
 machine:
@@ -9,4 +9,16 @@ machine:
 
 # Provides cluster specific configuration options.
 cluster:
-  {{ kube.cluster | to_nice_yaml(indent=2) | indent(2) }}
+{% for k, v in kube.cluster.items() %}
+  {% if k != 'inlineManifests' -%}
+  {{ {k:v} | to_nice_yaml(indent=2) | indent(2) }}
+  {%- else -%}
+  inlineManifests:
+  {% for manifest in kube.cluster.inlineManifests -%}
+  - name: {{ manifest.name }}
+    contents: |
+      {{ manifest.contents | indent(6) }}
+  {%- endfor +%}
+  {%- endif %}
+{%- endfor %}
+ 
