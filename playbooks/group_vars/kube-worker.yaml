@@ -1,4 +1,0 @@
----
-worker:
-  machine:
-    type: "worker"

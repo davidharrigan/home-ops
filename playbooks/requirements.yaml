@@ -7,4 +7,3 @@ collections:
 roles:
   - name: r_pufky.pihole
     version: 3.0.4
-

@@ -1,0 +1,73 @@
+---
+controlplane:
+  # Default configuration for all machines.
+  machine:
+    type: controlplane
+    ca: "{{ certs.machine }}"
+    network:
+      # The hostname of the machine.
+      hostname: "{{ inventory_hostname }}"
+      interfaces:
+        # The interface name.
+        - interface: eth0
+          dhcp: true
+          vip:
+            ip: "{{ cluster_endpoint }}"
+  cluster:
+    clusterName: "{{ cluster_name }}"
+    secretboxEncryptionSecret: "{{ secrets.cluster.secretboxEncryptionSecret }}"
+    ca: "{{ certs.cluster }}"
+    aggregatorCA: "{{ certs.aggregatorCA }}"
+    serviceAccount: "{{ certs.serviceAccount }}"
+    apiServer:
+      # The container image used in the API server manifest.
+      image: registry.k8s.io/kube-apiserver:{{ k8s_version }}
+      # Extra certificate subject alternative names for the API server's certificate.
+      certSANs:
+        - "{{ cluster_endpoint }}"
+      # Disable PodSecurityPolicy in the API server and default manifests.
+      disablePodSecurityPolicy: true
+      # Configure the API server admission plugins.
+      admissionControl:
+        # Name is the name of the admission controller.
+        - name: PodSecurity
+          # Configuration is an embedded configuration object to be used as the plugin's
+          configuration:
+            apiVersion: pod-security.admission.config.k8s.io/v1alpha1
+            defaults:
+              audit: restricted
+              audit-version: latest
+              enforce: baseline
+              enforce-version: latest
+              warn: restricted
+              warn-version: latest
+            exemptions:
+              namespaces:
+                - kube-system
+              runtimeClasses: []
+              usernames: []
+            kind: PodSecurityConfiguration
+      # Configure the API server audit policy.
+      auditPolicy:
+        apiVersion: audit.k8s.io/v1
+        kind: Policy
+        rules:
+          - level: Metadata
+    # Controller manager server specific configuration options.
+    controllerManager:
+      # The container image used in the controller manager manifest.
+      image: registry.k8s.io/kube-controller-manager:{{ k8s_version }}
+    # Kube-proxy server-specific configuration options
+    proxy:
+      disabled: true
+    # Scheduler server specific configuration options.
+    scheduler:
+      # The container image used in the scheduler manifest.
+      image: registry.k8s.io/kube-scheduler:{{ k8s_version }}
+    # Etcd specific configuration options.
+    etcd:
+      # The `ca` is the root certificate authority of the PKI.
+      ca: "{{ certs.etcd }}"
+    # A list of urls that point to additional manifests.
+    extraManifests: []
+    inlineManifests: []

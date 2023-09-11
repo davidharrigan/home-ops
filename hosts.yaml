@@ -10,7 +10,21 @@ kube:
       hosts:
         k8s-server-1:
           ansible_host: k8s-server-1.lan
+          kube:
+            machine:
+              network:
+                interfaces:
+                  - interface: enx3eb3c406fc9f
+                    dhcp: true
+                    vip:
+                      ip: 192.168.42.42
     kube-worker:
       hosts:
         k8s-worker-1:
           ansible_host: k8s-worker-1.lan
+          kube:
+            machine:
+              network:
+                interfaces:
+                  - interface: enxa29e166d29cf
+                    dhcp: true
