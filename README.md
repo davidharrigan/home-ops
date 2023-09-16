@@ -53,3 +53,25 @@ Alternatively, you can also use the below "decrypt" command and sops will create
 ```bash
 sops <filename> --decrypt
 ```
+
+## Bootstrapping k8s
+
+### Install Flux
+
+```bash
+kubectl apply --server-side --kustomize ./cluster/bootstrap
+```
+
+### Apply configuration
+
+```bash
+sops --decrypt ./cluster/bootstrap/age-key.sops.yaml | kubectl apply -f -
+sops --decrypt ./cluster/bootstrap/github-deploy-key.sops.yaml | kubectl apply -f -
+sops --decrypt ./cluster/flux/vars/cluster-secrets.sops.yaml | kubectl apply -f -
+```
+
+### Kickoff Flux
+
+```bash
+kubectl apply --server-side --kustomize ./flux/config
+```
