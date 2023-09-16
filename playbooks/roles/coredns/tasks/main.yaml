@@ -62,5 +62,3 @@
     - restart coredns
   with_dict:
     Corefile: /etc/coredns/Corefile
-
-

@@ -1,10 +1,45 @@
-## Prerequisites
+## Getting Started
 
-### Development
+### Dependencies
 
-- direnv
-- sops
+- [ansible](https://www.ansible.com/)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [helm](https://helm.sh/docs/intro/install/)
+- [age](https://github.com/FiloSottile/age)
+- [direnv](https://github.com/direnv/direnv)
+- [pre-commit](https://github.com/pre-commit/pre-commit)
 - [talosctl](https://www.talos.dev/latest/introduction/quickstart/)
+
+### Setup
+
+#### Install pre-commit hooks
+
+```bash
+pre-commit install --install-hooks
+pre-commit run --all-files
+```
+
+#### Setup Age
+
+If generating a new keypair, all `*.sops.*` files will need to be re-created.
+
+```bash
+# Create age key pair
+age-keygen -o age.agekey
+```
+
+```bash
+# Move generated key
+mkdir -p ~/.config/sops/age
+mv age.agekey ~/.config/sops/age/home-ops.txt
+```
+
+#### Direnv
+
+```bash
+# allow .envrc to be loaded by direnv
+direnv allow .
+```
 
 ## Networking
 
