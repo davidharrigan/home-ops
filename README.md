@@ -91,6 +91,11 @@ sops <filename> --decrypt
 
 ## Bootstrapping k8s
 
+```bash
+# Run pre-installation checks
+flux check --pre
+```
+
 ### Install Flux
 
 ```bash
@@ -109,4 +114,11 @@ sops --decrypt ./cluster/flux/vars/cluster-secrets.sops.yaml | kubectl apply -f 
 
 ```bash
 kubectl apply --server-side --kustomize ./flux/config
+```
+
+### Verify
+
+```bash
+# Run post-installation checks
+flux check
 ```
