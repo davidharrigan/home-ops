@@ -5,3 +5,4 @@ resources:
   - ./bitnami.yaml
   - ./bjw-s.yaml
   - ./prometheus-community.yaml
+  - ./jetstack.yaml
