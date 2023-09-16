@@ -4,4 +4,3 @@
     name: "coredns"
     enabled: true
     state: restarted
-

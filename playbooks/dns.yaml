@@ -12,4 +12,3 @@
         state: present
   roles:
     - r_pufky.pihole
-

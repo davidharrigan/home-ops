@@ -28,4 +28,3 @@
     mode: 0750
   when: _download_binary
   notify: restart coredns
-
