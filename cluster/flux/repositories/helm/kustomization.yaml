@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./bitnami.yaml
   - ./bjw-s.yaml
+  - ./cilium.yaml
   - ./ingress-nginx.yaml
   - ./jetstack.yaml
   - ./prometheus-community.yaml

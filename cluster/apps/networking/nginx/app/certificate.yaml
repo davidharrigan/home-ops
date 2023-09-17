@@ -5,8 +5,6 @@ metadata:
   name: "${SECRET_DOMAIN/./-}"
   namespace: networking
 spec:
-  secretTemplate:
-    annotations:
   secretName: "${SECRET_DOMAIN/./-}-tls"
   issuerRef:
     name: letsencrypt-production
