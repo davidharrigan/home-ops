@@ -19,6 +19,15 @@ defaults:
       defaultRuntimeSeccompProfileEnabled: true
       # The `disableManifestsDirectory` field configures the kubelet to get static pod manifests from the /etc/kubernetes/manifests directory.
       disableManifestsDirectory: true
+      extraMounts:
+        # mount /var/local to kubelet used by mayastor so it gets propagated to the containers correctly
+        - destination: /var/local
+          type: bind
+          source: /var/local
+          options:
+            - rbind
+            - rshared
+            - rw
     # Provides machine specific network configuration options.
     network:
       # The hostname of the machine.
