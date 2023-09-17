@@ -5,9 +5,12 @@ inline_manifests:
     files:
       - name: values.yaml
         contents:
+          cluster:
+            name: home_cluster
+            id: 1
           ipam:
-            mode: "kubernetes"
-          kubeProxyReplacement: "strict"
+            mode: kubernetes
+          kubeProxyReplacement: strict
           securityContext:
             capabilities:
               ciliumAgent:
@@ -40,7 +43,7 @@ inline_manifests:
           helmCharts:
             - name: cilium
               repo: https://helm.cilium.io/
-              version: 1.14.1
+              version: 1.14.2
               releaseName: cilium
               namespace: kube-system
               valuesFile: values.yaml

@@ -66,6 +66,26 @@ direnv allow .
 ## Bootstrapping k8s
 
 ```bash
+# generate talos config
+ansible-playbook ./playbooks/kube.yaml
+```
+
+```bash
+# apply config to the control plane
+talosctl apply-config -e k8s-server-1.lan -n k8s-server-1.lan --file=./talos/k8s-server-1.yaml --insecure
+```
+
+```bash
+# bootstrap etcd
+talosctl bootstrap -e k8s-server-1 -n k8s-server-1
+```
+
+```bash
+# repeat applying config to reset of the nodes
+talosctl apply-config -n k8s-worker-1 --file=./talos/k8s-worker-1.yaml --insecure
+```
+
+```bash
 # Run pre-installation checks
 flux check --pre
 ```
