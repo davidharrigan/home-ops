@@ -52,9 +52,7 @@ direnv allow .
 | Kubernetes pods     | `10.244.0.0/16`   |
 | Kubernetes services | `10.96.0.0/16`    |
 
-### Servers VLAN
-
-#### Fixed IPs
+### Fixed IPs
 
 | Name              | IPs                               |
 | ----------------- | --------------------------------- |
@@ -64,6 +62,8 @@ direnv allow .
 | DHCP Range        | `192.168.42.100 - 192.168.42.250` |
 
 ## Bootstrapping k8s
+
+### Prepare nodes
 
 ```bash
 # generate talos config
@@ -85,12 +85,12 @@ talosctl bootstrap -e k8s-server-1 -n k8s-server-1
 talosctl apply-config -n k8s-worker-1 --file=./talos/k8s-worker-1.yaml --insecure
 ```
 
+### Install Flux
+
 ```bash
 # Run pre-installation checks
 flux check --pre
 ```
-
-### Install Flux
 
 ```bash
 kubectl apply --server-side --kustomize ./cluster/bootstrap
@@ -108,13 +108,6 @@ sops --decrypt ./cluster/flux/vars/cluster-secrets.sops.yaml | kubectl apply -f 
 
 ```bash
 kubectl apply --server-side --kustomize ./cluster/flux/config
-```
-
-### Verify
-
-```bash
-# Run post-installation checks
-flux check
 ```
 
 ### Verify
