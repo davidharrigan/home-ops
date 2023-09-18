@@ -26,7 +26,7 @@ spec:
     env:
       GF_EXPLORE_ENABLED: true
       GF_PANELS_DISABLE_SANITIZE_HTML: true
-    adminPassword: changeme # TODO: change this value
+    adminPassword: changeme
     grafana.ini:
       server:
         root_url: "https://grafana.${SECRET_DOMAIN}"
@@ -43,7 +43,7 @@ spec:
       grafana_net:
         url: https://grafana.net
       auth.basic:
-        disable_login_form: false
+        enabled: true
     datasources:
       datasources.yaml:
         apiVersion: 1
@@ -71,7 +71,7 @@ spec:
         # You can use this parameter together with `provider.foldersFromFilesStructure`to annotate configmaps and create folder structure.
         folderAnnotation: grafana_folder
         provider:
-          allowUiUpdates: true
+          disableDelete: true
           foldersFromFilesStructure: true
       datasources:
         enabled: true
