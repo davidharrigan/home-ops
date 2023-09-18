@@ -1,0 +1,81 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: plex
+  namespace: media
+spec:
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  interval: 30m
+  values:
+    controller:
+      type: statefulset
+
+    image:
+      repository: ghcr.io/onedr0p/plex
+      tag: 1.32.2.7100-248a2daf0@sha256:24b39030607af2ac007d48d508acdb136a925c1c66c2b495e18989eb857082ed
+
+    service:
+      main:
+        ports:
+          http:
+            port: 32400
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "plex"
+        hosts:
+          - host: &host "plex.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+
+    persistence:
+      config:
+        enabled: true
+        existingClaim: plex-config
+      media:
+        enabled: true
+        type: custom
+        volumeSpec:
+          nfs:
+            server: nas-1
+            path: /volume1/Media
+        mountPath: /media
+        readOnly: true
+      transcode:
+        enabled: true
+        type: emptyDir
+        medium: Memory
+
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+        - 44
+        - 109
+        - 65539
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 1500Mi
+      limits:
+        memory: 3000Mi
