@@ -48,6 +48,7 @@ l2announcements:
   leaseDuration: 120s
   leaseRenewDeadline: 60s
   leaseRetryPeriod: 1s
+l7Proxy: true
 loadBalancer:
   algorithm: maglev
   mode: dsr
