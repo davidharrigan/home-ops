@@ -202,7 +202,7 @@ spec:
 
     prometheus:
       ingress:
-        enabled: false # TODO: enable
+        enabled: true
         pathType: Prefix
         ingressClassName: "nginx"
         annotations:
@@ -228,13 +228,13 @@ spec:
         scrapeInterval: 1m
         enableAdminAPI: true
         walCompression: true
-        # storageSpec: TODO:
-        #   volumeClaimTemplate:
-        #     spec:
-        #       storageClassName: "longhorn"
-        #       resources:
-        #         requests:
-        #           storage: 20Gi
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: "mayastor-1"
+              resources:
+                requests:
+                  storage: 20Gi
         # additionalScrapeConfigs: TODO
         #   - job_name: "pve"
         #     static_configs:
