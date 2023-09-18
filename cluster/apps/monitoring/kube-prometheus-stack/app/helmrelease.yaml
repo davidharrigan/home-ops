@@ -40,7 +40,7 @@ spec:
                 - __meta_kubernetes_pod_node_name
               targetLabel: kubernetes_node
 
-    kubeNodeExporter:
+    nodeExporter:
       enabled: false
     # prometheus-node-exporter:
     #   fullnameOverride: node-exporter
