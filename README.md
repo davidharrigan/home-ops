@@ -72,6 +72,7 @@ ansible-playbook ./playbooks/kube.yaml
 
 ```bash
 # apply config to the control plane
+# --insecure required only for the initial config apply
 talosctl apply-config -e k8s-server-1.lan -n k8s-server-1.lan --file=./talos/k8s-server-1.yaml --insecure
 ```
 
@@ -82,7 +83,9 @@ talosctl bootstrap -e k8s-server-1 -n k8s-server-1
 
 ```bash
 # repeat applying config to reset of the nodes
+# --insecure required only for the initial config apply
 talosctl apply-config -n k8s-worker-1 --file=./talos/k8s-worker-1.yaml --insecure
+talosctl apply-config -n k8s-worker-2 --file=./talos/k8s-worker-2.yaml --insecure
 ```
 
 ### Install Flux
@@ -116,3 +119,7 @@ kubectl apply --server-side --kustomize ./cluster/flux/config
 # Run post-installation checks
 flux check
 ```
+
+# Thanks
+
+A lot of the setup here was inspired by folks who share their [home Kubernetes setup](https://github.com/topics/k8s-at-home).
