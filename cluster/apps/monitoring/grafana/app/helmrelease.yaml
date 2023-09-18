@@ -29,7 +29,7 @@ spec:
     adminPassword: changeme # TODO: change this value
     grafana.ini:
       server:
-        root_url: "https://grafana.${DOMAIN}"
+        root_url: "https://grafana.${SECRET_DOMAIN}"
       paths:
         data: /var/lib/grafana/data
         logs: /var/log/grafana
@@ -94,7 +94,7 @@ spec:
         hajimari.io/appName: "Grafana"
         hajimari.io/group: "System"
       hosts:
-        - &host "grafana.${DOMAIN}"
+        - &host "grafana.${SECRET_DOMAIN}"
       tls:
         - hosts:
             - *host
