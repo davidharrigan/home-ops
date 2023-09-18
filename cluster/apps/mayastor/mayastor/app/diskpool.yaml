@@ -8,3 +8,13 @@ spec:
   node: k8s-worker-1
   disks:
     - /dev/sdb
+---
+apiVersion: "openebs.io/v1beta1"
+kind: DiskPool
+metadata:
+  name: k8s-worker-2-pool
+  namespace: mayastor
+spec:
+  node: k8s-worker-2
+  disks:
+    - /dev/sdb

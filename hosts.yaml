@@ -28,3 +28,11 @@ kube:
                 interfaces:
                   - interface: enxa29e166d29cf
                     dhcp: true
+        k8s-worker-2:
+          ansible_host: k8s-worker-2.lan
+          kube:
+            machine:
+              network:
+                interfaces:
+                  - interface: enx8a841969a9ab
+                    dhcp: true
