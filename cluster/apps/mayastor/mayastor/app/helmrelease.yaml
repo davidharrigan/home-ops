@@ -30,10 +30,11 @@ spec:
     keepHistory: false
   values:
     etcd:
+      replicaCount: 1
       persistence:
-        enabled: false
-    obs:
-      callhome:
-        enabled: false
+        storageClassName: manual
+    # obs:
+    #   callhome:
+    #     enabled: false
     loki-stack:
       enabled: false
