@@ -5,6 +5,7 @@ resources:
   - ./bitnami.yaml
   - ./bjw-s.yaml
   - ./cilium.yaml
+  - ./grafana.yaml
   - ./ingress-nginx.yaml
   - ./jetstack.yaml
   - ./mayastor.yaml
