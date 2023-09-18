@@ -33,8 +33,11 @@ spec:
       replicaCount: 1
       persistence:
         storageClassName: manual
-    # obs:
-    #   callhome:
-    #     enabled: false
+    io_engine:
+      resources:
+        requests:
+          cpu: 1
+        limits:
+          cpu: 1
     loki-stack:
       enabled: false
