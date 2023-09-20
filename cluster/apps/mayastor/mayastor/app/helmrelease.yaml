@@ -36,8 +36,8 @@ spec:
     io_engine:
       resources:
         requests:
-          cpu: 1
+          cpu: 750m
         limits:
-          cpu: 1
+          cpu: 750m
     loki-stack:
       enabled: false
