@@ -8,5 +8,7 @@ resources:
   - ./grafana.yaml
   - ./ingress-nginx.yaml
   - ./jetstack.yaml
+  - ./kubernetes-sigs-metrics-server.yaml
   - ./mayastor.yaml
+  - ./postfinance.yaml
   - ./prometheus-community.yaml
