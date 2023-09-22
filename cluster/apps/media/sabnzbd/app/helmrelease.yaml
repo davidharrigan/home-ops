@@ -1,0 +1,94 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: sabnzbd
+  namespace: media
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+
+  values:
+    controller:
+      type: statefulset
+
+    image:
+      repository: ghcr.io/onedr0p/sabnzbd
+      tag: 4.0.3@sha256:fd8695c1f3829f628220078c4aa11a82087f928ae5ed5ec3983c3dafff438396
+
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+        - 65539
+
+    env:
+      SABNZBD__PORT: &port 8080
+      SABNZBD__API_KEY:
+        valueFrom:
+          secretKeyRef:
+            name: sabnzbd-secret
+            key: api_key
+      SABNZBD__NZB_KEY:
+        valueFrom:
+          secretKeyRef:
+            name: sabnzbd-secret
+            key: nzb_key
+
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "cloud-download"
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            proxy_set_header Accept-Encoding "";
+            sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/sabnzbd/nord.css"></head>';
+            sub_filter_once on;
+        hosts:
+          - host: &host "sabnzbd.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+
+    persistence:
+      config:
+        enabled: true
+        existingClaim: sabnzbd-config
+      media:
+        enabled: true
+        type: custom
+        volumeSpec:
+          nfs:
+            server: nas-1.lan
+            path: /volume1/Media
+        mountPath: /media
+
+    resources:
+      requests:
+        cpu: 5m
+        memory: 100Mi
+      limits:
+        cpu: 250m
+        memory: 500Mi
