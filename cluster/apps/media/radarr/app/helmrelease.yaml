@@ -12,7 +12,7 @@ spec:
       version: 1.5.1
       sourceRef:
         kind: HelmRepository
-        name: bjw-s-charts
+        name: bjw-s
         namespace: flux-system
   maxHistory: 2
   upgrade:
@@ -26,11 +26,51 @@ spec:
       repository: ghcr.io/onedr0p/radarr-develop
       tag: 4.7.1.7640@sha256:fd475f0dcc5a2ef00193b17e548b4a4d4776b7b2cf32e0ff3adb5ee2aa836f20
     env:
-      TZ: America/New_York
-      RADARR__INSTANCE_NAME: Radarr
-      RADARR__PORT: &port 80
-      RADARR__APPLICATION_URL: "https://{{ .Release.Name }}.${DOMAIN}"
-      RADARR__LOG_LEVEL: info
+      - name: TZ
+        value: America/New_York
+      - name: RADARR__INSTANCE_NAME
+        value: Radarr
+      - name: RADARR__PORT
+        value: &port 7878
+      - name: RADARR__APPLICATION_URL
+        value: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
+      - name: RADARR__LOG_LEVEL
+        value: info
+      - name: RADARR__API_KEY
+        valueFrom:
+          secretKeyRef:
+            name: radarr-secret
+            key: api_key
+      - name: RADARR__POSTGRES_HOST
+        valueFrom:
+          secretKeyRef:
+            name: radarr-secret
+            key: db_host
+      - name: RADARR__POSTGRES_PORT
+        valueFrom:
+          secretKeyRef:
+            name: radarr-secret
+            key: db_port
+      - name: RADARR__POSTGRES_USER
+        valueFrom:
+          secretKeyRef:
+            name: radarr-secret
+            key: db_user
+      - name: RADARR__POSTGRES_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: radarr-secret
+            key: db_pass
+      - name: RADARR__POSTGRES_MAIN_DB
+        valueFrom:
+          secretKeyRef:
+            name: radarr-secret
+            key: db_main
+      - name: RADARR__POSTGRES_LOG_DB
+        valueFrom:
+          secretKeyRef:
+            name: radarr-secret
+            key: db_logs
     controller:
       type: statefulset
     service:
@@ -65,7 +105,7 @@ spec:
           httpGet:
             path: /ping
             port: *port
-          initialDelaySeconds: 0
+          initialDelaySeconds: 45
           periodSeconds: 10
           timeoutSeconds: 1
           failureThreshold: 3
@@ -87,7 +127,7 @@ spec:
         type: custom
         volumeSpec:
           nfs:
-            server: nas-1
+            server: nas-1.lan
             path: /volume1/Media
         mountPath: /media
     resources:
@@ -96,3 +136,4 @@ spec:
         cpu: 10m
       limits:
         memory: 500Mi
+        cpu: 200m
