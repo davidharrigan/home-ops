@@ -37,6 +37,10 @@ postgresql_databases:
       owner: ENC[AES256_GCM,data:ERk+3QPt,iv:ur8nMzkFkLLWx3T4zrqVDe8LifuwCN9IrnPBTbs9zXk=,tag:Xp7EysMYpfiFYJ9NXwLmRQ==,type:str]
     - name: ENC[AES256_GCM,data:ZK/6mpn6KsrULn4=,iv:KpZ36oB5ywWVISvz8imQrmySyrlZk3HVOevlJpm2ET0=,tag:zLFZ7Jt1VrRy9sYNe+wc9w==,type:str]
       owner: ENC[AES256_GCM,data:ERk+3QPt,iv:ur8nMzkFkLLWx3T4zrqVDe8LifuwCN9IrnPBTbs9zXk=,tag:Xp7EysMYpfiFYJ9NXwLmRQ==,type:str]
+    - name: ENC[AES256_GCM,data:hEh6OBWX0BQ=,iv:C/o3G25IryDhX2imEH7yQwC+q3lLkQrxp6dprLBpRUw=,tag:vjvWa8ee8S4O3giJqXdDSg==,type:str]
+      owner: ENC[AES256_GCM,data:KLG6KLXKEGs=,iv:kp2f+cjXLlR1jgq+vwchBxYAP6Ixn3YOj4fkwxAcrno=,tag:gbv2RFQX785yV7b7f5WQCA==,type:str]
+    - name: ENC[AES256_GCM,data:C17QrLJRec7Qlbj+Iw==,iv:mOwj0t4MLvEL0VdKfnLjC5oWy1XjgvnfRVSjArIipPs=,tag:Gxp6Os2Aa5Mn793MhFbRqQ==,type:str]
+      owner: ENC[AES256_GCM,data:5Gaa8HovUN4=,iv:S3Zl+T9sWiM2qUzEMQ9gozqjswtEYZ81PpLLrD16TWU=,tag:kzb61moiAiis+XbyK2DMaQ==,type:str]
 postgresql_users:
     - name: ENC[AES256_GCM,data:FE4rihE=,iv:wH1RZJKOOzLEp6hhdjlrSE/FPga6b7abhLA8BGqjXq8=,tag:rvUDde7gxHBQtfdk8Jiyug==,type:str]
       password: ENC[AES256_GCM,data:mrZLb6qnmSRt,iv:u+5KQZJiXeKLWdqb8dNq4W7Io7j/mvRA6bnkswBowOw=,tag:LP0GhJDpSB9XT6h5dlbbgg==,type:str]
@@ -45,6 +49,8 @@ postgresql_users:
       db: ENC[AES256_GCM,data:n7fbG9arr9IppsiPgQ==,iv:QVsUYgucel60BU7YcnzMVtltLtH8xm+4XywjDeI4o/I=,tag:95HeY83sQupEESKvzbhWig==,type:str]
     - name: ENC[AES256_GCM,data:9smLzqXa,iv:w9WONPhJBPTOCAtNp/rJTb9m1a70HxyxGnFZhyvAJag=,tag:Ywd92zGixBwywEBHyACfcw==,type:str]
       password: ENC[AES256_GCM,data:vZhtuINicnxJAXMzUlfP8HwuH/FYTZVg64QF2f5y,iv:JigNsI+YFSphaSzh3fbyPURSH7mvxLkKYFtSYy+zLFw=,tag:v9lFOdTN/LkwrDfA2+9fug==,type:str]
+    - name: ENC[AES256_GCM,data:ckRYKkc5NfM=,iv:s9LUvxdhNELwGECmMbU4ctg2VV12fek+RDz3PBVH0N0=,tag:qD2jDvaMpa+NBynzXX83UA==,type:str]
+      password: ENC[AES256_GCM,data:VrUk1dB1O237z5U9olfEGjzTy9c1AOMnZVc8Ckos,iv:Q0RHviDbePCC1kG16vYabnuHTMHGwO601btRx8vO1GE=,tag:JbL6CS07PFC0J3dxAbtaIQ==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -60,8 +66,8 @@ sops:
             SXVNbmMydUxOczhwdkc0N0NITjc4K2MKOKrQFfXC/7Jd2PKGU+i3pg8WLxqIXgSD
             y9HtiKZNfJ5ud1fZxzODcbzU8wxmSNQj8Ak6Ci0tU4MtnfGR+6/ZZw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-09-22T01:16:34Z"
-    mac: ENC[AES256_GCM,data:096VIq5+8Fgs38joFTePQpSl40Q78MAhSPE7jxVv1021OEG6pEvAGXdM49YhVr5/p0PRVJO/O7pM50b9QgU6BIin8MHoGep5ENjK2+4fsG6GxFchsR6VAXaq5tmSAORT0PNVqPdRR3ndgGl6hB1JEBO3fbSUjWXbRPwWDj6r44k=,iv:4uaW98TReig76vGNsbkeHX0yC4vwjJ2wnDK/D96on70=,tag:rJ7JGn21GfbFCokMQClRhQ==,type:str]
+    lastmodified: "2023-09-22T02:30:11Z"
+    mac: ENC[AES256_GCM,data:nMaCie/Mgele1DEveLSdUbJ8YbY4Z6v9fBAml5ngwXEBi/mFv0Tj4InqYLXVUhKODgB6Vi1DTMOfTRUW/NEXKfDYWJbkHai0q3Hy9ASD4eLy6XWZwl8GObALaB7FAeHibgYNpdYQOh/JwYp9DsiISu5cPeNgCYqlqU5blQdjglw=,iv:WbAR7SIqGvUYKTOp1dpHMNn0XCfAsBg6jEcJg3Zszys=,tag:XpsMfjRXS5Al+DSmWxHcxA==,type:str]
     pgp: []
     unencrypted_regex: ^(kind)$
     version: 3.7.3

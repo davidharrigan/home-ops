@@ -1,0 +1,139 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: prowlarr
+  namespace: media
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    image:
+      repository: ghcr.io/onedr0p/prowlarr
+      tag: 1.8.6.3946
+    env:
+      - name: TZ
+        value: America/New_York
+      - name: PROWLARR__INSTANCE_NAME
+        value: Radarr
+      - name: PROWLARR__PORT
+        value: &port 9896
+      - name: PROWLARR__APPLICATION_URL
+        value: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
+      - name: PROWLARR__LOG_LEVEL
+        value: info
+      - name: PROWLARR__API_KEY
+        valueFrom:
+          secretKeyRef:
+            name: prowlarr-secret
+            key: api_key
+      - name: PROWLARR__POSTGRES_HOST
+        valueFrom:
+          secretKeyRef:
+            name: prowlarr-secret
+            key: db_host
+      - name: PROWLARR__POSTGRES_PORT
+        valueFrom:
+          secretKeyRef:
+            name: prowlarr-secret
+            key: db_port
+      - name: PROWLARR__POSTGRES_USER
+        valueFrom:
+          secretKeyRef:
+            name: prowlarr-secret
+            key: db_user
+      - name: PROWLARR__POSTGRES_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: prowlarr-secret
+            key: db_pass
+      - name: PROWLARR__POSTGRES_MAIN_DB
+        valueFrom:
+          secretKeyRef:
+            name: prowlarr-secret
+            key: db_main
+      - name: PROWLARR__POSTGRES_LOG_DB
+        valueFrom:
+          secretKeyRef:
+            name: prowlarr-secret
+            key: db_logs
+    controller:
+      type: statefulset
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "filmstrip"
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            proxy_set_header Accept-Encoding "";
+            sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/prowlarr/nord.css"></head>';
+            sub_filter_once on;
+        hosts:
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+    probes:
+      liveness: &probes
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /ping
+            port: *port
+          initialDelaySeconds: 45
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+      readiness: *probes
+      startup:
+        enabled: false
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: OnRootMismatch
+      supplementalGroups: [10000]
+    persistence:
+      config:
+        enabled: true
+        existingClaim: prowlarr-config
+      media:
+        enabled: true
+        type: custom
+        volumeSpec:
+          nfs:
+            server: nas-1.lan
+            path: /volume1/Media
+        mountPath: /media
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 10m
+      limits:
+        memory: 500Mi
+        cpu: 200m
