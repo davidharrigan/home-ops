@@ -4,12 +4,6 @@ worker:
     type: "worker"
     ca:
       crt: "{{ certs.machine.crt }}"
-    sysctls:
-      # enable huge page support for mayastor
-      vm.nr_hugepages: "1024"
-    nodeLabels:
-      # label workers as mayastor candidates
-      openebs.io/engine: mayastor
   cluster:
     ca:
       crt: "{{ certs.cluster.crt }}"

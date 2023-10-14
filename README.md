@@ -77,7 +77,7 @@ talosctl apply-config -e k8s-server-1.lan -n k8s-server-1.lan --file=./talos/k8s
 ```
 
 ```bash
-# bootstrap etcd
+# bootstrap etcd (only needed to run on one node)
 talosctl bootstrap -e k8s-server-1 -n k8s-server-1
 ```
 
@@ -118,6 +118,17 @@ kubectl apply --server-side --kustomize ./cluster/flux/config
 ```bash
 # Run post-installation checks
 flux check
+```
+
+## System extensions
+
+System extensions can only be installed on install or upgrade. To install extensions on an existing node:
+
+```bash
+talosctl -e <endpoint ip/hostname> -n <node ip/hostname> upgrade --image=ghcr.io/siderolabs/installer:<talos version>
+
+# Check status
+talosctl -e <endpoint ip/hostname> -n <node ip/hostname> get extensions
 ```
 
 # Thanks

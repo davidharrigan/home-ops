@@ -17,6 +17,9 @@ kube:
           ansible_host: k8s-server-1.lan
           kube:
             machine:
+              install:
+                extensions:
+                  - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4@sha256:cef7e23d0f6cbf68176bca038c2491d3ef9583e2e8c9fa5c0fb844ce1c791f2e
               network:
                 interfaces:
                   - interface: enx3eb3c406fc9f
@@ -29,15 +32,52 @@ kube:
           ansible_host: k8s-worker-1.lan
           kube:
             machine:
+              install:
+                extensions:
+                  - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4@sha256:cef7e23d0f6cbf68176bca038c2491d3ef9583e2e8c9fa5c0fb844ce1c791f2e
               network:
                 interfaces:
                   - interface: enxa29e166d29cf
                     dhcp: true
+              # mayastor config
+              sysctls:
+                # enable huge page support for mayastor
+                vm.nr_hugepages: "1024"
+              nodeLabels:
+                # label workers as mayastor candidates
+                openebs.io/engine: mayastor
         k8s-worker-2:
           ansible_host: k8s-worker-2.lan
           kube:
             machine:
+              install:
+                extensions:
+                  - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4@sha256:cef7e23d0f6cbf68176bca038c2491d3ef9583e2e8c9fa5c0fb844ce1c791f2e
               network:
                 interfaces:
                   - interface: enx8a841969a9ab
                     dhcp: true
+              # mayastor config
+              sysctls:
+                # enable huge page support for mayastor
+                vm.nr_hugepages: "1024"
+              nodeLabels:
+                # label workers as mayastor candidates
+                openebs.io/engine: mayastor
+        k8s-worker-3:
+          ansible_host: k8s-worker-3.lan
+          kube:
+            machine:
+              install:
+                disk: /dev/nvme0n1
+                wipe: true
+                extensions:
+                  - image: ghcr.io/siderolabs/i915-ucode:20230804@sha256:c63532146ab92e3e31dc55d6947f99f2477b648e3e431d9c7fb0977265d89064
+                  - image: ghcr.io/siderolabs/intel-ucode:20230808@sha256:f9cf1174bb7833db4f1cc548d3fb8b61f0a93bb716368d5b846ce7298854cd71
+                  - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4@sha256:cef7e23d0f6cbf68176bca038c2491d3ef9583e2e8c9fa5c0fb844ce1c791f2e
+              network:
+                interfaces:
+                  - interface: enp2s0
+                    dhcp: true
+              nodeLabels:
+                intel.feature.node.kubernetes.io/gpu: "true"
