@@ -84,7 +84,7 @@ spec:
         type: custom
         volumeSpec:
           nfs:
-            server: nas-1.lan
+            server: nas-2.lan
             path: /volume1/Media
         mountPath: /media
 
