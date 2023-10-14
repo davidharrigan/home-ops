@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       interval: 30m
       sourceRef:
         kind: HelmRepository
@@ -16,19 +16,41 @@ spec:
         namespace: flux-system
   interval: 30m
   values:
-    controller:
-      type: statefulset
-
-    image:
-      repository: ghcr.io/onedr0p/plex
-      tag: 1.32.2.7100-248a2daf0@sha256:24b39030607af2ac007d48d508acdb136a925c1c66c2b495e18989eb857082ed
+    controllers:
+      main:
+        type: statefulset
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              accessMode: ReadWriteOnce
+              size: 15Gi
+              storageClass: mayastor-1
+              globalMounts:
+                - path: /config
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups:
+              - 44
+              - 109
+              - 65539
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/plex
+              tag: 1.32.2.7100-248a2daf0@sha256:24b39030607af2ac007d48d508acdb136a925c1c66c2b495e18989eb857082ed
+            resources:
+              requests:
+                cpu: 100m
+                memory: 1500Mi
+              limits:
+                memory: 3000Mi
 
     service:
       main:
-        type: LoadBalancer
-        externalTrafficPolicy: Cluster
-        annotations:
-          io.cilium/lb-ipam-ips: "192.168.42.51"
         ports:
           http:
             port: 32400
@@ -36,7 +58,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "nginx"
+        className: "nginx"
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/icon: "plex"
@@ -44,18 +66,11 @@ spec:
           - host: &host "plex.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
-                service:
-                  name: plex
-                  port: 32400
         tls:
           - hosts:
               - *host
 
     persistence:
-      config:
-        enabled: true
-        existingClaim: plex-config
       media:
         enabled: true
         type: custom
@@ -69,20 +84,3 @@ spec:
         enabled: true
         type: emptyDir
         medium: Memory
-
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups:
-        - 44
-        - 109
-        - 65539
-
-    resources:
-      requests:
-        cpu: 100m
-        memory: 1500Mi
-      limits:
-        memory: 3000Mi
