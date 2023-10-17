@@ -57,7 +57,13 @@ spec:
             #   type: loki
             #   access: proxy
             #   url: http://loki:3100
-
+    persistence:
+      type: pvc
+      enabled: false
+      storageClassName: mayastor
+      accessModes:
+        - ReadWriteOnce
+      size: 10Gi
     sidecar:
       dashboards:
         enabled: true
@@ -102,5 +108,3 @@ spec:
     serviceAccount:
       create: true
       autoMount: true
-    persistence:
-      enabled: false

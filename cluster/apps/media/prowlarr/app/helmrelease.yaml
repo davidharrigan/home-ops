@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -22,62 +22,105 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    image:
-      repository: ghcr.io/onedr0p/prowlarr
-      tag: 1.8.6.3946
-    env:
-      - name: TZ
-        value: America/New_York
-      - name: PROWLARR__INSTANCE_NAME
-        value: Radarr
-      - name: PROWLARR__PORT
-        value: &port 9896
-      - name: PROWLARR__APPLICATION_URL
-        value: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
-      - name: PROWLARR__LOG_LEVEL
-        value: info
-      - name: PROWLARR__API_KEY
-        valueFrom:
-          secretKeyRef:
-            name: prowlarr-secret
-            key: api_key
-      - name: PROWLARR__POSTGRES_HOST
-        valueFrom:
-          secretKeyRef:
-            name: prowlarr-secret
-            key: db_host
-      - name: PROWLARR__POSTGRES_PORT
-        valueFrom:
-          secretKeyRef:
-            name: prowlarr-secret
-            key: db_port
-      - name: PROWLARR__POSTGRES_USER
-        valueFrom:
-          secretKeyRef:
-            name: prowlarr-secret
-            key: db_user
-      - name: PROWLARR__POSTGRES_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: prowlarr-secret
-            key: db_pass
-      - name: PROWLARR__POSTGRES_MAIN_DB
-        valueFrom:
-          secretKeyRef:
-            name: prowlarr-secret
-            key: db_main
-      - name: PROWLARR__POSTGRES_LOG_DB
-        valueFrom:
-          secretKeyRef:
-            name: prowlarr-secret
-            key: db_logs
-    controller:
-      type: statefulset
+    controllers:
+      main:
+        type: statefulset
+        volumeClaimTemplates:
+          - name: config
+            accessMode: ReadWriteOnce
+            size: 5Gi
+            storageClass: mayastor
+            globalMounts:
+              - path: /config
+
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups: [10000]
+
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/prowlarr
+              tag: 1.8.6.3946
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: &port 9896
+                  initialDelaySeconds: 45
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 10m
+              limits:
+                memory: 500Mi
+                cpu: 200m
+            env:
+              - name: TZ
+                value: America/New_York
+              - name: PROWLARR__INSTANCE_NAME
+                value: Radarr
+              - name: PROWLARR__PORT
+                value: *port
+              - name: PROWLARR__APPLICATION_URL
+                value: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
+              - name: PROWLARR__LOG_LEVEL
+                value: info
+              - name: PROWLARR__API_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: prowlarr-secret
+                    key: api_key
+              - name: PROWLARR__POSTGRES_HOST
+                valueFrom:
+                  secretKeyRef:
+                    name: prowlarr-secret
+                    key: db_host
+              - name: PROWLARR__POSTGRES_PORT
+                valueFrom:
+                  secretKeyRef:
+                    name: prowlarr-secret
+                    key: db_port
+              - name: PROWLARR__POSTGRES_USER
+                valueFrom:
+                  secretKeyRef:
+                    name: prowlarr-secret
+                    key: db_user
+              - name: PROWLARR__POSTGRES_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: prowlarr-secret
+                    key: db_pass
+              - name: PROWLARR__POSTGRES_MAIN_DB
+                valueFrom:
+                  secretKeyRef:
+                    name: prowlarr-secret
+                    key: db_main
+              - name: PROWLARR__POSTGRES_LOG_DB
+                valueFrom:
+                  secretKeyRef:
+                    name: prowlarr-secret
+                    key: db_logs
+
     service:
       main:
         ports:
           http:
             port: *port
+
     ingress:
       main:
         enabled: true
@@ -97,31 +140,8 @@ spec:
         tls:
           - hosts:
               - *host
-    probes:
-      liveness: &probes
-        enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /ping
-            port: *port
-          initialDelaySeconds: 45
-          periodSeconds: 10
-          timeoutSeconds: 1
-          failureThreshold: 3
-      readiness: *probes
-      startup:
-        enabled: false
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
-      supplementalGroups: [10000]
+
     persistence:
-      config:
-        enabled: true
-        existingClaim: prowlarr-config
       media:
         enabled: true
         type: custom
@@ -130,10 +150,3 @@ spec:
             server: nas-2.lan
             path: /volume1/Media
         mountPath: /media
-    resources:
-      requests:
-        memory: 100Mi
-        cpu: 10m
-      limits:
-        memory: 500Mi
-        cpu: 200m

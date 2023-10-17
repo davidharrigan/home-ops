@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       interval: 30m
       sourceRef:
         kind: HelmRepository
@@ -18,36 +18,52 @@ spec:
         namespace: flux-system
 
   values:
-    controller:
-      type: statefulset
-
-    image:
-      repository: ghcr.io/onedr0p/sabnzbd
-      tag: 4.0.3@sha256:fd8695c1f3829f628220078c4aa11a82087f928ae5ed5ec3983c3dafff438396
-
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups:
-        - 65539
-
-    env:
-      SABNZBD__PORT: &port 8080
-      SABNZBD__API_KEY:
-        valueFrom:
-          secretKeyRef:
-            name: sabnzbd-secret
-            key: api_key
-      SABNZBD__NZB_KEY:
-        valueFrom:
-          secretKeyRef:
-            name: sabnzbd-secret
-            key: nzb_key
-      SABNZBD__HOST_WHITELIST_ENTRIES: >-
-        sabnzbd.media.svc.cluster.local,
-        sabnzbd.${SECRET_DOMAIN}
+    controllers:
+      main:
+        type: statefulset
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              accessMode: ReadWriteOnce
+              size: 5Gi
+              storageClass: mayastor
+              globalMounts:
+                - path: /config
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups:
+              - 65539
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/sabnzbd
+              tag: 4.0.3@sha256:fd8695c1f3829f628220078c4aa11a82087f928ae5ed5ec3983c3dafff438396
+            resources:
+              requests:
+                cpu: 5m
+                memory: 100Mi
+              limits:
+                cpu: 250m
+                memory: 500Mi
+            env:
+              SABNZBD__PORT: &port 8080
+              SABNZBD__API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: sabnzbd-secret
+                    key: api_key
+              SABNZBD__NZB_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: sabnzbd-secret
+                    key: nzb_key
+              SABNZBD__HOST_WHITELIST_ENTRIES: >-
+                sabnzbd.media.svc.cluster.local,
+                sabnzbd.${SECRET_DOMAIN}
 
     service:
       main:
@@ -76,9 +92,6 @@ spec:
               - *host
 
     persistence:
-      config:
-        enabled: true
-        existingClaim: sabnzbd-config
       media:
         enabled: true
         type: custom
@@ -87,11 +100,3 @@ spec:
             server: nas-2.lan
             path: /volume1/Media
         mountPath: /media
-
-    resources:
-      requests:
-        cpu: 5m
-        memory: 100Mi
-      limits:
-        cpu: 250m
-        memory: 500Mi

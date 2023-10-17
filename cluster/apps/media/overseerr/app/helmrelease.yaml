@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -26,20 +26,40 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    image:
-      repository: ghcr.io/sct/overseerr
-      tag: 1.33.0
-    controller:
-      type: statefulset
-    env:
-      TZ: America/New_York
-      LOG_LEVEL: "info"
-      PORT: &port 80
+    controllers:
+      main:
+        type: statefulset
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              accessMode: ReadWriteOnce
+              size: 3Gi
+              storageClass: mayastor
+              globalMounts:
+                - path: /app/config
+        containers:
+          main:
+            image:
+              repository: ghcr.io/sct/overseerr
+              tag: 1.33.0
+            env:
+              TZ: America/New_York
+              LOG_LEVEL: "info"
+              PORT: &port 80
+            resources:
+              requests:
+                cpu: 10m
+                memory: 250Mi
+              limits:
+                cpu: 500m
+                memory: 500Mi
+
     service:
       main:
         ports:
           http:
             port: *port
+
     ingress:
       main:
         enabled: true
@@ -59,15 +79,3 @@ spec:
         tls:
           - hosts:
               - *host
-    persistence:
-      config:
-        enabled: true
-        existingClaim: overseerr-config
-        mountPath: /app/config
-    resources:
-      requests:
-        cpu: 10m
-        memory: 250Mi
-      limits:
-        cpu: 500m
-        memory: 500Mi
