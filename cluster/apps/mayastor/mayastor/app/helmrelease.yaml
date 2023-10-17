@@ -30,7 +30,6 @@ spec:
     keepHistory: false
   values:
     etcd:
-      replicaCount: 1
       persistence:
         storageClassName: manual
     io_engine:
