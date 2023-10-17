@@ -14,6 +14,7 @@ controlplane:
           vip:
             ip: "{{ cluster_endpoint }}"
   cluster:
+    allowSchedulingOnControlPlanes: true
     clusterName: "{{ cluster_name }}"
     secretboxEncryptionSecret: "{{ secrets.cluster.secretboxEncryptionSecret }}"
     ca: "{{ certs.cluster }}"
