@@ -2,12 +2,12 @@
 apiVersion: "openebs.io/v1beta1"
 kind: DiskPool
 metadata:
-  name: k8s-worker-1-pool
+  name: k8s-server-1-pool
   namespace: mayastor
 spec:
-  node: k8s-worker-1
+  node: k8s-server-1.lan
   disks:
-    - /dev/sdb
+    - /dev/sda
 ---
 apiVersion: "openebs.io/v1beta1"
 kind: DiskPool
@@ -15,7 +15,7 @@ metadata:
   name: k8s-server-2-pool
   namespace: mayastor
 spec:
-  node: k8s-server-2
+  node: k8s-server-2.lan
   disks:
     - /dev/sda
 ---
@@ -25,6 +25,6 @@ metadata:
   name: k8s-server-3-pool
   namespace: mayastor
 spec:
-  node: k8s-server-3
+  node: k8s-server-3.lan
   disks:
     - /dev/sda
