@@ -18,39 +18,12 @@ kube:
           kube:
             machine:
               install:
+                wipe: true
                 extensions:
                   - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4@sha256:cef7e23d0f6cbf68176bca038c2491d3ef9583e2e8c9fa5c0fb844ce1c791f2e
               network:
                 interfaces:
                   - interface: enx3eb3c406fc9f
-                    dhcp: true
-                    vip:
-                      ip: 192.168.42.42
-        k8s-server-2:
-          ansible_host: k8s-server-2.lan
-          kube:
-            machine:
-              install:
-                disk: /dev/nvme0n1
-                extensions:
-                  - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4@sha256:cef7e23d0f6cbf68176bca038c2491d3ef9583e2e8c9fa5c0fb844ce1c791f2e
-              network:
-                interfaces:
-                  - interface: enp2s0
-                    dhcp: true
-                    vip:
-                      ip: 192.168.42.42
-        k8s-server-3:
-          ansible_host: k8s-server-3.lan
-          kube:
-            machine:
-              install:
-                disk: /dev/nvme0n1
-                extensions:
-                  - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4@sha256:cef7e23d0f6cbf68176bca038c2491d3ef9583e2e8c9fa5c0fb844ce1c791f2e
-              network:
-                interfaces:
-                  - interface: enp2s0
                     dhcp: true
                     vip:
                       ip: 192.168.42.42
@@ -67,28 +40,29 @@ kube:
                 interfaces:
                   - interface: enxa29e166d29cf
                     dhcp: true
-              # mayastor config
-              sysctls:
-                # enable huge page support for mayastor
-                vm.nr_hugepages: "1024"
-              nodeLabels:
-                # label workers as mayastor candidates
-                openebs.io/engine: mayastor
         k8s-worker-2:
           ansible_host: k8s-worker-2.lan
           kube:
             machine:
               install:
+                disk: /dev/nvme0n1
+                wipe: true
                 extensions:
                   - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4@sha256:cef7e23d0f6cbf68176bca038c2491d3ef9583e2e8c9fa5c0fb844ce1c791f2e
               network:
                 interfaces:
-                  - interface: enx8a841969a9ab
+                  - interface: enp2s0
                     dhcp: true
-              # mayastor config
-              sysctls:
-                # enable huge page support for mayastor
-                vm.nr_hugepages: "1024"
-              nodeLabels:
-                # label workers as mayastor candidates
-                openebs.io/engine: mayastor
+        k8s-worker-3:
+          ansible_host: k8s-worker-3.lan
+          kube:
+            machine:
+              install:
+                disk: /dev/nvme0n1
+                wipe: true
+                extensions:
+                  - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4@sha256:cef7e23d0f6cbf68176bca038c2491d3ef9583e2e8c9fa5c0fb844ce1c791f2e
+              network:
+                interfaces:
+                  - interface: enp2s0
+                    dhcp: true
