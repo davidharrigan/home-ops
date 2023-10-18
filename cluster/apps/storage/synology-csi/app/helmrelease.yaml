@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: synology-csi
-      version: 0.9.7
+      version: 0.9.3
       sourceRef:
         kind: HelmRepository
         name: synology-csi
@@ -26,15 +26,25 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    images:
+      plugin:
+        image: ghcr.io/zebernst/synology-csi
+        pullPolicy: IfNotPresent
+        tag: v1.1.2
     clientInfoSecret:
       create: false
       name: synology-csi-client-info
     storageClasses:
-      synology:
-        isDefault: false
-        reclaimPolicy: Retain
-        volumeBindingMode: Immediate
+      delete:
         parameters:
           dsm: nas-2.lan
           fsType: ext4
-          location: /volume2/cluster-services
+          location: /volume2
+          protocol: iscsi
+      retain:
+        isDefault: true
+        parameters:
+          dsm: nas-2.lan
+          fsType: ext4
+          location: /volume2
+          protocol: iscsi

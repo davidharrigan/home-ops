@@ -60,7 +60,7 @@ spec:
     persistence:
       type: pvc
       enabled: false
-      storageClassName: mayastor
+      storageClassName: "synology-csi-retain"
       accessModes:
         - ReadWriteOnce
       size: 10Gi
