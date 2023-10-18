@@ -26,13 +26,6 @@ kube:
                     dhcp: true
                     vip:
                       ip: 192.168.42.42
-              # mayastor config
-              sysctls:
-                # enable huge page support for mayastor
-                vm.nr_hugepages: "1024"
-              nodeLabels:
-                # label workers as mayastor candidates
-                openebs.io/engine: mayastor
         k8s-server-2:
           ansible_host: k8s-server-2.lan
           kube:
@@ -47,13 +40,6 @@ kube:
                     dhcp: true
                     vip:
                       ip: 192.168.42.42
-              # mayastor config
-              sysctls:
-                # enable huge page support for mayastor
-                vm.nr_hugepages: "1024"
-              nodeLabels:
-                # label workers as mayastor candidates
-                openebs.io/engine: mayastor
         k8s-server-3:
           ansible_host: k8s-server-3.lan
           kube:
@@ -68,13 +54,6 @@ kube:
                     dhcp: true
                     vip:
                       ip: 192.168.42.42
-              # mayastor config
-              sysctls:
-                # enable huge page support for mayastor
-                vm.nr_hugepages: "1024"
-              nodeLabels:
-                # label workers as mayastor candidates
-                openebs.io/engine: mayastor
     kube-worker:
       hosts:
         k8s-worker-1:
