@@ -1,0 +1,151 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: sonarr
+  namespace: media
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.0.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  upgrade:
+    cleanupOnFail: true
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        type: statefulset
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              accessMode: ReadWriteOnce
+              size: 5Gi
+              storageClass: synology-csi-retain
+              globalMounts:
+                - path: /config
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups: [10000]
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/sonarr
+              tag: 3.0.10@sha256:ea8acd3ec2c212e254c8c8f6d8f748227c0691d90816761d220bd3e4765b21c7
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: &port 8989
+                  initialDelaySeconds: 45
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 10m
+              limits:
+                memory: 500Mi
+                cpu: 200m
+            env:
+              - name: TZ
+                value: America/New_York
+              - name: SONARR__INSTANCE_NAME
+                value: Sonarr
+              - name: SONARR__PORT
+                value: *port
+              - name: SONARR__APPLICATION_URL
+                value: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
+              - name: SONARR__LOG_LEVEL
+                value: info
+              - name: SONARR__API_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: sonarr-secret
+                    key: api_key
+              - name: SONARR__POSTGRES_HOST
+                valueFrom:
+                  secretKeyRef:
+                    name: sonarr-secret
+                    key: db_host
+              - name: SONARR__POSTGRES_PORT
+                valueFrom:
+                  secretKeyRef:
+                    name: sonarr-secret
+                    key: db_port
+              - name: SONARR__POSTGRES_USER
+                valueFrom:
+                  secretKeyRef:
+                    name: sonarr-secret
+                    key: db_user
+              - name: SONARR__POSTGRES_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: sonarr-secret
+                    key: db_pass
+              - name: SONARR__POSTGRES_MAIN_DB
+                valueFrom:
+                  secretKeyRef:
+                    name: sonarr-secret
+                    key: db_main
+              - name: SONARR__POSTGRES_LOG_DB
+                valueFrom:
+                  secretKeyRef:
+                    name: sonarr-secret
+                    key: db_logs
+
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "filmstrip"
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            proxy_set_header Accept-Encoding "";
+            sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/sonarr/nord.css"></head>';
+            sub_filter_once on;
+        hosts:
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *host
+
+    persistence:
+      media:
+        enabled: true
+        type: custom
+        volumeSpec:
+          nfs:
+            server: nas-2.lan
+            path: /volume1/Media
+        mountPath: /media
