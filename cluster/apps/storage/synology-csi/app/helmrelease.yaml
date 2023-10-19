@@ -35,13 +35,13 @@ spec:
       create: false
       name: synology-csi-client-info
     storageClasses:
-      delete:
+      synology-csi-delete:
         parameters:
           dsm: nas-2.lan
           fsType: ext4
           location: /volume2
           protocol: iscsi
-      retain:
+      synology-csi-retain:
         isDefault: true
         parameters:
           dsm: nas-2.lan

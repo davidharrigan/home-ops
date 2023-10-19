@@ -29,7 +29,7 @@ spec:
           - name: config
             accessMode: ReadWriteOnce
             size: 5Gi
-            storageClass: mayastor
+            storageClass: synology-csi-retain
             globalMounts:
               - path: /config
 
