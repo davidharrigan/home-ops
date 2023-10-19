@@ -26,7 +26,8 @@ spec:
     env:
       GF_EXPLORE_ENABLED: true
       GF_PANELS_DISABLE_SANITIZE_HTML: true
-    adminPassword: changeme
+    admin:
+      existingSecret: grafana-secret
     grafana.ini:
       server:
         root_url: "https://grafana.${SECRET_DOMAIN}"
@@ -58,12 +59,8 @@ spec:
             #   access: proxy
             #   url: http://loki:3100
     persistence:
-      type: pvc
-      enabled: false
-      storageClassName: "synology-csi-retain"
-      accessModes:
-        - ReadWriteOnce
-      size: 10Gi
+      enabled: true
+      existingClaim: grafana-pvc
     sidecar:
       dashboards:
         enabled: true
