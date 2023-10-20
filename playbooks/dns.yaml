@@ -11,4 +11,4 @@
         name: sqlite3
         state: present
   roles:
-    - r_pufky.pihole
+    - pihole
