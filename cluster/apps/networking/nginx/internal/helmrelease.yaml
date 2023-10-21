@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: ingress-nginx
+  name: nginx-internal
   namespace: networking
 spec:
   interval: 30m
@@ -18,7 +18,7 @@ spec:
       interval: 30m
   values:
     controller:
-      replicaCount: 3
+      replicaCount: 1
       extraEnvs:
         - name: TZ
           value: America/New_York
@@ -37,6 +37,7 @@ spec:
         enabled: true
       ingressClassResource:
         default: true
+        name: internal
       config:
         client-header-timeout: 120
         client-body-buffer-size: "100M"
@@ -67,7 +68,7 @@ spec:
             any: true
       resources:
         requests:
-          cpu: 100m
+          cpu: 10m
           memory: 250Mi
         limits:
           memory: 750Mi
