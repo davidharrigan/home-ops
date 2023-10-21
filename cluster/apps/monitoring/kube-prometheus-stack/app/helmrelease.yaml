@@ -183,7 +183,7 @@ spec:
       ingress:
         enabled: false # TODO: enable
         pathType: Prefix
-        ingressClassName: "nginx"
+        ingressClassName: "internal"
         hosts:
           - &host "alertmanager.${SECRET_DOMAIN}"
         tls:
@@ -204,7 +204,7 @@ spec:
       ingress:
         enabled: true
         pathType: Prefix
-        ingressClassName: "nginx"
+        ingressClassName: "internal"
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/icon: "database-import-outline"
