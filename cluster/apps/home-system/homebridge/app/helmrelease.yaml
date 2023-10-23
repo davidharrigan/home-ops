@@ -1,0 +1,74 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: homebridge
+  namespace: home-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.0.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        type: statefulset
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              accessMode: ReadWriteOnce
+              size: 3Gi
+              storageClass: synology-csi-retain
+              globalMounts:
+                - path: /homebridge
+        containers:
+          main:
+            image:
+              repository: oznu/homebridge
+              tag: "2023-01-08"
+            env:
+              TZ: America/New_York
+            resources:
+              requests:
+                cpu: 10m
+                memory: 250Mi
+              limits:
+                cpu: 500m
+                memory: 500Mi
+
+    service:
+      main:
+        ports:
+          http:
+            port: 8581
+
+    ingress:
+      main:
+        enabled: true
+        className: internal
+        hosts:
+          - host: &host "homebridge.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *host
