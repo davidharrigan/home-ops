@@ -25,7 +25,7 @@ spec:
           volumeClaimTemplates:
             - name: config
               accessMode: ReadWriteOnce
-              size: 5Gi
+              size: 10Gi
               storageClass: synology-csi-retain
               globalMounts:
                 - path: /config
@@ -48,7 +48,7 @@ spec:
                 memory: 100Mi
               limits:
                 cpu: 250m
-                memory: 500Mi
+                memory: 3Gi
             env:
               SABNZBD__PORT: &port 8080
               SABNZBD__API_KEY:
