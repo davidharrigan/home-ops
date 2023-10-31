@@ -9,7 +9,7 @@ on:
       - .github/renovate.json5
       - .github/renovate/**.json5
   schedule:
-    - cron: "0/15 * * * *"
+    - cron: "0 * * * *"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
