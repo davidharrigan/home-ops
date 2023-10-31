@@ -17,10 +17,14 @@ jobs:
         path: ["cluster"]
         resource: ["helmrelease", "kustomization"]
     steps:
+      - name: Configure Github access # flux-local/action needs to accept a token
+        run: |
+          /usr/bin/git config --global url."https://${{ secrets.ACCESS_TOKEN }}@github.com/davidharrigan/home-ops".insteadOf https://github.com/davidharrigan/home-ops
       - name: Diff Resources
-        uses: allenporter/flux-local/action/diff@efbe055c6dc2a63d1102db582632d2aa03696664 # 3.1.1
+        uses: allenporter/flux-local/action/diff@3.1.1
         id: diff
         with:
+          live-branch: main
           sources: home-cluster
           path: "${{ matrix.path }}"
           resource: "${{ matrix.resource }}"
@@ -29,7 +33,7 @@ jobs:
         name: Add comment
         uses: mshick/add-pr-comment@7c0890544fb33b0bdd2e59467fbacb62e028a096 # v2.8.1
         with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          repo-token: "${{ secrets.ACCESS_TOKEN }}"
           message-id: "${{ github.event.pull_request.number }}/${{ matrix.path }}/${{ matrix.resource }}"
           message-failure: Diff was not successful
           message: |
