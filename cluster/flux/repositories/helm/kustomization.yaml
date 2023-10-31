@@ -11,6 +11,7 @@ resources:
   - ./jetstack.yaml
   - ./k8s-gateway.yaml
   - ./kubernetes-sigs-metrics-server.yaml
+  - ./kubernetes-sigs-nfd.yaml
   - ./postfinance.yaml
   - ./prometheus-community.yaml
   - ./stakater.yaml
