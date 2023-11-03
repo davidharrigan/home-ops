@@ -37,6 +37,9 @@ spec:
               storageClass: synology-csi-retain
               globalMounts:
                 - path: /app/config
+        pod:
+          annotations:
+            policy.cilium.io/proxy-visibility: '<Ingress/80/TCP/HTTP>'
         containers:
           main:
             image:
