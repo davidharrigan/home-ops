@@ -1,5 +1,4 @@
 ---
-talos_version: v1.5.2
 k8s_version: v1.28.1
 talos_dir: "{{[ playbook_dir, '..', 'talos '] | path_join | trim }}"
 manifests_dir: "{{ talos_dir }}/manifests"
@@ -41,9 +40,9 @@ defaults:
     # Used to provide instructions for installations.
     install:
       # The disk used for installations.
-      disk: /dev/sda
+      disk:
       # Allows for supplying the image used to perform the installation.
-      image: ghcr.io/siderolabs/installer:{{ talos_version }}
+      image: factory.talos.dev/installer/2dcd442954d67662d41c61bdb92165aaf7189aff9997bd011b6968c12ce8d9c0:v1.5.2
       # Indicates if the installation disk should be wiped at installation time.
       wipe: false
     # Used to configure the machine's container image registry mirrors.

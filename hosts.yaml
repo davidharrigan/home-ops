@@ -18,8 +18,7 @@ kube:
           kube:
             machine:
               install:
-                extensions:
-                  - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4@sha256:cef7e23d0f6cbf68176bca038c2491d3ef9583e2e8c9fa5c0fb844ce1c791f2e
+                disk: /dev/sda
               network:
                 interfaces:
                   - interface: enx3eb3c406fc9f
@@ -32,8 +31,6 @@ kube:
             machine:
               install:
                 disk: /dev/nvme0n1
-                extensions:
-                  - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4@sha256:cef7e23d0f6cbf68176bca038c2491d3ef9583e2e8c9fa5c0fb844ce1c791f2e
               network:
                 interfaces:
                   - interface: enp2s0
@@ -46,8 +43,6 @@ kube:
             machine:
               install:
                 disk: /dev/nvme0n1
-                extensions:
-                  - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4@sha256:cef7e23d0f6cbf68176bca038c2491d3ef9583e2e8c9fa5c0fb844ce1c791f2e
               network:
                 interfaces:
                   - interface: enp2s0
@@ -61,8 +56,7 @@ kube:
           kube:
             machine:
               install:
-                extensions:
-                  - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4@sha256:cef7e23d0f6cbf68176bca038c2491d3ef9583e2e8c9fa5c0fb844ce1c791f2e
+                disk: /dev/sda
               network:
                 interfaces:
                   - interface: enxa29e166d29cf
@@ -73,7 +67,6 @@ kube:
             machine:
               install:
                 disk: /dev/nvme0n1
-                image: factory.talos.dev/installer/2dcd442954d67662d41c61bdb92165aaf7189aff9997bd011b6968c12ce8d9c0:v1.5.2
               network:
                 interfaces:
                   - interface: enp2s0
