@@ -42,7 +42,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/radarr-develop
-              tag: 4.7.1.7640@sha256:fd475f0dcc5a2ef00193b17e548b4a4d4776b7b2cf32e0ff3adb5ee2aa836f20
+              tag: 5.2.6.8376@sha256:73f934fcaa652d0ee41af3038b943a3a1ee5146ad17646b99ed425f657a1b44a
             probes:
               liveness: &probes
                 enabled: true
