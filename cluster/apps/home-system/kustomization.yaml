@@ -6,3 +6,4 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./homebridge/ks.yaml
+  - ./esphome/ks.yaml
