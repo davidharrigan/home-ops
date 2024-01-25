@@ -1,0 +1,23 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+  name: home-assistant
+  namespace: home-system
+spec:
+  ingressClassName: internal
+  rules:
+    - host: home.${SECRET_DOMAIN}
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: home-assistant
+                port:
+                  name: http
+  tls:
+    - hosts:
+        - home.${SECRET_DOMAIN}

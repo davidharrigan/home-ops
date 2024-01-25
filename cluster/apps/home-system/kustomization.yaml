@@ -7,3 +7,4 @@ resources:
   # Flux-Kustomizations
   - ./homebridge/ks.yaml
   - ./esphome/ks.yaml
+  - ./home-assistant/ks.yaml
