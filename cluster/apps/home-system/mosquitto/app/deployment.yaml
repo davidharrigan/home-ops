@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mosquitto
+  namespace: home-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mosquitto
+  template:
+    metadata:
+      labels:
+        app: mosquitto
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: main
+          image: eclipse-mosquitto:2.0.18
+          imagePullPolicy: IfNotPresent
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
+          resources:
+            requests:
+              cpu: 10m
+              memory: 10Mi
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          volumeMounts:
+            - mountPath: /mosquitto/config/mosquitto.conf
+              subPath: mosquitto.conf
+              name: config
+      volumes:
+        - name: config
+          configMap:
+            name: mosquitto-config

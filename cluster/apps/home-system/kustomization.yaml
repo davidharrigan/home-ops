@@ -8,3 +8,4 @@ resources:
   - ./homebridge/ks.yaml
   - ./esphome/ks.yaml
   - ./home-assistant/ks.yaml
+  - ./mosquitto/ks.yaml
