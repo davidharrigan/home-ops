@@ -17,7 +17,7 @@ spec:
       restartPolicy: Always
       containers:
         - name: main
-          image: ghcr.io/home-assistant/home-assistant:2024.2.3
+          image: ghcr.io/home-assistant/home-assistant:2024.3.1
           imagePullPolicy: IfNotPresent
           probes:
             liveness:
