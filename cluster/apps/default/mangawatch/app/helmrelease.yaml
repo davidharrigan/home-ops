@@ -36,7 +36,7 @@ spec:
           main:
             image:
               repository: ghcr.io/davidharrigan/manga-scraper
-              tag: 0.0.11
+              tag: 0.0.12
             env:
               - name: MANGA_SCRAPER_LOGGING_LEVEL
                 value: "info"
@@ -92,9 +92,6 @@ spec:
     ingress:
       main:
         enabled: true
-        className: external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
         hosts:
           - host: &host "manga.${SECRET_DOMAIN}"
             paths:
