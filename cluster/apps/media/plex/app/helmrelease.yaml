@@ -44,7 +44,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/plex
-              tag: 1.40.1.8227-c0dd5a73e
+              tag: 1.40.2.8395-c67dce28e
             env:
               TZ: America/New_York
               PLEX_ADVERTISE_URL: https://plex.${SECRET_DOMAIN}:443, http://192.168.42.54:32400
@@ -54,12 +54,11 @@ spec:
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 100m
-                memory: 1500Mi
-                gpu.intel.com/i915: 1
+                cpu: 500m
+                memory: 2Gi
+                gpu.intel.com/i915: "3"
               limits:
-                memory: 3000Mi
-                gpu.intel.com/i915: 1
+                gpu.intel.com/i915: "3"
 
     service:
       main:
