@@ -45,7 +45,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/prowlarr
-              tag: 1.15.0.4361
+              tag: 1.19.0.4568
             probes:
               liveness: &probes
                 enabled: true
