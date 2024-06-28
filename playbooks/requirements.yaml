@@ -3,7 +3,7 @@ collections:
   - name: community.general
     version: 8.3.0
   - name: community.sops
-    version: 1.6.7
+    version: 1.7.0
 roles:
   - name: r_pufky.pihole
     version: 3.0.4
