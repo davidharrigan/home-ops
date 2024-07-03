@@ -43,7 +43,7 @@ inline_manifests:
           helmCharts:
             - name: cilium
               repo: https://helm.cilium.io/
-              version: 1.14.2
+              version: 1.15.6
               releaseName: cilium
               namespace: kube-system
               valuesFile: values.yaml
