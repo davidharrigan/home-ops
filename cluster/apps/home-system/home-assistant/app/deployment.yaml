@@ -22,7 +22,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: main
-          image: ghcr.io/onedr0p/home-assistant:2024.4.0
+          image: ghcr.io/onedr0p/home-assistant:2024.7.1
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
