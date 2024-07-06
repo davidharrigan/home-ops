@@ -5,7 +5,8 @@ cluster:
   id: 1
 ipam:
   mode: kubernetes
-kubeProxyReplacement: strict
+kubeProxyReplacement: true
+kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
 securityContext:
   capabilities:
     ciliumAgent:
@@ -31,3 +32,5 @@ cgroup:
 ipv4NativeRoutingCIDR: 10.244.0.0/16
 k8sServiceHost: localhost
 k8sServicePort: 7445
+l2announcements:
+  enabled: true

@@ -10,7 +10,7 @@ inline_manifests:
             id: 1
           ipam:
             mode: kubernetes
-          kubeProxyReplacement: strict
+          kubeProxyReplacement: true
           securityContext:
             capabilities:
               ciliumAgent:

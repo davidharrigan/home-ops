@@ -1,5 +1,5 @@
 ---
-autoDirectNodeRoutes: true
+autoDirectNodeRoutes: false
 bpf:
   masquerade: true
 bgp:
@@ -12,7 +12,7 @@ hubble:
   enabled: true
   metrics:
     enabled:
-      - dns:query
+      - dns:query:ignoreAAAA
       - drop
       - tcp
       - flow
@@ -44,11 +44,6 @@ hubble:
             - *host
 l2announcements:
   enabled: true
-  # https://github.com/cilium/cilium/issues/26586
-  leaseDuration: 120s
-  leaseRenewDeadline: 60s
-  leaseRetryPeriod: 1s
-l7Proxy: true
 loadBalancer:
   algorithm: maglev
   mode: dsr
@@ -74,6 +69,6 @@ dashboards:
   annotations:
     grafana_folder: Cilium
 rollOutCiliumPods: true
+routingMode: native
 securityContext:
   privileged: true
-tunnel: disabled

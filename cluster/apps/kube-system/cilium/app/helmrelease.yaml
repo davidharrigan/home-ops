@@ -27,5 +27,5 @@ spec:
   valuesFrom:
     - kind: ConfigMap
       name: cilium-cni-config
-    - kind: ConfigMap
-      name: cilium-values
+    # - kind: ConfigMap
+    #   name: cilium-values
