@@ -26,11 +26,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    images:
-      plugin:
-        image: ghcr.io/zebernst/synology-csi
-        pullPolicy: IfNotPresent
-        tag: v1.1.2
     clientInfoSecret:
       create: false
       name: synology-csi-client-info
