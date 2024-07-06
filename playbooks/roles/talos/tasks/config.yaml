@@ -35,7 +35,7 @@
     cmd: "kubectl kustomize --enable-helm {{ [ talos_dir, 'manifests', item.name ] | path_join }} > {{ [ talos_dir, 'manifests', item.name, 'manifest.yaml' ] | path_join }}"
   when: item.run == "kustomize"
   run_once: true
-  no_log: true
+  # no_log: true
   delegate_to: 127.0.0.1
   with_items: "{{ inline_manifests }}"
 

@@ -4,11 +4,12 @@ apiVersion: cilium.io/v2alpha1
 kind: CiliumL2AnnouncementPolicy
 metadata:
   name: l2-policy
+  namespace: kube-system
 spec:
   loadBalancerIPs: true
   interfaces:
-    - ^enx[a-b0-9]+
-    - enp2s0
+    # - ^enx[a-b0-9]+
+    - "^enp.*"
   nodeSelector:
     matchLabels:
       kubernetes.io/os: linux

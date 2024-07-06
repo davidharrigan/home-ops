@@ -5,13 +5,41 @@ inline_manifests:
     files:
       - name: values.yaml
         contents:
+          autoDirectNodeRoutes: true
+          bandwidthManager:
+            enabled: true
+            bbr: true
+          bpf:
+            masquerade: true
+            tproxy: true
+          cgroup:
+            autoMount:
+              enabled: false
+            hostRoot: /sys/fs/cgroup
           cluster:
             name: home_cluster
             id: 1
+          endpointRoutes:
+            enabled: true
+          hubble:
+            enabled: false
           ipam:
             mode: kubernetes
+          ipv4NativeRoutingCIDR: 10.244.0.0/16
+          k8sServiceHost: localhost
+          k8sServicePort: 7445
           kubeProxyReplacement: true
           kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+          l2announcements:
+            enabled: true
+          loadBalancer:
+            algorithm: maglev
+            mode: dsr
+          localRedirectPolicy: true
+          operator:
+            rollOutPods: true
+          rollOutCiliumPods: true
+          routingMode: native
           securityContext:
             capabilities:
               ciliumAgent:
@@ -30,13 +58,6 @@ inline_manifests:
                 - NET_ADMIN
                 - SYS_ADMIN
                 - SYS_RESOURCE
-          cgroup:
-            autoMount:
-              enabled: false
-            hostRoot: /sys/fs/cgroup
-          ipv4NativeRoutingCIDR: 10.244.0.0/16
-          k8sServiceHost: localhost
-          k8sServicePort: 7445
       - name: kustomization.yaml
         contents:
           apiVersion: kustomize.config.k8s.io/v1beta1
