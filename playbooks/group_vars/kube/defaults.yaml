@@ -1,5 +1,8 @@
+# image schematic id: ed036d0640097a4e7af413ee089851a12963cd2e2e1715f8866d551d17c2ec62
 ---
-k8s_version: v1.28.1
+k8s_version: v1.30.1
+talos_schematic_id: ed036d0640097a4e7af413ee089851a12963cd2e2e1715f8866d551d17c2ec62
+talos_version: v1.7.5
 talos_dir: "{{[ playbook_dir, '..', 'talos '] | path_join | trim }}"
 manifests_dir: "{{ talos_dir }}/manifests"
 
@@ -42,7 +45,7 @@ defaults:
       # The disk used for installations.
       disk:
       # Allows for supplying the image used to perform the installation.
-      image: factory.talos.dev/installer/2dcd442954d67662d41c61bdb92165aaf7189aff9997bd011b6968c12ce8d9c0:v1.5.2
+      image: factory.talos.dev/installer/{{ talos_schematic_id }}:{{ talos_version }}
       # Indicates if the installation disk should be wiped at installation time.
       wipe: false
     # Used to configure the machine's container image registry mirrors.

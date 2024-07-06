@@ -41,27 +41,6 @@ mv age.agekey ~/.config/sops/age/home-ops.txt
 direnv allow .
 ```
 
-## Networking
-
-| Name                | CIDR              |
-| ------------------- | ----------------- |
-| Management          | `192.168.10.0/24` |
-| Users               | `192.168.20.0/24` |
-| Servers             | `192.168.42.0/24` |
-| IoT                 | `192.168.50.0/24` |
-| Kubernetes pods     | `10.244.0.0/16`   |
-| Kubernetes services | `10.96.0.0/16`    |
-
-### Fixed IPs
-
-| Name              | IPs                               |
-| ----------------- | --------------------------------- |
-| DNS / DHCP        | `192.168.42.10`                   |
-| Proxmox           | `192.168.42.11`              |
-| Kube Endpoint VIP | `192.168.42.42`                   |
-| Kube LB Range     | `192.168.42.50 - 192.168.42.60`   |
-| DHCP Range        | `192.168.42.100 - 192.168.42.250` |
-
 ## Bootstrapping k8s
 
 ### Prepare nodes
@@ -79,14 +58,14 @@ talosctl apply-config -e k8s-server-1.lan -n k8s-server-1.lan --file=./talos/k8s
 
 ```bash
 # bootstrap etcd (only needed to run on one node)
-talosctl bootstrap -e k8s-server-1 -n k8s-server-1
+talosctl bootstrap -e k8s-server-1.lan -n k8s-server-1.lan
 ```
 
 ```bash
 # repeat applying config to reset of the nodes
 # --insecure required only for the initial config apply
-talosctl apply-config -n k8s-worker-1 --file=./talos/k8s-worker-1.yaml --insecure
-talosctl apply-config -n k8s-worker-2 --file=./talos/k8s-worker-2.yaml --insecure
+talosctl apply-config -n k8s-worker-1.lan --file=./talos/k8s-worker-1.yaml --insecure
+talosctl apply-config -n k8s-worker-2.lan --file=./talos/k8s-worker-2.yaml --insecure
 ```
 
 ### Install Flux

@@ -18,30 +18,6 @@ kube:
           kube:
             machine:
               install:
-                disk: /dev/sda
-              network:
-                interfaces:
-                  - interface: enx3eb3c406fc9f
-                    dhcp: true
-                    vip:
-                      ip: 192.168.42.42
-        k8s-server-2:
-          ansible_host: k8s-server-2.lan
-          kube:
-            machine:
-              install:
-                disk: /dev/nvme0n1
-              network:
-                interfaces:
-                  - interface: enp2s0
-                    dhcp: true
-                    vip:
-                      ip: 192.168.42.42
-        k8s-server-3:
-          ansible_host: k8s-server-3.lan
-          kube:
-            machine:
-              install:
                 disk: /dev/nvme0n1
               network:
                 interfaces:
@@ -56,11 +32,13 @@ kube:
           kube:
             machine:
               install:
-                disk: /dev/sda
+                disk: /dev/nvme0n1
               network:
                 interfaces:
-                  - interface: enxa29e166d29cf
+                  - interface: enp2s0
                     dhcp: true
+              sysctls:
+                vm.nr_hugepages: "1024"
         k8s-worker-2:
           ansible_host: k8s-worker-2.lan
           kube:
@@ -71,5 +49,5 @@ kube:
                 interfaces:
                   - interface: enp2s0
                     dhcp: true
-              sysctls:
-                vm.nr_hugepages: "1024"
+                    vip:
+                      ip: 192.168.42.42
