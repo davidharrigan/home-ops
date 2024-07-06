@@ -11,6 +11,7 @@ inline_manifests:
           ipam:
             mode: kubernetes
           kubeProxyReplacement: true
+          kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
           securityContext:
             capabilities:
               ciliumAgent:

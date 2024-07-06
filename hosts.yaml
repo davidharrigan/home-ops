@@ -49,5 +49,3 @@ kube:
                 interfaces:
                   - interface: enp2s0
                     dhcp: true
-                    vip:
-                      ip: 192.168.42.42

@@ -68,6 +68,11 @@ talosctl apply-config -n k8s-worker-1.lan --file=./talos/k8s-worker-1.yaml --ins
 talosctl apply-config -n k8s-worker-2.lan --file=./talos/k8s-worker-2.yaml --insecure
 ```
 
+```bash
+# get kubeconfig
+talosctl -n k8s-server-1.lan kubeconfig
+```
+
 ### Install Flux
 
 ```bash
