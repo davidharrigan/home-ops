@@ -24,22 +24,17 @@ spec:
   values:
     controllers:
       main:
-        type: statefulset
-        volumeClaimTemplates:
-          - name: config
-            accessMode: ReadWriteOnce
-            size: 5Gi
-            storageClass: synology-csi-retain
-            globalMounts:
-              - path: /config
-
         pod:
           securityContext:
+            runAsNonRoot: true
             runAsUser: 568
             runAsGroup: 568
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups: [10000]
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+            seccompProfile: { type: RuntimeDefault }
 
         containers:
           main:
@@ -71,49 +66,48 @@ spec:
             env:
               - name: TZ
                 value: America/New_York
-              - name: PROWLARR__INSTANCE_NAME
-                value: Radarr
-              - name: PROWLARR__PORT
-                value: *port
-              - name: PROWLARR__APPLICATION_URL
-                value: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
-              - name: PROWLARR__LOG_LEVEL
-                value: info
-              - name: PROWLARR__API_KEY
+              - name: PROWLARR__APP__INSTANCENAME
+                value: Prowlarr
+              - name: PROWLARR__AUTH__METHOD
+                value: External
+              - name: PROWLARR__AUTH__REQUIRED
+                value: DisabledForLocalAddress
+              - name: PROWLARR__AUTH__APIKEY
                 valueFrom:
                   secretKeyRef:
                     name: prowlarr-secret
                     key: api_key
-              - name: PROWLARR__POSTGRES_HOST
+              - name: PROWLARR__SERVER__PORT
+                value: *port
+              - name: PROWLARR__POSTGRES__HOST
                 valueFrom:
                   secretKeyRef:
                     name: prowlarr-secret
                     key: db_host
-              - name: PROWLARR__POSTGRES_PORT
+              - name: PROWLARR__POSTGRES__PORT
                 valueFrom:
                   secretKeyRef:
                     name: prowlarr-secret
                     key: db_port
-              - name: PROWLARR__POSTGRES_USER
+              - name: PROWLARR__POSTGRES__USER
                 valueFrom:
                   secretKeyRef:
                     name: prowlarr-secret
                     key: db_user
-              - name: PROWLARR__POSTGRES_PASSWORD
+              - name: PROWLARR__POSTGRES__PASSWORD
                 valueFrom:
                   secretKeyRef:
                     name: prowlarr-secret
                     key: db_pass
-              - name: PROWLARR__POSTGRES_MAIN_DB
+              - name: PROWLARR__POSTGRES__MAINDB
                 valueFrom:
                   secretKeyRef:
                     name: prowlarr-secret
                     key: db_main
-              - name: PROWLARR__POSTGRES_LOG_DB
-                valueFrom:
-                  secretKeyRef:
-                    name: prowlarr-secret
-                    key: db_logs
+              - name: PROWLARR__LOG__DBENABLED
+                value: "False"
+              - name: PROWLARR__LOG__LEVEL
+                value: info
 
     service:
       main:
@@ -144,6 +138,10 @@ spec:
               - *host
 
     persistence:
+      config:
+        type: emptyDir
+      tmp:
+        type: emptyDir
       media:
         enabled: true
         type: custom
