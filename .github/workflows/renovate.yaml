@@ -1,0 +1,28 @@
+---
+name: "renovate"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/renovate.json5
+      - .github/renovate/**.json5
+  schedule:
+    - cron: "0/15 * * * *"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.7
+      - name: Self-hosted Renovate
+        uses: renovatebot/github-action@v40.2.2
+        with:
+          configurationFile: .github/renovate.json5
+          token: ${{ secrets.RENOVATE_TOKEN }}

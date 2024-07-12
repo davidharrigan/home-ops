@@ -33,5 +33,10 @@
       matchManagers: ["github-actions"],
       addLabels: ["renovate/github-action"],
     },
+    {
+      description: "media apps",
+      matchFileNames: ["cluster/apps/media/**.yaml"],
+      addLabels: ["media"],
+    },
   ],
 }

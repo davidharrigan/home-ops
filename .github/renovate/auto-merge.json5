@@ -10,12 +10,18 @@
       matchUpdateTypes: ["minor", "patch", "digest"],
     },
     {
-      description: "Auto merge container digests",
+      description: "Auto merge container",
       matchDatasources: ["docker"],
       automerge: true,
       automergeType: "branch",
-      ignoreTests: true,
       matchUpdateTypes: ["digest"],
+    },
+    {
+      description: "Auto merge KPS minors and patches",
+      matchDatasources: ["helm"],
+      automerge: true,
+      matchUpdateTypes: ["minor", "patch"],
+      matchPackageNames: ["kube-prometheus-stack"],
     },
   ],
 }
