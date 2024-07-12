@@ -42,7 +42,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/sonarr
-              tag: 4.0.6@sha256:7b1c3ea6a392b764eba6c9536dddbb1ad046d911d1a257e1d1e27b019996a1ed
+              tag: 4.0.6.1805@sha256:7b1c3ea6a392b764eba6c9536dddbb1ad046d911d1a257e1d1e27b019996a1ed
             probes:
               liveness: &probes
                 enabled: true
@@ -68,49 +68,48 @@ spec:
             env:
               - name: TZ
                 value: America/New_York
-              - name: SONARR__INSTANCE_NAME
+              - name: SONARR__APP__INSTANCENAME
                 value: Sonarr
-              - name: SONARR__PORT
+              - name: SONARR__SERVER__PORT
                 value: *port
-              - name: SONARR__APPLICATION_URL
-                value: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
-              - name: SONARR__LOG_LEVEL
+              - name: SONARR__LOG__LEVEL
                 value: info
-              - name: SONARR__API_KEY
+              - name: SONARR__LOG__DBENABLED
+                value: "False"
+              - name: SONARR__AUTH__REQUIRED
+                value: DisabledForLocalAddress
+              - name: SONARR__AUTH__METHOD
+                value: External
+              - name: SONARR__AUTH__APIKEY
                 valueFrom:
                   secretKeyRef:
                     name: sonarr-secret
                     key: api_key
-              - name: SONARR__POSTGRES_HOST
+              - name: SONARR__POSTGRES__HOST
                 valueFrom:
                   secretKeyRef:
                     name: sonarr-secret
                     key: db_host
-              - name: SONARR__POSTGRES_PORT
+              - name: SONARR__POSTGRES__PORT
                 valueFrom:
                   secretKeyRef:
                     name: sonarr-secret
                     key: db_port
-              - name: SONARR__POSTGRES_USER
+              - name: SONARR__POSTGRES__USER
                 valueFrom:
                   secretKeyRef:
                     name: sonarr-secret
                     key: db_user
-              - name: SONARR__POSTGRES_PASSWORD
+              - name: SONARR__POSTGRES__PASSWORD
                 valueFrom:
                   secretKeyRef:
                     name: sonarr-secret
                     key: db_pass
-              - name: SONARR__POSTGRES_MAIN_DB
+              - name: SONARR__POSTGRES__MAINDB
                 valueFrom:
                   secretKeyRef:
                     name: sonarr-secret
                     key: db_main
-              - name: SONARR__POSTGRES_LOG_DB
-                valueFrom:
-                  secretKeyRef:
-                    name: sonarr-secret
-                    key: db_logs
 
     service:
       main:
