@@ -1,7 +1,7 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: [
-    "config:base",
+    "config:recommended",
     "docker:enableMajor",
     ":disableRateLimiting",
     ":dependencyDashboard",
@@ -14,30 +14,22 @@
     "github>davidharrigan/home-ops//.github/renovate/labels.json5",
     "github>davidharrigan/home-ops//.github/renovate/semanticCommits.json5",
   ],
-  suppressNotifications: ["prIgnoreNotification"],
+  suppressNotifications: ["prIgnoreNotification", "prEditNotification"],
   rebaseWhen: "conflicted",
-  timezone: "America/New_York",
-  schedule: ["after 3pm on friday"],
 
   // manager rules: https://docs.renovatebot.com/modules/manager/
   flux: {
     fileMatch: [
-      "(^|/)ansible/.+\\.ya?ml(\\.j2)?(\\.j2)?$",
       "(^|/)cluster/.+\\.ya?ml(\\.j2)?(\\.j2)?$",
     ],
   },
   "helm-values": {
     fileMatch: [
-      "(^|/)ansible/.+\\.ya?ml(\\.j2)?(\\.j2)?$",
       "(^|/)cluster/.+\\.ya?ml(\\.j2)?(\\.j2)?$",
     ],
   },
-  helmv3: {
-    fileMatch: ["charts/.+/Chart\\.yaml$"],
-  },
   kubernetes: {
     fileMatch: [
-      "(^|/)ansible/.+\\.ya?ml(\\.j2)?(\\.j2)?$",
       "(^|/)cluster/.+\\.ya?ml(\\.j2)?(\\.j2)?$",
     ],
   },
