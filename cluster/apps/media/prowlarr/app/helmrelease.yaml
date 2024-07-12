@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.0.3
+      version: 3.2.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -23,21 +23,11 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
-        pod:
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
-            capabilities: { drop: ["ALL"] }
-            seccompProfile: { type: RuntimeDefault }
-
+      prowlarr:
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/prowlarr
               tag: 1.20.1.4603@sha256:8d081847a6cd85290471f5493fe708fc9c7f7c9273d549cfa212f401b8ccd02e
@@ -108,16 +98,26 @@ spec:
                 value: "False"
               - name: PROWLARR__LOG__LEVEL
                 value: info
+            securityContext:
+              runAsNonRoot: true
+              runAsUser: 568
+              runAsGroup: 568
+              fsGroup: 568
+              fsGroupChangePolicy: OnRootMismatch
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+              seccompProfile: { type: RuntimeDefault }
 
     service:
-      main:
+      app:
+        controller: prowlarr
         ports:
           http:
             port: *port
 
     ingress:
-      main:
-        enabled: true
+      app:
         className: "internal"
         annotations:
           hajimari.io/enable: "true"
@@ -131,7 +131,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
@@ -143,10 +143,8 @@ spec:
       tmp:
         type: emptyDir
       media:
-        enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            server: nas-2.lan
-            path: /volume1/Media
-        mountPath: /media
+        type: nfs
+        server: nas-2.lan
+        path: /volume1/Media
+        globalMounts:
+          - path: /media

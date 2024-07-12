@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pvc-5109ce12-9d57-477c-91e5-31ea2cef02ad
+  annotations:
+    pv.kubernetes.io/provisioned-by: csi.san.synology.com
+spec:
+  capacity:
+    storage: 5Gi
+  csi:
+    driver: csi.san.synology.com
+    volumeHandle: c30702a8-7043-4ec2-ab09-9daa9aa9adea
+    fsType: ext4
+    volumeAttributes:
+      dsm: nas-2.lan
+      formatOptions: ""
+      protocol: iscsi
+      source: ""
+      storage.kubernetes.io/csiProvisionerIdentity: 1720316590005-8081-csi.san.synology.com
+  accessModes:
+    - ReadWriteOnce
+  claimRef:
+    kind: PersistentVolumeClaim
+    namespace: media
+    name: config-prowlarr-0
+    uid: 5109ce12-9d57-477c-91e5-31ea2cef02ad
+    apiVersion: v1
+    resourceVersion: "3439"
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: synology-csi-retain
+  volumeMode: Filesystem
