@@ -68,49 +68,48 @@ spec:
             env:
               - name: TZ
                 value: America/New_York
-              - name: RADARR__INSTANCE_NAME
+              - name: RADARR__APP__INSTANCENAME
                 value: Radarr
-              - name: RADARR__PORT
-                value: *port
-              - name: RADARR__APPLICATION_URL
-                value: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
-              - name: RADARR__LOG_LEVEL
-                value: info
-              - name: RADARR__API_KEY
+              - name: RADARR__AUTH__METHOD
+                value: External
+              - name: RADARR__AUTH__REQUIRED
+                value: DisabledForLocalAddress
+              - name: RADARR__AUTH__APIKEY
                 valueFrom:
                   secretKeyRef:
                     name: radarr-secret
                     key: api_key
-              - name: RADARR__POSTGRES_HOST
+              - name: RADARR__LOG__LEVEL
+                value: info
+              - name: RADARR__LOG__DBENABLED
+                value: "False"
+              - name: RADARR__SERVER__PORT
+                value: *port
+              - name: RADARR__POSTGRES__HOST
                 valueFrom:
                   secretKeyRef:
                     name: radarr-secret
                     key: db_host
-              - name: RADARR__POSTGRES_PORT
+              - name: RADARR__POSTGRES__PORT
                 valueFrom:
                   secretKeyRef:
                     name: radarr-secret
                     key: db_port
-              - name: RADARR__POSTGRES_USER
+              - name: RADARR__POSTGRES__USER
                 valueFrom:
                   secretKeyRef:
                     name: radarr-secret
                     key: db_user
-              - name: RADARR__POSTGRES_PASSWORD
+              - name: RADARR__POSTGRES__PASSWORD
                 valueFrom:
                   secretKeyRef:
                     name: radarr-secret
                     key: db_pass
-              - name: RADARR__POSTGRES_MAIN_DB
+              - name: RADARR__POSTGRES__MAINDB
                 valueFrom:
                   secretKeyRef:
                     name: radarr-secret
                     key: db_main
-              - name: RADARR__POSTGRES_LOG_DB
-                valueFrom:
-                  secretKeyRef:
-                    name: radarr-secret
-                    key: db_logs
 
     service:
       main:
