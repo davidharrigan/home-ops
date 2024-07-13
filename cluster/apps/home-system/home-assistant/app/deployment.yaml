@@ -1,9 +1,12 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/master-standalone/deployment-apps-v1.json
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: home-assistant
   namespace: home-system
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   selector:
@@ -16,13 +19,18 @@ spec:
     spec:
       restartPolicy: Always
       securityContext:
+        runAsNonRoot: true
         runAsUser: 568
         runAsGroup: 568
-        runAsNonRoot: true
+        fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities: { drop: ["ALL"] }
+        seccompProfile: { type: RuntimeDefault }
       containers:
         - name: main
-          image: ghcr.io/onedr0p/home-assistant:2024.7.2
+          image: ghcr.io/onedr0p/home-assistant:2024.7.2@sha256:9bfc3f58f692124a3c11b8186d103b15b14e2b3d503c6d8f5e6d7ec7e30ce7f6
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
