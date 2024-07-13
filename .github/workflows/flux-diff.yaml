@@ -32,13 +32,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          token: "${{ ACCESS_TOKEN }}"
+          token: "${{ secrets.ACCESS_TOKEN }}"
           path: pull
 
       - name: Checkout Default Branch
         uses: actions/checkout@v4
         with:
-          token: "${{ ACCESS_TOKEN }}"
+          token: "${{ secrets.ACCESS_TOKEN }}"
           ref: "${{ github.event.repository.default_branch }}"
           path: default
 
