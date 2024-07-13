@@ -44,7 +44,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/plex
-              tag: 1.40.2.8395-c67dce28e
+              tag: 1.40.4.8679-424562606
             env:
               TZ: America/New_York
               PLEX_ADVERTISE_URL: https://plex.${SECRET_DOMAIN}:443, http://192.168.42.54:32400
