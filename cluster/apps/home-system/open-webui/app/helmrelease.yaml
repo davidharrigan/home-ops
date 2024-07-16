@@ -16,6 +16,8 @@ spec:
         namespace: flux-system
   interval: 30m
   values:
+    ollama:
+      enabled: false
     ingress:
       enabled: true
       class: internal
