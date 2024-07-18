@@ -1,13 +1,8 @@
 ---
-dns:
-  hosts:
-    dns-1:
-      ansible_host: 192.168.42.10
-
 db:
   hosts:
-    db-1:
-      ansible_host: db-1.lan
+    data-1:
+      ansible_host: data-1.lan
 
 kube:
   children:
