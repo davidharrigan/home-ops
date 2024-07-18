@@ -7,7 +7,5 @@ collections:
   - name: community.postgresql
     version: 3.4.1
 roles:
-  - name: r_pufky.pihole
-    version: 3.0.4
   - name: geerlingguy.postgresql
     version: 3.5.2
