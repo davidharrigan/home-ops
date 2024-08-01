@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: main
-          image: ghcr.io/esphome/esphome:2024.6.6
+          image: ghcr.io/esphome/esphome:2024.7.3
           probes:
             liveness:
               enabled: false
