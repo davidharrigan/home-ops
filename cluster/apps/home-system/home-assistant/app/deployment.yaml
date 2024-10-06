@@ -30,7 +30,7 @@ spec:
         seccompProfile: { type: RuntimeDefault }
       containers:
         - name: main
-          image: ghcr.io/onedr0p/home-assistant:2024.8.0@sha256:dfbd75acb4acb454d40c5461f653f2c0c9b356d5eafb0e276bf53f8595a1b545
+          image: ghcr.io/onedr0p/home-assistant:2024.10.1@sha256:04614835418d2bdacd64685b516e58e7c5446f72485d446e7635282ba1a06c43
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
