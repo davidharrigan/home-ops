@@ -17,7 +17,7 @@ spec:
       restartPolicy: Always
       containers:
         - name: main
-          image: eclipse-mosquitto:2.0.18
+          image: eclipse-mosquitto:2.0.19
           imagePullPolicy: IfNotPresent
           probes:
             liveness:
