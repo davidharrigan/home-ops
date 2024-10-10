@@ -5,7 +5,7 @@ collections:
   - name: community.sops
     version: 1.8.1
   - name: community.postgresql
-    version: 3.4.1
+    version: 3.7.0
 roles:
   - name: geerlingguy.postgresql
     version: 3.5.2
