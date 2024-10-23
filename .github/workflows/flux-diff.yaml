@@ -6,16 +6,29 @@ on:
   pull_request:
     branches:
       - main
-    paths:
-      - cluster/**
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
+  changes:
+    name: Check for changes
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    outputs:
+      cluster: ${{ steps.filter.outputs.cluster }}
+    steps:
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            cluster:
+              - 'cluster/**'
   flux-diff:
     name: Flux Diff
+    if: ${{ needs.changes.outputs.cluster == 'true' }}
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
@@ -78,9 +91,9 @@ jobs:
           message-id: "${{ github.event.pull_request.number }}/cluster/${{ matrix.resources }}"
           message-failure: Diff was not successful
           message: |
-            ```diff
+            `````diff
             ${{ steps.diff.outputs.diff }}
-
+            `````
   flux-diff-success:
     needs:
       - flux-diff
