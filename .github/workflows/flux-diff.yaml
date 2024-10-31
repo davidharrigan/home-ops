@@ -28,6 +28,7 @@ jobs:
               - 'cluster/**'
   flux-diff:
     name: Flux Diff
+    needs: changes
     if: ${{ needs.changes.outputs.cluster == 'true' }}
     runs-on: ubuntu-latest
     permissions:
