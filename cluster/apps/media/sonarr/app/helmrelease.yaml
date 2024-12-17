@@ -42,7 +42,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/sonarr
-              tag: 4.0.10.2544@sha256:78c92531eeb6a3aec14b746a79102a1fe69ba8e8dcff84d9ef0549c382befc01
+              tag: 4.0.11.2680@sha256:61fe40251b0a8684520e6d3897e321430cab9994dd4d77e6ab35b587e0204a6d
             probes:
               liveness: &probes
                 enabled: true
