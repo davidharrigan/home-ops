@@ -8,4 +8,4 @@ collections:
     version: 3.9.1
 roles:
   - name: geerlingguy.postgresql
-    version: 3.5.2
+    version: 4.0.0
