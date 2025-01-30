@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: ghcr.io/onedr0p/prowlarr
-              tag: 1.28.2.4885@sha256:5c31e562ce080c8bcb1bee9f320b69ab0c376dce2988dfd3f19bbaf7f08c6f07
+              tag: 1.30.2.4939@sha256:7234ae8ca5b14153baddf42257cc2ddc928695ce604d11a9616b635eca0e43e7
             probes:
               liveness: &probes
                 enabled: true
