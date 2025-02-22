@@ -14,7 +14,7 @@ data:
       token: ""
     database:
       type: "postgres"
-      migration: true
+      migration: false
       # these need to exist in config for the envs to work.
       host: "secret"
       port: "secret"
