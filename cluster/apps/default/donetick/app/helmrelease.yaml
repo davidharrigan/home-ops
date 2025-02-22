@@ -35,7 +35,7 @@ spec:
               tag: v0.1.35
             env:
               - name: DT_ENV
-                value: home
+                value: selfhosted
               - name: DT_DATABASE_HOST
                 valueFrom:
                   secretKeyRef:
@@ -117,6 +117,6 @@ spec:
         type: configMap
         name: donetick-config
         globalMounts:
-          - path: "/config/home.yaml"
-            subPath: home.yaml
+          - path: "/config/selfhosted.yaml"
+            subPath: selfhosted.yaml
             readOnly: true
