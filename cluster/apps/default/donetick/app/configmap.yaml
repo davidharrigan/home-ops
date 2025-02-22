@@ -4,8 +4,8 @@ metadata:
   name: donetick-config
   namespace: default
 data:
-  home.yaml: |
-    name: "home"
+  selfhosted.yaml: |
+    name: "selfhosted"
     is_done_tick_dot_com: false
     is_user_creation_disabled: false
     telegram:
