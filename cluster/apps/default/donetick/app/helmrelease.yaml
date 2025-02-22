@@ -35,9 +35,7 @@ spec:
               tag: v0.1.35
             env:
               - name: DT_ENV
-                value: selfhosted
-              - name: DT_DATABASE_TYPE
-                value: postgres
+                value: home
               - name: DT_DATABASE_HOST
                 valueFrom:
                   secretKeyRef:
@@ -63,6 +61,11 @@ spec:
                   secretKeyRef:
                     name: donetick-secret
                     key: db_name
+              - name: DT_JWT_SECRET
+                valueFrom:
+                  secretKeyRef:
+                    name: donetick-secret
+                    key: jwt_secret
             probes:
               liveness: &probes
                 enabled: true
@@ -109,3 +112,11 @@ spec:
                 service:
                   identifier: app
                   port: http
+    persistence:
+      config:
+        type: configMap
+        name: donetick-config
+        globalMounts:
+          - path: "/config/home.yaml"
+            subPath: home.yaml
+            readOnly: true
