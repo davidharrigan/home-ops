@@ -34,6 +34,8 @@ spec:
               repository: donetick/donetick
               tag: v0.1.35
             env:
+              - name: DT_ENV
+                value: selfhosted
               - name: DT_DATABASE_TYPE
                 value: postgres
               - name: DT_DATABASE_HOST
