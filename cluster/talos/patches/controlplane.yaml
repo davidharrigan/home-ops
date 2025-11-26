@@ -1,0 +1,9 @@
+---
+cluster:
+  controlPlane:
+    endpoint: https://k8s-vip.lan:6443
+  network:
+    cni:
+      name: none  # Using Cilium via Flux instead
+  proxy:
+    disabled: true  # Using Cilium kube-proxy replacement

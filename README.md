@@ -2,13 +2,16 @@
 
 ### Dependencies
 
-- [ansible](https://www.ansible.com/)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/)
 - [helm](https://helm.sh/docs/intro/install/)
+- [helmfile](https://helmfile.readthedocs.io/)
+- [just](https://github.com/casey/just)
 - [age](https://github.com/FiloSottile/age)
+- [sops](https://github.com/getsops/sops)
 - [direnv](https://github.com/direnv/direnv)
 - [pre-commit](https://github.com/pre-commit/pre-commit)
 - [talosctl](https://www.talos.dev/latest/introduction/quickstart/)
+- [flux](https://fluxcd.io/flux/installation/)
 
 ### Setup
 
@@ -43,79 +46,92 @@ direnv allow .
 
 ## Bootstrapping k8s
 
-### Prepare nodes
+### Quick Start
 
 ```bash
-# generate talos config
-ansible-playbook ./playbooks/kube.yaml
+just bootstrap bootstrap
 ```
 
-```bash
-# apply config to the control plane
-# --insecure required only for the initial config apply
-talosctl apply-config -e k8s-server-1.lan -n k8s-server-1.lan --file=./talos/k8s-server-1.yaml --insecure
-```
+This runs all stages in sequence:
+
+1. Generate and apply Talos configs to all nodes
+2. Bootstrap etcd on the first control plane
+3. Fetch kubeconfig
+4. Wait for Kubernetes API
+5. Install Cilium via helmfile
+6. Install Flux and apply secrets
+7. Start Flux reconciliation
+
+### Manual Bootstrap
+
+If you need more control, run individual stages:
 
 ```bash
-# bootstrap etcd (only needed to run on one node)
-talosctl bootstrap -e k8s-server-1.lan -n k8s-server-1.lan
-```
+# Generate Talos configurations
+just talos gen-config
 
-```bash
-# repeat applying config to reset of the nodes
-# --insecure required only for the initial config apply
-talosctl apply-config -n k8s-worker-1.lan --file=./talos/k8s-worker-1.yaml --insecure
-talosctl apply-config -n k8s-worker-2.lan --file=./talos/k8s-worker-2.yaml --insecure
-```
+# Apply configs to nodes
+just bootstrap nodes
 
-```bash
-# get kubeconfig
-talosctl -n k8s-server-1.lan kubeconfig
-```
+# Bootstrap etcd
+just bootstrap etcd
 
-### Install Flux
+# Configure talosctl endpoints
+just bootstrap talosconfig
 
-```bash
-# Run pre-installation checks
-flux check --pre
-```
+# Get kubeconfig
+just bootstrap kubeconfig
 
-```bash
-kubectl apply --server-side --kustomize ./cluster/bootstrap
-```
+# Wait for nodes
+just bootstrap wait
 
-### Apply configuration
+# Install Cilium
+just bootstrap cilium
 
-```bash
-sops --decrypt ./cluster/bootstrap/age-key.sops.yaml | kubectl apply -f -
-sops --decrypt ./cluster/bootstrap/github-deploy-key.sops.yaml | kubectl apply -f -
-sops --decrypt ./cluster/flux/vars/cluster-secrets.sops.yaml | kubectl apply -f -
-```
-
-### Kickoff Flux
-
-```bash
-kubectl apply --server-side --kustomize ./cluster/flux/config
+# Install Flux
+just bootstrap flux
+just bootstrap flux-secrets
+just bootstrap flux-config
 ```
 
 ### Verify
 
 ```bash
-# Run post-installation checks
+# Check Flux status
 flux check
+
+# Check all resources
+kubectl get hr -A  # Helm releases
+kubectl get ks -A  # Kustomizations
+```
+
+## Talos Operations
+
+```bash
+# Show cluster info
+just talos info
+
+# Generate machine configs
+just talos genconfig
+
+# Generate custom installer image URL
+just talos genimage
+
+# Clean generated configs
+just talos clean
 ```
 
 ## System extensions
 
-System extensions can only be installed on install or upgrade. To install extensions on an existing node:
+System extensions can only be installed on install or upgrade:
 
 ```bash
-talosctl -e <endpoint ip/hostname> -n <node ip/hostname> upgrade --image=ghcr.io/siderolabs/installer:<talos version>
+talosctl -e <endpoint> -n <node> upgrade --image=ghcr.io/siderolabs/installer:<talos version>
 
 # Check status
-talosctl -e <endpoint ip/hostname> -n <node ip/hostname> get extensions
+talosctl -e <endpoint> -n <node> get extensions
 ```
 
-# Thanks
+## Thanks
 
 A lot of the setup here was inspired by folks who share their [home Kubernetes setup](https://github.com/topics/k8s-at-home).

@@ -1,0 +1,11 @@
+---
+machine:
+  features:
+    kubePrism:
+      enabled: true
+      port: 7445
+    hostDNS:
+      enabled: true
+      # Disabled to avoid conflict with Cilium bpf.masquerade
+      # See: https://docs.siderolabs.com/kubernetes-guides/cni/deploying-cilium
+      forwardKubeDNSToHost: false
