@@ -1,5 +1,6 @@
 ---
-# TODO: use this file from Talos installation
+# Base Cilium CNI configuration
+# Used by both helmfile bootstrap and Flux HelmRelease
 autoDirectNodeRoutes: true
 bandwidthManager:
   enabled: true

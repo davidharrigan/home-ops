@@ -1,0 +1,44 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/helmfile
+
+helmDefaults:
+  cleanupOnFail: true
+  wait: true
+  waitForJobs: true
+
+releases:
+  - name: cilium
+    namespace: kube-system
+    chart: oci://quay.io/cilium/cilium
+    version: 1.15.6
+    values:
+      - ../apps/kube-system/cilium/app/cilium-base-values.yaml
+    hooks:
+      - # Wait for Cilium CRDs to be available
+        command: bash
+        args:
+          - -c
+          - until kubectl get crd ciliumloadbalancerippools.cilium.io &>/dev/null; do sleep 5; done
+        events:
+          - postsync
+        showlogs: true
+      - # Apply Cilium LB Pool
+        command: kubectl
+        args:
+          - apply
+          - --server-side
+          - --field-manager=helmfile
+          - --filename=../apps/kube-system/cilium/app/lb-pool.yaml
+        events:
+          - postsync
+        showlogs: true
+      - # Apply Cilium L2 Policy
+        command: kubectl
+        args:
+          - apply
+          - --server-side
+          - --field-manager=helmfile
+          - --filename=../apps/kube-system/cilium/app/l2-policy.yaml
+        events:
+          - postsync
+        showlogs: true

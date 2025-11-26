@@ -9,9 +9,9 @@ resources:
 generatorOptions:
   disableNameSuffixHash: true
 configMapGenerator:
-  - name: cilium-values
+  - name: cilium-hubble-values
     files:
-      - values.yaml=./values.yaml
-  - name: cilium-cni-config
+      - values.yaml=./cilium-hubble-values.yaml
+  - name: cilium-base-values
     files:
-      - values.yaml=./cni-config.yaml
+      - values.yaml=./cilium-base-values.yaml

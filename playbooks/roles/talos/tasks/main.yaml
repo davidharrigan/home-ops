@@ -1,5 +1,0 @@
----
-- name: generate talos config
-  include_tasks: config.yaml
-  tags:
-    - config

@@ -26,6 +26,6 @@ spec:
     keepHistory: false
   valuesFrom:
     - kind: ConfigMap
-      name: cilium-cni-config
+      name: cilium-base-values
     - kind: ConfigMap
-      name: cilium-values
+      name: cilium-hubble-values

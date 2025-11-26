@@ -1,0 +1,12 @@
+---
+machine:
+  type: controlplane
+  network:
+    hostname: k8s-2
+    interfaces:
+      - interface: enp2s0
+        dhcp: true
+        vip:
+          ip: 192.168.42.42  # Shared VIP for k8s API
+  install:
+    disk: /dev/nvme0n1
