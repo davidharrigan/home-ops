@@ -37,10 +37,6 @@ jobs:
         (github.event_name == 'pull_request' &&
           startsWith(github.event.pull_request.head.ref, 'renovate/') &&
           github.event.pull_request.user.login == 'business-cat-bot[bot]'
-        ) ||
-        (github.event_name == 'issues' &&
-          github.event.issue.user.login == 'business-cat-bot[bot]' &&
-          contains(github.event.issue.title, 'Dependency Dashboard')
         )
       )
     steps:
@@ -51,23 +47,6 @@ jobs:
           contains(github.event.pull_request.body, '- [x] <!-- rebase-check')
         run: |
           echo "branches=[\"${{ github.event.pull_request.head.ref }}\"]" >> $GITHUB_OUTPUT
-      - name: parse issue
-        id: issue
-        if: |
-          github.event_name == 'issues' &&
-          contains(github.event.issue.body, '- [x] <!-- rebase-')
-        run: |
-          ISSUE_BODY=$(cat <<'EOF'
-          ${{ github.event.issue.body }}
-          EOF
-          )
-          if echo "$ISSUE_BODY" | grep -q '\- \[x\] <!-- rebase-all-open-prs -->'; then
-            echo "branches=[]" >> $GITHUB_OUTPUT
-          else
-            BRANCHES=$(echo "$ISSUE_BODY" | grep '\- \[x\] <!-- rebase-branch=' | sed -n 's/.*rebase-branch=\([^ ]*\) -->.*/\1/p' | jq -R . | jq -sc .)
-            echo "branches=$BRANCHES" >> $GITHUB_OUTPUT
-          fi
-          sleep 10s # add delay
       - name: all branches
         id: trigger
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
@@ -94,5 +73,5 @@ jobs:
           RENOVATE_PLATFORM: github
           RENOVATE_PLATFORM_COMMIT: enabled
           RENOVATE_INTERNAL_CHECKS_FILTER: strict
-          RENOVATE_CHECKED_BRANCHES: ${{ steps.pr.outputs.branches || steps.issue.outputs.branches || steps.trigger.outputs.branches }}
+          RENOVATE_CHECKED_BRANCHES: ${{ steps.pr.outputs.branches || steps.trigger.outputs.branches }}
           RENOVATE_CONFIG_VALIDATION_ERROR: true
