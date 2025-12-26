@@ -20,7 +20,7 @@ jobs:
     outputs:
       cluster: ${{ steps.filter.outputs.cluster }}
     steps:
-      - uses: dorny/paths-filter@v3
+      - uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3
         id: filter
         with:
           filters: |
@@ -42,20 +42,20 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
         with:
           token: "${{ secrets.ACCESS_TOKEN }}"
           path: pull
 
       - name: Checkout Default Branch
-        uses: actions/checkout@v6
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
         with:
           token: "${{ secrets.ACCESS_TOKEN }}"
           ref: "${{ github.event.repository.default_branch }}"
           path: default
 
       - name: Diff Resources
-        uses: docker://ghcr.io/allenporter/flux-local:v8.1.0
+        uses: docker://ghcr.io/allenporter/flux-local:v8.1.0@sha256:37c3c4309a351830b04f93c323adfcb0e28c368001818cd819cbce3e08828261
         with:
           args: >-
             diff ${{ matrix.resources }}
@@ -86,7 +86,7 @@ jobs:
 
       - if: ${{ steps.diff.outputs.diff != '' }}
         name: Add comment
-        uses: mshick/add-pr-comment@v2
+        uses: mshick/add-pr-comment@b8f338c590a895d50bcbfa6c5859251edc8952fc # v2
         with:
           repo-token: "${{ secrets.ACCESS_TOKEN }}"
           message-id: "${{ github.event.pull_request.number }}/cluster/${{ matrix.resources }}"
