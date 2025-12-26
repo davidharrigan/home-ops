@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: ingress-nginx
-      version: 4.11.1
+      version: 4.14.1
       sourceRef:
         kind: HelmRepository
         name: ingress-nginx
@@ -48,6 +48,9 @@ spec:
               operator: In
               values: ["external"]
       config:
+        allow-cross-namespace-resources: "true"
+        annotations-risk-level: "Critical"
+        strict-validate-path-type: "false"
         client-body-buffer-size: 100M
         client-body-timeout: 120
         client-header-timeout: 120
