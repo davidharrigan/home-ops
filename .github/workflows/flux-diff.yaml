@@ -48,7 +48,7 @@ jobs:
         uses: fluxcd/flux2/action@main
         with:
           # renovate: datasource=github-releases depName=fluxcd/flux2
-          version: 2.3.0
+          version: 2.7.5
 
       - name: Diff Resources
         uses: allenporter/flux-local/action/diff@8.1.0

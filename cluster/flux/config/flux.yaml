@@ -1,5 +1,5 @@
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
   name: flux-manifests
@@ -8,7 +8,7 @@ spec:
   interval: 10m
   url: oci://ghcr.io/fluxcd/flux-manifests
   ref:
-    tag: v2.3.0
+    tag: v2.7.5
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -59,12 +59,7 @@ spec:
       target:
         kind: Deployment
         name: (kustomize-controller|helm-controller|source-controller)
-    # Enable drift detection for HelmReleases and set the log level to debug
-    # https://fluxcd.io/flux/components/helm/helmreleases/#drift-detection
     - patch: |
-        - op: add
-          path: /spec/template/spec/containers/0/args/-
-          value: --feature-gates=DetectDrift=true,CorrectDrift=false
         - op: add
           path: /spec/template/spec/containers/0/args/-
           value: --log-level=debug
