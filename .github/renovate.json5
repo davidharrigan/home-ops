@@ -1,49 +1,69 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: [
-    "config:recommended",
-    "docker:enableMajor",
-    ":disableRateLimiting",
+    "config:best-practices",
+    ":automergePr",
+    ":automergeRequireAllStatusChecks",
     ":dependencyDashboard",
+    ":disableRateLimiting",
     ":semanticCommits",
-    ":automergeDigest",
-    ":automergeBranch",
-    "github>davidharrigan/home-ops//.github/renovate/auto-merge.json5",
-    "github>davidharrigan/home-ops//.github/renovate/commit-message.json5",
-    "github>davidharrigan/home-ops//.github/renovate/groups.json5",
-    "github>davidharrigan/home-ops//.github/renovate/pr-labels.json5",
-    "github>davidharrigan/home-ops//.github/renovate/semantic-commits.json5",
+    ":timezone(America/New_York)",
+    "customManagers:makefileVersions",
+    "davidharrigan/renovate:default/commits",
+    "davidharrigan/renovate:default/labels",
   ],
-
-  suppressNotifications: ["prIgnoreNotification", "prEditNotification"],
-  rebaseWhen: "conflicted",
-  timezone: "America/New_York",
-
-  // manager rules: https://docs.renovatebot.com/modules/manager/
-  flux: {
-    fileMatch: [
-      "(^|/)cluster/.+\\.ya?ml(\\.j2)?(\\.j2)?$",
-    ],
-  },
-  "helm-values": {
-    fileMatch: [
-      "(^|/)cluster/.+\\.ya?ml(\\.j2)?(\\.j2)?$",
-    ],
-  },
-  kubernetes: {
-    fileMatch: [
-      "(^|/)cluster/.+\\.ya?ml(\\.j2)?(\\.j2)?$",
-    ],
-  },
-  kustomize: {
-    fileMatch: ["(^|/)kustomization\\.ya?ml(\\.j2)?$"],
-  },
-  packageRules: [{
-    description: "Loose versioning for non-semver packages",
-    matchDatasources: ["docker"],
-    matchPackageNames: [
-      "ghcr.io/onedr0p/plex",
-    ],
-    versioning: "loose",
-  }]
+  suppressNotifications: ["prIgnoreNotification"],
+  packageRules: [
+    {
+      description: "Auto merge Github Actions",
+      matchManagers: ["github-actions"],
+      matchUpdateTypes: ["digest", "minor", "patch"],
+      minimumReleaseAge: "3 days",
+      automerge: true,
+    },
+    {
+      description: "Auto merge container updates",
+      matchManagers: ["docker"],
+      matchUpdateTypes: ["digest", "patch"],
+      matchPackageNames: ["/home-operations/"],
+      automerge: true,
+    },
+    {
+      matchUpdateTypes: ["major"],
+      semanticCommitType: "feat",
+      commitMessagePrefix: "{{semanticCommitType}}({{semanticCommitScope}})!:",
+    },
+    {
+      matchDatasources: ["galaxy", "galaxy-collection"],
+      addLabels: ["renovate/ansible"],
+      semanticCommitScope: "ansible",
+    },
+    {
+      description: "Flux Operator Group",
+      groupName: "flux-operator",
+      matchDatasources: ["docker"],
+      matchPackageNames: [
+        "/flux-operator/",
+        "/flux-instance/",
+        "/flux-operator-manifests/",
+      ],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 3,
+    },
+    {
+      description: "Intel Device Plugins Group",
+      groupName: "intel-device-plugins",
+      matchDatasources: ["docker"],
+      matchPackageNames: [
+        "/intel-device-plugins-operator/",
+        "/intel-device-plugins-gpu/",
+      ],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
+  ],
 }
