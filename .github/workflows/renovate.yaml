@@ -2,6 +2,15 @@
 name: "renovate"
 on:
   workflow_dispatch:
+    inputs:
+      logLevel:
+        description: Log Level
+        type: choice
+        default: info
+        options:
+          - debug
+          - info
+        required: true
   push:
     branches:
       - main
@@ -10,19 +19,80 @@ on:
       - .github/renovate/**.json5
   schedule:
     - cron: "0 * * * *"
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
-  cancel-in-progress: true
+  pull_request:
+    types:
+      - edited
 
 jobs:
   renovate:
     runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.head_ref || 'multiple' }}
+      cancel-in-progress: true
+    if: |
+      github.event.sender.login != 'business-cat-bot[bot]' && (
+        github.event_name == 'push' ||
+        github.event_name == 'schedule' ||
+        github.event_name == 'workflow_dispatch' ||
+        (github.event_name == 'pull_request' &&
+          startsWith(github.event.pull_request.head.ref, 'renovate/') &&
+          github.event.pull_request.user.login == 'business-cat-bot[bot]'
+        ) ||
+        (github.event_name == 'issues' &&
+          github.event.issue.user.login == 'business-cat-bot[bot]' &&
+          contains(github.event.issue.title, 'Dependency Dashboard')
+        )
+      )
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6.0.1
-      - name: Self-hosted Renovate
-        uses: renovatebot/github-action@v41.0.22
+      - name: parse pr
+        id: pr
+        if: |
+          github.event_name == 'pull_request' &&
+          contains(github.event.pull_request.body, '- [x] <!-- rebase-check')
+        run: |
+          echo "branches=[\"${{ github.event.pull_request.head.ref }}\"]" >> $GITHUB_OUTPUT
+      - name: parse issue
+        id: issue
+        if: |
+          github.event_name == 'issues' &&
+          contains(github.event.issue.body, '- [x] <!-- rebase-')
+        run: |
+          ISSUE_BODY=$(cat <<'EOF'
+          ${{ github.event.issue.body }}
+          EOF
+          )
+          if echo "$ISSUE_BODY" | grep -q '\- \[x\] <!-- rebase-all-open-prs -->'; then
+            echo "branches=[]" >> $GITHUB_OUTPUT
+          else
+            BRANCHES=$(echo "$ISSUE_BODY" | grep '\- \[x\] <!-- rebase-branch=' | sed -n 's/.*rebase-branch=\([^ ]*\) -->.*/\1/p' | jq -R . | jq -sc .)
+            echo "branches=$BRANCHES" >> $GITHUB_OUTPUT
+          fi
+          sleep 10s # add delay
+      - name: all branches
+        id: trigger
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: echo "branches=[]" >> $GITHUB_OUTPUT
+      - name: Get token
+        id: get_token
+        uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2
         with:
-          configurationFile: .github/renovate.json5
-          token: ${{ secrets.RENOVATE_TOKEN }}
+          private-key: ${{ secrets.RENOVATE_KEY }}
+          app-id: ${{ secrets.RENOVATE_APP_ID }}
+          owner: ${{ github.repository_owner }}
+          repositories: |
+            home-ops
+            renovate
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - name: Self-hosted Renovate
+        uses: renovatebot/github-action@f7fad228a053c69a98e24f8e4f6cf40db8f61e08 # v44.2.1
+        with:
+          token: '${{ steps.get_token.outputs.token }}'
+        env:
+          LOG_LEVEL: ${{ inputs.logLevel || (github.event_name == 'push' && 'debug') || 'info' }}
+          RENOVATE_REPOSITORIES: ${{ github.repository }}
+          RENOVATE_PLATFORM: github
+          RENOVATE_PLATFORM_COMMIT: enabled
+          RENOVATE_INTERNAL_CHECKS_FILTER: strict
+          RENOVATE_CHECKED_BRANCHES: ${{ steps.pr.outputs.branches || steps.issue.outputs.branches || steps.trigger.outputs.branches }}
+          RENOVATE_CONFIG_VALIDATION_ERROR: true
