@@ -1,110 +1,76 @@
 {
-  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: [
-    'config:best-practices',
-    ':automergePr',
-    ':automergeRequireAllStatusChecks',
-    ':dependencyDashboard',
-    ':disableRateLimiting',
-    ':timezone(America/New_York)',
-    'docker:enableMajor',
-    'customManagers:makefileVersions',
-    'davidharrigan/renovate:default/commits',
-    'davidharrigan/renovate:default/labels',
+    "config:best-practices",
+    ":automergePr",
+    ":automergeRequireAllStatusChecks",
+    ":dependencyDashboard",
+    ":disableRateLimiting",
+    ":timezone(America/New_York)",
+    "docker:enableMajor",
+    "customManagers:makefileVersions",
+    "davidharrigan/renovate:default/commits",
+    "davidharrigan/renovate:default/labels",
   ],
-  suppressNotifications: [
-    'prIgnoreNotification',
-    'prEditedNotification',
-  ],
-  rebaseWhen: 'conflicted',
-  flux: {
-    managerFilePatterns: [
-      '/(^|/)cluster/.+\\.ya?ml(\\.j2)?(\\.j2)?$/',
-    ],
-  },
-  'helm-values': {
-    managerFilePatterns: [
-      '/(^|/)cluster/.+\\.ya?ml(\\.j2)?(\\.j2)?$/',
-    ],
-  },
-  kubernetes: {
-    managerFilePatterns: [
-      '/(^|/)cluster/.+\\.ya?ml(\\.j2)?(\\.j2)?$/',
-    ],
-  },
-  kustomize: {
-    managerFilePatterns: [
-      '/(^|/)kustomization\\.ya?ml(\\.j2)?$/',
-    ],
-  },
-  ignorePaths: [
-    '**/*.sops.*',
-  ],
+
   packageRules: [
     {
-      description: 'Auto merge Github Actions',
-      matchManagers: [
-        'github-actions',
-      ],
-      matchUpdateTypes: [
-        'digest',
-        'minor',
-        'patch',
-      ],
-      minimumReleaseAge: '3 days',
+      description: "Auto merge Github Actions",
+      matchManagers: ["github-actions"],
+      matchUpdateTypes: ["digest", "minor", "patch"],
+      minimumReleaseAge: "3 days",
       automerge: true,
     },
     {
-      description: 'Auto merge container updates',
-      matchManagers: [
-        'docker',
-      ],
-      matchUpdateTypes: [
-        'digest',
-        'patch',
-      ],
-      matchPackageNames: [
-        '/home-operations/',
-      ],
+      description: "Auto merge container updates",
+      matchManagers: ["docker"],
+      matchUpdateTypes: ["digest", "patch"],
+      matchPackageNames: ["/home-operations/"],
       automerge: true,
     },
     {
-      matchUpdateTypes: [
-        'major',
-      ],
-      semanticCommitType: 'feat',
-      commitMessagePrefix: '{{semanticCommitType}}({{semanticCommitScope}})!:',
+      matchUpdateTypes: ["major"],
+      semanticCommitType: "feat",
+      commitMessagePrefix: "{{semanticCommitType}}({{semanticCommitScope}})!:",
     },
     {
-      description: 'Flux Operator Group',
-      groupName: 'flux-operator',
-      matchDatasources: [
-        'docker',
-      ],
+      description: "Flux Operator Group",
+      groupName: "flux-operator",
+      matchDatasources: ["docker"],
       matchPackageNames: [
-        '/flux-operator/',
-        '/flux-instance/',
-        '/flux-operator-manifests/',
+        "/flux-operator/",
+        "/flux-instance/",
+        "/flux-operator-manifests/",
       ],
       group: {
-        commitMessageTopic: '{{{groupName}}} group',
+        commitMessageTopic: "{{{groupName}}} group",
       },
       minimumGroupSize: 3,
     },
     {
-      description: 'Intel Device Plugins Group',
-      groupName: 'intel-device-plugins',
-      matchDatasources: [
-        'docker',
-      ],
+      description: "Intel Device Plugins Group",
+      groupName: "intel-device-plugins",
+      matchDatasources: ["docker"],
       matchPackageNames: [
-        '/intel-device-plugins-operator/',
-        '/intel-device-plugins-gpu/',
+        "/intel-device-plugins-operator/",
+        "/intel-device-plugins-gpu/",
       ],
       group: {
-        commitMessageTopic: '{{{groupName}}} group',
+        commitMessageTopic: "{{{groupName}}} group",
       },
       minimumGroupSize: 2,
     },
   ],
+  suppressNotifications: ["prIgnoreNotification", "prEditedNotification"],
+  rebaseWhen: "conflicted",
+  flux: {
+    managerFilePatterns: ["/(^|/)cluster/.+\\.ya?ml(?:\\.j2)?$/"],
+  },
+  "helm-values": {
+    managerFilePatterns: ["/(^|/)cluster/.+\\.ya?ml(?:\\.j2)?$/"],
+  },
+  kubernetes: {
+    managerFilePatterns: ["/(^|/)cluster/.+\\.ya?ml(?:\\.j2)?$/"],
+  },
+  ignorePaths: ["**/*.sops.*"],
 }
