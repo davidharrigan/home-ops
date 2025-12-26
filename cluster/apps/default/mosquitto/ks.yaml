@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-mosquitto
   namespace: flux-system
 spec:
-  path: ./cluster/apps/home-system/mosquitto/app
+  path: ./cluster/apps/default/mosquitto/app
   prune: true
   sourceRef:
     kind: GitRepository

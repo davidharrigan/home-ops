@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-esphome
   namespace: flux-system
 spec:
-  path: ./cluster/apps/home-system/esphome/app
+  path: ./cluster/apps/default/esphome/app
   prune: true
   sourceRef:
     kind: GitRepository
