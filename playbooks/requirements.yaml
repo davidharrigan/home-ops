@@ -3,7 +3,7 @@ collections:
   - name: community.general
     version: 10.3.0
   - name: community.sops
-    version: 2.0.1
+    version: 2.2.7
   - name: community.postgresql
     version: 3.10.2
 roles:
