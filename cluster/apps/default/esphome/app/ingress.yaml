@@ -3,21 +3,20 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-  name: home-assistant
-  namespace: home-system
+  name: esphome
 spec:
   ingressClassName: internal
   rules:
-    - host: home.${SECRET_DOMAIN}
+    - host: esphome.${SECRET_DOMAIN}
       http:
         paths:
           - pathType: Prefix
             path: /
             backend:
               service:
-                name: home-assistant
+                name: esphome
                 port:
                   name: http
   tls:
     - hosts:
-        - home.${SECRET_DOMAIN}
+        - esphome.${SECRET_DOMAIN}
