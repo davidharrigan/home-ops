@@ -7,4 +7,4 @@ metadata:
 spec:
   type: oci
   url: oci://ghcr.io/prometheus-community/charts
-  interval: 30m
+  interval: 1h

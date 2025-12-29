@@ -21,6 +21,6 @@ spec:
       APP: sabnzbd
       VOLSYNC_CAPACITY: 10Gi
   wait: false
-  interval: 30m
+  interval: 1h
   retryInterval: 1m
   timeout: 15m

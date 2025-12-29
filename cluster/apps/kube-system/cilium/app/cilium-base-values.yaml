@@ -13,7 +13,7 @@ cgroup:
     enabled: false
   hostRoot: /sys/fs/cgroup
 cluster:
-  name: home-cluster-testing
+  name: home-cluster
   id: 1
 endpointRoutes:
   enabled: true

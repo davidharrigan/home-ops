@@ -23,6 +23,6 @@ spec:
       APP: plex
       VOLSYNC_CAPACITY: 30Gi
   wait: false
-  interval: 30m
+  interval: 1h
   retryInterval: 1m
   timeout: 15m

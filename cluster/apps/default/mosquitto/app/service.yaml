@@ -5,8 +5,7 @@ metadata:
   name: mosquitto
   annotations:
     external-dns.alpha.kubernetes.io/hostname: "mqtt.${SECRET_DOMAIN}"
-    # io.cilium/lb-ipam-ips: "192.168.42.52"
-    io.cilium/lb-ipam-ips: "192.168.42.42"
+    io.cilium/lb-ipam-ips: "192.168.42.52"
 spec:
   type: LoadBalancer
   selector:

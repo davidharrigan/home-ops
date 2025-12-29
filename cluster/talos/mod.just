@@ -5,8 +5,8 @@ set shell := ['bash', '-euo', 'pipefail', '-c']
 # Configuration
 talos_version := "v1.12.0"
 architecture := "amd64"
-cluster_name := "home-cluster-testing"
-cluster_endpoint := "k8s-vip-testing.lan"
+cluster_name := "home-cluster"
+cluster_endpoint := "k8s-vip.lan"
 # cluster_endpoint := "k8s-vip.lan"
 factory_url := "https://factory.talos.dev"
 

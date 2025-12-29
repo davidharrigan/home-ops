@@ -6,7 +6,7 @@ metadata:
   name: node-feature-discovery
   namespace: flux-system
 spec:
-  interval: 10m
+  interval: 1h
   path: ./cluster/apps/kube-system/node-feature-discovery/app
   prune: true
   sourceRef:

@@ -5,7 +5,7 @@ metadata:
   name: sonarr
   namespace: media
 spec:
-  interval: 15m
+  interval: 1h
   chart:
     spec:
       chart: app-template
@@ -69,31 +69,31 @@ spec:
                   secretKeyRef:
                     name: sonarr-secret
                     key: api_key
-              # - name: SONARR__POSTGRES__HOST
-              #   valueFrom:
-              #     secretKeyRef:
-              #       name: sonarr-secret
-              #       key: db_host
-              # - name: SONARR__POSTGRES__PORT
-              #   valueFrom:
-              #     secretKeyRef:
-              #       name: sonarr-secret
-              #       key: db_port
-              # - name: SONARR__POSTGRES__USER
-              #   valueFrom:
-              #     secretKeyRef:
-              #       name: sonarr-secret
-              #       key: db_user
-              # - name: SONARR__POSTGRES__PASSWORD
-              #   valueFrom:
-              #     secretKeyRef:
-              #       name: sonarr-secret
-              #       key: db_pass
-              # - name: SONARR__POSTGRES__MAINDB
-              #   valueFrom:
-              #     secretKeyRef:
-              #       name: sonarr-secret
-              #       key: db_main
+              - name: SONARR__POSTGRES__HOST
+                valueFrom:
+                  secretKeyRef:
+                    name: sonarr-secret
+                    key: db_host
+              - name: SONARR__POSTGRES__PORT
+                valueFrom:
+                  secretKeyRef:
+                    name: sonarr-secret
+                    key: db_port
+              - name: SONARR__POSTGRES__USER
+                valueFrom:
+                  secretKeyRef:
+                    name: sonarr-secret
+                    key: db_user
+              - name: SONARR__POSTGRES__PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: sonarr-secret
+                    key: db_pass
+              - name: SONARR__POSTGRES__MAINDB
+                valueFrom:
+                  secretKeyRef:
+                    name: sonarr-secret
+                    key: db_main
 
     defaultPodOptions:
       securityContext:

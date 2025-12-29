@@ -6,7 +6,7 @@ metadata:
   name: nginx-external
   namespace: networking
 spec:
-  interval: 30m
+  interval: 1h
   chart:
     spec:
       chart: ingress-nginx
@@ -25,9 +25,9 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-  # dependsOn:
-  #   - name: cloudflared
-  #     namespace: networking
+  dependsOn:
+    - name: cloudflared
+      namespace: networking
   values:
     fullnameOverride: nginx-external
     controller:
@@ -35,8 +35,7 @@ spec:
       service:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "external.${SECRET_DOMAIN}"
-          # io.cilium/lb-ipam-ips: "192.168.42.51"
-          io.cilium/lb-ipam-ips: "192.168.42.41"
+          io.cilium/lb-ipam-ips: "192.168.42.51"
         externalTrafficPolicy: Cluster
       ingressClassResource:
         name: external

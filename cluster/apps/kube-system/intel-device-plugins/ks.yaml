@@ -10,7 +10,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: home-cluster
-  interval: 10m
+  interval: 1h
   prune: true
   wait: true
   dependsOn:
@@ -28,7 +28,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: home-cluster
-  interval: 30m
+  interval: 1h
   prune: true
   wait: true
   dependsOn:

@@ -6,10 +6,9 @@ metadata:
   name: home-cluster
   namespace: flux-system
 spec:
-  interval: 30m
+  interval: 1h
   ref:
-    # branch: main
-    branch: fix/upgrade-talos
+    branch: main
   url: "ssh://git@github.com/davidharrigan/home-ops"
   secretRef:
     name: github-deploy-key
@@ -26,7 +25,7 @@ metadata:
   name: cluster
   namespace: flux-system
 spec:
-  interval: 30m
+  interval: 1h
   path: ./cluster/flux
   prune: true
   wait: false

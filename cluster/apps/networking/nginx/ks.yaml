@@ -14,7 +14,7 @@ spec:
     kind: GitRepository
     name: home-cluster
   wait: true
-  interval: 10m
+  interval: 1h
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -31,7 +31,7 @@ spec:
     kind: GitRepository
     name: home-cluster
   wait: true
-  interval: 10m
+  interval: 1h
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -48,4 +48,4 @@ spec:
     kind: GitRepository
     name: home-cluster
   wait: true
-  interval: 10m
+  interval: 1h

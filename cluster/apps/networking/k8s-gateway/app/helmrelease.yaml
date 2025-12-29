@@ -5,7 +5,7 @@ metadata:
   name: k8s-gateway
   namespace: networking
 spec:
-  interval: 30m
+  interval: 1h
   chart:
     spec:
       chart: k8s-gateway
@@ -32,6 +32,5 @@ spec:
       type: LoadBalancer
       port: 53
       annotations:
-        # io.cilium/lb-ipam-ips: "192.168.42.53"
-        io.cilium/lb-ipam-ips: "192.168.42.43"
+        io.cilium/lb-ipam-ips: "192.168.42.53"
       externalTrafficPolicy: Cluster

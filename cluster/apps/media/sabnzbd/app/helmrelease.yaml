@@ -6,12 +6,12 @@ metadata:
   name: sabnzbd
   namespace: media
 spec:
-  interval: 30m
+  interval: 1h
   chart:
     spec:
       chart: app-template
       version: 4.5.0
-      interval: 30m
+      interval: 1h
       sourceRef:
         kind: HelmRepository
         name: bjw-s
