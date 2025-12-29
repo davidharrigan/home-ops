@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 4.5.0
       interval: 30m
       sourceRef:
         kind: HelmRepository
@@ -19,26 +19,9 @@ spec:
 
   values:
     controllers:
-      main:
-        type: statefulset
-        statefulset:
-          volumeClaimTemplates:
-            - name: config
-              accessMode: ReadWriteOnce
-              size: 10Gi
-              storageClass: synology-csi-retain
-              globalMounts:
-                - path: /config
-        pod:
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
-            fsGroupChangePolicy: "OnRootMismatch"
-            supplementalGroups:
-              - 65539
+      sabnzbd:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/home-operations/sabnzbd
               tag: 4.5.5@sha256:da57e01cdebc547852b6df85c8df8c0e4d87792742c7608c5590dc653b184e8c
@@ -65,15 +48,24 @@ spec:
                 sabnzbd.media.svc.cluster.local,
                 sabnzbd.${SECRET_DOMAIN}
 
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: "OnRootMismatch"
+        supplementalGroups:
+          - 65539
+
     service:
-      main:
+      app:
+        controller: sabnzbd
         ports:
           http:
             port: *port
 
     ingress:
-      main:
-        enabled: true
+      app:
         className: "internal"
         annotations:
           hajimari.io/enable: "true"
@@ -87,18 +79,18 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
               - *host
 
     persistence:
+      config:
+        existingClaim: sabnzbd
       media:
-        enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            server: nas-2.lan
-            path: /volume1/Media
-        mountPath: /media
+        type: nfs
+        server: nas-2.lan
+        path: /volume1/Media
+        globalMounts:
+          - path: /media

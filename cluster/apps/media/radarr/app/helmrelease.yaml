@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 4.5.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -21,25 +21,9 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
-        type: statefulset
-        statefulset:
-          volumeClaimTemplates:
-            - name: config
-              accessMode: ReadWriteOnce
-              size: 5Gi
-              storageClass: synology-csi-retain
-              globalMounts:
-                - path: /config
-        pod:
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups: [10000]
+      radarr:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/home-operations/radarr
               tag: 6.1.0.10309@sha256:10f94c85f605d42e5e78de928f24758b5750a4e99eee8d0ef9ff150f7a2df033
@@ -111,15 +95,23 @@ spec:
                     name: radarr-secret
                     key: db_main
 
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [10000]
+
     service:
-      main:
+      app:
+        controller: radarr
         ports:
           http:
             port: *port
 
     ingress:
-      main:
-        enabled: true
+      app:
         className: "internal"
         annotations:
           hajimari.io/enable: "true"
@@ -133,18 +125,18 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
               - *host
 
     persistence:
+      config:
+        existingClaim: radarr
       media:
-        enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            server: nas-2.lan
-            path: /volume1/Media
-        mountPath: /media
+        type: nfs
+        server: nas-2.lan
+        path: /volume1/Media
+        globalMounts:
+          - path: /media

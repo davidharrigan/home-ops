@@ -18,7 +18,6 @@ target-nodes:
     #!/usr/bin/env bash
     set -euo pipefail
     for m in ${TALOS_CONFIG_DIR}/*.yaml; do
-        # hostname=$(yq eval '.machine.network.hostname | select(. != null)' "$m")
         hostname=$(yq eval '.hostname | select(. != null)' "$m")
         echo ${hostname}
     done
@@ -36,13 +35,20 @@ controlplane-node:
 node-ip node:
     dig +short k8s-1.lan A
 
-[doc('Apply Talos configuration to all nodes')]
+[doc('Apply initial Talos configuration to all nodes')]
 nodes:
     #!/usr/bin/env bash
     set -euox pipefail
     while IFS= read -r node; do
-        talosctl apply-config -n $(just bootstrap node-ip ${node}) --file="${TALOS_CONFIG_DIR}/${node}.yaml" --insecure
-        echo "Applying Talos config to ${node}..."
+        # talosctl apply-config -n $(just bootstrap node-ip ${node}) --file="${TALOS_CONFIG_DIR}/${node}.yaml" --insecure
+        just log "Applying Talos config to ${node}..."
+        if ! op=$(just talos apply -n ${node} -e ${node}.lan --insecure 2>&1); then
+            if [[ "$op" == *"certificate required"* ]]; then
+                just log "Talos already configured, skipping apply of config"
+                continue;
+            fi;
+            just fatal "Failed to apply Talos config to ${node}: $op"
+        fi;
     done < <(just bootstrap target-nodes)
 
 [doc('Bootstrap Kubernetes etcd (idempotent)')]
@@ -50,12 +56,6 @@ etcd:
     #!/usr/bin/env bash
     set -euo pipefail
     node=$(just bootstrap controlplane-node)
-
-    # Check if already bootstrapped
-    if talosctl etcd members -n "$node.lan" &>/dev/null; then
-        just log info "etcd already bootstrapped, skipping"
-        exit 0
-    fi
 
     # Bootstrap and wait for completion
     just log info "Bootstrapping etcd on $node..."

@@ -27,5 +27,24 @@ spec:
   valuesFrom:
     - kind: ConfigMap
       name: cilium-base-values
-    - kind: ConfigMap
-      name: cilium-hubble-values
+    # - kind: ConfigMap
+    #   name: cilium-hubble-values
+  values:
+    operator:
+      prometheus:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+      dashboards:
+        enabled: true
+        annotations:
+          grafana_folder: Cilium
+    prometheus:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+        trustCRDsExist: true
+    dashboards:
+      enabled: true
+      annotations:
+        grafana_folder: Cilium
