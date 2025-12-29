@@ -6,12 +6,12 @@ metadata:
   name: intel-device-plugins-gpu
   namespace: kube-system
 spec:
-  interval: 30m
+  interval: 1h
   chart:
     spec:
       chart: intel-device-plugins-gpu
       version: 0.34.1
-      interval: 30m
+      interval: 1h
       sourceRef:
         kind: HelmRepository
         name: intel

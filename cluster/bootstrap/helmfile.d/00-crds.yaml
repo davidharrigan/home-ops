@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/helmfile
+
+# This helmfile extracts and installs only CRDs from Helm charts.
+# Run with: helmfile -f 00-crds.yaml template | yq ea 'select(.kind == "CustomResourceDefinition")' | kubectl apply --server-side -f -
+
+helmDefaults:
+  args:
+    - --include-crds
+    - --no-hooks
+
+releases:
+  - name: kube-prometheus-stack
+    namespace: monitoring
+    chart: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
+    version: 80.8.0

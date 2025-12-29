@@ -5,7 +5,7 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  - ./homebridge/ks.yaml
-  - ./esphome/ks.yaml
-  - ./home-assistant/ks.yaml
-  - ./mosquitto/ks.yaml
+  # - ./homebridge/ks.yaml
+  # - ./esphome/ks.yaml
+  # - ./home-assistant/ks.yaml
+  # - ./mosquitto/ks.yaml

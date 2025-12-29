@@ -18,7 +18,6 @@ spec:
         selector:
           dnsZones:
             - "${SECRET_DOMAIN}"
-            - "manga.watch"
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -39,4 +38,3 @@ spec:
         selector:
           dnsZones:
             - "${SECRET_DOMAIN}"
-            - "manga.watch"

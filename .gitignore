@@ -54,4 +54,6 @@ override.tf.json
 terraform.rc
 
 talos/*
+cluster/talos/generated
+cluster/talos/downloads
 certs/

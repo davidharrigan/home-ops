@@ -5,11 +5,11 @@ metadata:
   name: cilium
   namespace: kube-system
 spec:
-  interval: 30m
+  interval: 1h
   chart:
     spec:
       chart: cilium
-      version: 1.15.6
+      version: 1.18.5
       sourceRef:
         kind: HelmRepository
         name: cilium
@@ -26,6 +26,25 @@ spec:
     keepHistory: false
   valuesFrom:
     - kind: ConfigMap
-      name: cilium-cni-config
-    - kind: ConfigMap
-      name: cilium-values
+      name: cilium-base-values
+    # - kind: ConfigMap
+    #   name: cilium-hubble-values
+  values:
+    operator:
+      prometheus:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+      dashboards:
+        enabled: true
+        annotations:
+          grafana_folder: Cilium
+    prometheus:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+        trustCRDsExist: true
+    dashboards:
+      enabled: true
+      annotations:
+        grafana_folder: Cilium

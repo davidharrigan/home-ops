@@ -1,0 +1,13 @@
+---
+machine:
+  features:
+    kubePrism:
+      enabled: true
+      port: 7445
+    hostDNS:
+      enabled: true
+      # Disabled to avoid conflict with Cilium bpf.masquerade
+      # See: https://docs.siderolabs.com/kubernetes-guides/cni/deploying-cilium
+      forwardKubeDNSToHost: false
+  install:
+    image: factory.talos.dev/metal-installer/c66247d0dd400240c7b6fbc9e6af6eb91d0bf7d07f65964537ed15d550d3b32d:v1.12.0

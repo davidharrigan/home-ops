@@ -6,7 +6,7 @@ metadata:
   name: nginx-internal
   namespace: networking
 spec:
-  interval: 30m
+  interval: 1h
   chart:
     spec:
       chart: ingress-nginx
@@ -15,7 +15,7 @@ spec:
         kind: HelmRepository
         name: ingress-nginx
         namespace: flux-system
-      interval: 30m
+      interval: 1h
   values:
     controller:
       replicaCount: 1

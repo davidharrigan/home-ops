@@ -3,49 +3,49 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-nginx-shared
+  name: nginx-shared
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-cert-manager-issuers
+    - name: cert-manager-issuers
   path: ./cluster/apps/networking/nginx/shared
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-cluster
   wait: true
-  interval: 10m
+  interval: 1h
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-nginx-internal
+  name: nginx-internal
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-nginx-shared
+    - name: nginx-shared
   path: ./cluster/apps/networking/nginx/internal
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-cluster
   wait: true
-  interval: 10m
+  interval: 1h
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-nginx-external
+  name: nginx-external
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-nginx-shared
+    - name: nginx-shared
   path: ./cluster/apps/networking/nginx/external
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-cluster
   wait: true
-  interval: 10m
+  interval: 1h

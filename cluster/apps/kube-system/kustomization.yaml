@@ -6,6 +6,6 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./cilium/ks.yaml
-  - ./reloader/ks.yaml
+  # - ./reloader/ks.yaml
   - ./node-feature-discovery/ks.yaml
   - ./intel-device-plugins/ks.yaml

@@ -5,7 +5,7 @@ metadata:
   name: synology-csi
   namespace: synology-csi
 spec:
-  interval: 30m
+  interval: 1h
   chart:
     spec:
       chart: synology-csi
@@ -32,14 +32,14 @@ spec:
     storageClasses:
       synology-csi-delete:
         parameters:
-          dsm: nas-2.lan
+          dsm: nas-1.lan
           fsType: ext4
-          location: /volume2
+          location: /volume1
           protocol: iscsi
       synology-csi-retain:
         isDefault: true
         parameters:
-          dsm: nas-2.lan
+          dsm: nas-1.lan
           fsType: ext4
-          location: /volume2
+          location: /volume1
           protocol: iscsi

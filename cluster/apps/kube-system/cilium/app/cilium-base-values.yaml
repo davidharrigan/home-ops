@@ -1,5 +1,6 @@
 ---
-# TODO: use this file from Talos installation
+# Base Cilium CNI configuration
+# Used by both helmfile bootstrap and Flux HelmRelease
 autoDirectNodeRoutes: true
 bandwidthManager:
   enabled: true
@@ -12,7 +13,7 @@ cgroup:
     enabled: false
   hostRoot: /sys/fs/cgroup
 cluster:
-  name: home_cluster
+  name: home-cluster
   id: 1
 endpointRoutes:
   enabled: true
@@ -35,6 +36,7 @@ loadBalancer:
   mode: dsr
 localRedirectPolicy: true
 operator:
+  replicas: 1
   rollOutPods: true
 rollOutCiliumPods: true
 routingMode: native
