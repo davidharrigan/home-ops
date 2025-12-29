@@ -23,7 +23,7 @@
     },
     {
       description: "Auto merge container updates",
-      matchManagers: ["docker"],
+      matchDatasources: ["docker"],
       matchUpdateTypes: ["digest", "patch"],
       matchPackageNames: ["/home-operations/"],
       automerge: true,
@@ -34,27 +34,19 @@
       commitMessagePrefix: "{{semanticCommitType}}({{semanticCommitScope}})!:",
     },
     {
-      description: "Flux Operator Group",
-      groupName: "flux-operator",
-      matchDatasources: ["docker"],
-      matchPackageNames: [
-        "/flux-operator/",
-        "/flux-instance/",
-        "/flux-operator-manifests/",
-      ],
+      description: "Flux Group",
+      groupName: "flux",
+      matchPackageNames: ["/fluxcd\\/flux/"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
-      minimumGroupSize: 3,
+      minimumGroupSize: 2,
     },
     {
       description: "Intel Device Plugins Group",
       groupName: "intel-device-plugins",
-      matchDatasources: ["docker"],
-      matchPackageNames: [
-        "/intel-device-plugins-operator/",
-        "/intel-device-plugins-gpu/",
-      ],
+      matchDatasources: ["helm"],
+      matchPackageNames: ["/intel-device-plugins/"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
