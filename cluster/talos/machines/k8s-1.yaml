@@ -1,12 +1,28 @@
 ---
 machine:
   type: controlplane
-  network:
-    hostname: k8s-1
-    interfaces:
-      - interface: enp2s0
-        dhcp: true
-        vip:
-          ip: 192.168.42.42  # Shared VIP for k8s API
+  # network:
+  #   interfaces:
+  #     - interface: enp44s0
+  #       dhcp: true
+  #       vip:
+  #         # ip: 192.168.42.42  # Shared VIP for k8s API
+  #         ip: 192.168.42.43  # Shared VIP for k8s API
+  certSANs:
+    - k8s-1.lan
   install:
     disk: /dev/nvme0n1
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+auto: off
+hostname: k8s-1
+---
+apiVersion: v1alpha1
+kind: DHCPv4Config
+name: enp44s0
+---
+apiVersion: v1alpha1
+kind: Layer2VIPConfig
+name: 192.168.42.43
+link: enp44s0

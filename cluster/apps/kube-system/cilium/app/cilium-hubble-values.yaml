@@ -1,6 +1,6 @@
 ---
 hubble:
-  enabled: true
+  enabled: false
   metrics:
     enabled:
       - dns:query:ignoreAAAA

@@ -1,7 +1,8 @@
 ---
 cluster:
+  allowSchedulingOnControlPlanes: true
   controlPlane:
-    endpoint: https://k8s-vip.lan:6443
+    endpoint: https://k8s-vip-testing.lan:6443
   network:
     cni:
       name: none  # Using Cilium via Flux instead

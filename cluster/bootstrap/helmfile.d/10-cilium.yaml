@@ -6,13 +6,18 @@ helmDefaults:
   wait: true
   waitForJobs: true
 
+# repositories:
+#   - name: cilium
+#     url: https://helm.cilium.io
+
 releases:
   - name: cilium
     namespace: kube-system
-    chart: oci://quay.io/cilium/cilium
+    chart: cilium/cilium
+    # chart: oci://quay.io/cilium/cilium
     version: 1.18.5
     values:
-      - ../apps/kube-system/cilium/app/cilium-base-values.yaml
+      - ../../apps/kube-system/cilium/app/cilium-base-values.yaml
     hooks:
       - # Wait for Cilium CRDs to be available
         command: bash
@@ -28,7 +33,7 @@ releases:
           - apply
           - --server-side
           - --field-manager=helmfile
-          - --filename=../apps/kube-system/cilium/app/lb-pool.yaml
+          - --filename=../../apps/kube-system/cilium/app/lb-pool.yaml
         events:
           - postsync
         showlogs: true
@@ -38,7 +43,7 @@ releases:
           - apply
           - --server-side
           - --field-manager=helmfile
-          - --filename=../apps/kube-system/cilium/app/l2-policy.yaml
+          - --filename=../../apps/kube-system/cilium/app/l2-policy.yaml
         events:
           - postsync
         showlogs: true

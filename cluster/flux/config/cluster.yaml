@@ -8,7 +8,8 @@ metadata:
 spec:
   interval: 30m
   ref:
-    branch: main
+    # branch: main
+    branch: fix/upgrade-talos
   url: "ssh://git@github.com/davidharrigan/home-ops"
   secretRef:
     name: github-deploy-key

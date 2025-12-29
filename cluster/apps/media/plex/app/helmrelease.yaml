@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -8,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 4.5.0
       interval: 30m
       sourceRef:
         kind: HelmRepository
@@ -17,37 +18,15 @@ spec:
   interval: 30m
   values:
     controllers:
-      main:
-        type: statefulset
-        statefulset:
-          volumeClaimTemplates:
-            - name: config
-              accessMode: ReadWriteOnce
-              size: 30Gi
-              storageClass: synology-csi-retain
-              globalMounts:
-                - path: /config
-        pod:
-          nodeSelector:
-            intel.feature.node.kubernetes.io/gpu: "true"
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            runAsNonRoot: true
-            fsGroup: 568
-            fsGroupChangePolicy: "OnRootMismatch"
-            supplementalGroups:
-              - 44
-              - 109
-              - 65539
+      plex:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/home-operations/plex
               tag: 1.42.2.10156@sha256:9ad8a3506e1d8ebda873a668603c1a2c10e6887969564561be669efd65ae8871
             env:
               TZ: America/New_York
-              PLEX_ADVERTISE_URL: https://plex.${SECRET_DOMAIN}:443, http://192.168.42.54:32400
+              PLEX_ADVERTISE_URL: https://plex.${SECRET_DOMAIN}:443, http://192.168.42.44:32400
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -60,18 +39,33 @@ spec:
               limits:
                 gpu.intel.com/i915: "3"
 
+    defaultPodOptions:
+      nodeSelector:
+        intel.feature.node.kubernetes.io/gpu: "true"
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        runAsNonRoot: true
+        fsGroup: 568
+        fsGroupChangePolicy: "OnRootMismatch"
+        supplementalGroups:
+          - 44
+          - 109
+          - 65539
+
     service:
-      main:
+      app:
+        controller: plex
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: 192.168.42.54
+          # io.cilium/lb-ipam-ips: 192.168.42.54
+          io.cilium/lb-ipam-ips: 192.168.42.44
         ports:
           http:
             port: 32400
 
     ingress:
-      main:
-        enabled: true
+      app:
         className: external
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
@@ -84,23 +78,22 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
               - *host
 
     persistence:
+      config:
+        existingClaim: plex
       media:
-        enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            server: nas-2.lan
-            path: /volume1/Media
-        mountPath: /media
-        readOnly: true
+        type: nfs
+        server: nas-2.lan
+        path: /volume1/Media
+        globalMounts:
+          - path: /media
+            readOnly: true
       transcode:
-        enabled: true
         type: emptyDir
         medium: Memory

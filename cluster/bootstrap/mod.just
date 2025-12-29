@@ -9,16 +9,18 @@ talos_dir := root_dir / "cluster/talos"
 machines_dir := talos_dir / "machines"
 flux_dir := root_dir / "cluster/flux"
 
-
-
+# Talos config values
+[private]
+default: nodes etcd talosconfig kubeconfig wait crds cilium flux flux-secrets flux-config
 
 [private]
 target-nodes:
     #!/usr/bin/env bash
     set -euo pipefail
     for m in ${TALOS_CONFIG_DIR}/*.yaml; do
-        hostname=$(yq eval '.machine.network.hostname' "$m")
-        echo ${hostname}.lan
+        # hostname=$(yq eval '.machine.network.hostname | select(. != null)' "$m")
+        hostname=$(yq eval '.hostname | select(. != null)' "$m")
+        echo ${hostname}
     done
 
 # Get first control plane node hostname
@@ -27,19 +29,19 @@ controlplane-node:
     #!/usr/bin/env bash
     set -euo pipefail
     while IFS= read -r node; do
-        just talos is-controller "${node%.lan}" && echo "${node}" && break
+        just talos is-controller ${node} && echo "${node}" && break
     done < <(just bootstrap target-nodes)
 
-# Talos config values
 [private]
-default: nodes etcd talosconfig kubeconfig wait cilium flux flux-secrets flux-config
+node-ip node:
+    dig +short k8s-1.lan A
 
 [doc('Apply Talos configuration to all nodes')]
 nodes:
     #!/usr/bin/env bash
-    set -euo pipefail
+    set -euox pipefail
     while IFS= read -r node; do
-        just talos apply "${node}" --insecure --force
+        talosctl apply-config -n $(just bootstrap node-ip ${node}) --file="${TALOS_CONFIG_DIR}/${node}.yaml" --insecure
         echo "Applying Talos config to ${node}..."
     done < <(just bootstrap target-nodes)
 
@@ -50,14 +52,14 @@ etcd:
     node=$(just bootstrap controlplane-node)
 
     # Check if already bootstrapped
-    if talosctl etcd members -n "$node" &>/dev/null; then
+    if talosctl etcd members -n "$node.lan" &>/dev/null; then
         just log info "etcd already bootstrapped, skipping"
         exit 0
     fi
 
     # Bootstrap and wait for completion
     just log info "Bootstrapping etcd on $node..."
-    until op=$(talosctl bootstrap -n "$node" 2>&1 || true) && [[ "$op" == *"AlreadyExists"* ]]; do
+    until op=$(talosctl bootstrap -n "$node" -e "$node".lan 2>&1 || true) && [[ "$op" == *"AlreadyExists"* ]]; do
         just log info "Kubernetes bootstrap in progress. Retrying in 5s..."
         sleep 5
     done
@@ -68,27 +70,38 @@ talosconfig:
     nodes=""
     endpoints=""
     while IFS= read -r node; do
-        just talos is-controller "${node%.lan}" && endpoints="${endpoints:+$endpoints,}${node}"
-        nodes="${nodes:+$nodes,}${node}"
+        just talos is-controller "${node}" && endpoints="${endpoints:+$endpoints,}${node}.lan"
+        nodes="${nodes:+$nodes,}${node}.lan"
     done < <(just bootstrap target-nodes)
 
     talosctl config endpoint "$endpoints"
     talosctl config nodes "$nodes"
 
-kubeconfig path='-':
-    talosctl kubeconfig {{ path }}
+kubeconfig path='':
+    #!/usr/bin/env bash
+    set -euo pipefail
+    node=$(just bootstrap controlplane-node)
+    talosctl kubeconfig {{ path }} -n "$node" -e "$node.lan"
     just log "kubeconfig written"
 
 [doc('Wait for Kubernetes API to be available')]
 wait:
     gum spin --title "Waiting for nodes..." -- kubectl wait nodes --all --for=condition=Ready --timeout=300s
 
+[doc('Install CRDs via helmfile (ServiceMonitor, etc.)')]
+crds:
+    #!/usr/bin/env bash
+    just log "Installing CRDs..."
+    cd {{ bootstrap_dir }}
+    helmfile -f helmfile.d/00-crds.yaml template 2>/dev/null | yq ea 'select(.kind == "CustomResourceDefinition")' | kubectl apply --server-side -f -
+    just log "CRDs installed"
+
 [doc('Install Cilium via helmfile')]
 cilium:
     #!/usr/bin/env bash
     just log "Installing Cilium..."
     cd {{ bootstrap_dir }}
-    helmfile -f helmfile.d/ sync
+    helmfile -f helmfile.d/10-cilium.yaml sync
     gum spin --title "Waiting for Cilium daemonset..." -- kubectl -n kube-system rollout status daemonset/cilium --timeout=300s
     gum spin --title "Waiting for nodes..." -- kubectl wait nodes --all --for=condition=Ready --timeout=300s
 
@@ -118,7 +131,3 @@ flux-config:
 
     just log info "Verifying Flux installation..."
     flux check
-
-[doc('Install only Cilium (for existing clusters)')]
-helmfile-only:
-    @just bootstrap helmfile-sync

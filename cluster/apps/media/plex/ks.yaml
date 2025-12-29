@@ -5,11 +5,23 @@ metadata:
   name: cluster-apps-plex
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cluster-apps-intel-device-plugins-gpu
+  targetNamespace: media
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: plex
+  components:
+    - ../../../../components/volsync
   path: ./cluster/apps/media/plex/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-cluster
+  postBuild:
+    substitute:
+      APP: plex
+      VOLSYNC_CAPACITY: 30Gi
   wait: false
   interval: 30m
   retryInterval: 1m

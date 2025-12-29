@@ -5,8 +5,9 @@ set shell := ['bash', '-euo', 'pipefail', '-c']
 # Configuration
 talos_version := "v1.12.0"
 architecture := "amd64"
-cluster_name := "home_cluster"
-cluster_endpoint := "k8s-vip.lan"
+cluster_name := "home-cluster-testing"
+cluster_endpoint := "k8s-vip-testing.lan"
+# cluster_endpoint := "k8s-vip.lan"
 factory_url := "https://factory.talos.dev"
 
 # Directories
@@ -46,7 +47,7 @@ is-controller node:
 # Get machine type from machine file
 [private]
 machine-type file:
-    yq eval '.machine.type // "worker"' {{ file }}
+    yq eval '.machine.type | select(. != null)' {{ file }}
 
 [private]
 output-dir:
@@ -83,13 +84,14 @@ gen: gen-config gen-talosconfig
 
 [private]
 _gen-config *flags: decrypt-secrets
+    #!/usr/bin/env bash
+    set -ex pipefail
     talosctl gen config {{ cluster_name }} https://{{ cluster_endpoint }}:6443 \
         --with-secrets {{ secrets_tmpfile }} \
         --config-patch @{{ patches_dir }}/common.yaml \
         --config-patch-control-plane @{{ patches_dir }}/controlplane.yaml \
-        --config-patch-worker @{{ patches_dir }}/worker.yaml \
         --force \
-        {{ flags }} >/dev/null 2>&1
+        {{ flags }}
 
 [doc('Generate config for a single machine')]
 gen-machineconfig node: (node-exists node) output-dir
@@ -124,7 +126,7 @@ endpoints:
     set -euo pipefail
     for m in {{ machines_dir }}/*.yaml; do
         type=$(just talos machine-type "$m")
-        hostname=$(yq eval '.machine.network.hostname' "$m")
+        hostname=$(yq eval '.hostname | select(. != null)' "$m")
         if [ "$type" = "controlplane" ]; then
             echo ${hostname}.lan
         fi
@@ -134,7 +136,7 @@ nodes:
     #!/usr/bin/env bash
     set -euo pipefail
     for m in {{ machines_dir }}/*.yaml; do
-        hostname=$(yq eval '.machine.network.hostname' "$m")
+        hostname=$(yq eval '.hostname | select(. != null)' "$m")
         echo ${hostname}.lan
     done
 
@@ -155,6 +157,9 @@ download file=schematic_file:
     iso_path="{{ downloads_dir }}/${iso_name}"
 
     mkdir -p {{ downloads_dir }}
+
+    image_url="{{ factory_url }}/image/${schematic_id}/{{ talos_version }}/metal-{{ architecture }}.iso"
+    echo $image_url
 
     if [ -f "$iso_path" ]; then
         just log info $iso_path already exists

@@ -9,5 +9,7 @@ spec:
   #   - cidr: 192.168.42.1/24
   allowFirstLastIPs: "Yes"
   blocks:
-    - start: 192.168.42.50
-      stop: 192.168.42.99
+    # - start: 192.168.42.50
+    #   stop: 192.168.42.99
+    - start: 192.168.42.40
+      stop: 192.168.42.49
