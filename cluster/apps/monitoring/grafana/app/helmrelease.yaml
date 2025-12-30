@@ -84,7 +84,8 @@ spec:
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
-          url: https://grafana.com/api/dashboards/15661/revisions/1/download
+          gnetId: 15661
+          revision: 2
         kubernetes-api-server:
           datasource: Prometheus
           url: https://grafana.com/api/dashboards/15761/revisions/19/download
@@ -103,9 +104,6 @@ spec:
         kubernetes-pods:
           datasource: Prometheus
           url: https://grafana.com/api/dashboards/15760/revisions/36/download
-        kubernetes-volumes:
-          datasource: Prometheus
-          url: https://grafana.com/api/dashboards/11454/revisions/14/download
       networking:
         cloudflared:
           datasource:
