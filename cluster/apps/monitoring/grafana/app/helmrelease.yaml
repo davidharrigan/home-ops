@@ -5,7 +5,7 @@ metadata:
   name: grafana
   namespace: monitoring
 spec:
-  interval: 5m
+  interval: 1h
   chart:
     spec:
       chart: grafana
@@ -15,21 +15,110 @@ spec:
         name: grafana
         namespace: flux-system
       interval: 1h
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    remediation:
-      retries: 3
   values:
     replicas: 1
+
+    testFramework:
+      enabled: false
+
+    resources:
+      requests:
+        cpu: 50m
+        memory: 128Mi
+      limits:
+        memory: 256Mi
+
     env:
       GF_EXPLORE_ENABLED: true
       GF_PANELS_DISABLE_SANITIZE_HTML: true
+      GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
+      GF_DATE_FORMATS_FULL_DATE: "MMM Do, YYYY hh:mm:ss a"
+
     admin:
       existingSecret: grafana-secret
+
+    dashboardProviders:
+      dashboardproviders.yaml:
+        apiVersion: 1
+        providers:
+          - name: default
+            orgId: 1
+            folder: ""
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/default
+          - name: kubernetes
+            orgId: 1
+            folder: Kubernetes
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/kubernetes
+          - name: networking
+            orgId: 1
+            folder: Networking
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/networking
+
+    dashboards:
+      default:
+        node-exporter-full:
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
+          url: https://grafana.com/api/dashboards/1860/revisions/37/download
+        cert-manager:
+          datasource: Prometheus
+          url: https://grafana.com/api/dashboards/20842/revisions/3/download
+        prometheus:
+          datasource: Prometheus
+          url: https://grafana.com/api/dashboards/19105/revisions/7/download
+      kubernetes:
+        kubernetes-overview:
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
+          url: https://grafana.com/api/dashboards/15661/revisions/1/download
+        kubernetes-api-server:
+          datasource: Prometheus
+          url: https://grafana.com/api/dashboards/15761/revisions/19/download
+        kubernetes-coredns:
+          datasource: Prometheus
+          url: https://grafana.com/api/dashboards/15762/revisions/21/download
+        kubernetes-global:
+          datasource: Prometheus
+          url: https://grafana.com/api/dashboards/15757/revisions/43/download
+        kubernetes-namespaces:
+          datasource: Prometheus
+          url: https://grafana.com/api/dashboards/15758/revisions/42/download
+        kubernetes-nodes:
+          datasource: Prometheus
+          url: https://grafana.com/api/dashboards/15759/revisions/37/download
+        kubernetes-pods:
+          datasource: Prometheus
+          url: https://grafana.com/api/dashboards/15760/revisions/36/download
+        kubernetes-volumes:
+          datasource: Prometheus
+          url: https://grafana.com/api/dashboards/11454/revisions/14/download
+      networking:
+        cloudflared:
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
+          url: https://grafana.com/api/dashboards/17457/revisions/6/download
+        nginx-ingress:
+          datasource: Prometheus
+          url: https://grafana.com/api/dashboards/9614/revisions/1/download
+
     grafana.ini:
       server:
+        enable_gzip: true
         root_url: "https://grafana.${SECRET_DOMAIN}"
       paths:
         data: /var/lib/grafana/data
@@ -38,70 +127,73 @@ spec:
         provisioning: /etc/grafana/provisioning
       analytics:
         check_for_updates: false
+        check_for_plugin_updates: false
+        reporting_enabled: false
       log:
         level: info
         mode: console
-      grafana_net:
-        url: https://grafana.net
+      auth:
+        disable_login_form: false
       auth.basic:
         enabled: true
+      auth.anonymous:
+        enabled: false
+      news:
+        news_feed_enabled: false
+
     datasources:
       datasources.yaml:
         apiVersion: 1
+        deleteDatasources:
+          - { name: Alertmanager, orgId: 1 }
+          - { name: Prometheus, orgId: 1 }
         datasources:
           - name: Prometheus
             type: prometheus
+            uid: prometheus
             access: proxy
-            url: http://prometheus-prometheus:9090/
+            url: http://prometheus-operated.monitoring.svc.cluster.local:9090
             isDefault: true
-            # - name: Loki
-            #   type: loki
-            #   access: proxy
-            #   url: http://loki:3100
+            jsonData:
+              timeInterval: 1m
+
     persistence:
-      enabled: true
-      existingClaim: grafana-pvc
+      enabled: false
+
     sidecar:
       dashboards:
         enabled: true
-        # label key that the ConfigMaps containing dashboards should have to be collected by the sidecar
-        # The value is unused, the ConfigMap could be labelled as:
-        # label:
-        #   grafana_dashboard: "true"
         label: grafana_dashboard
+        labelValue: "true"
         searchNamespace: ALL
-        # If specified, the sidecar will look for annotation with this name to create folder and put graph here.
-        # You can use this parameter together with `provider.foldersFromFilesStructure`to annotate configmaps and create folder structure.
         folderAnnotation: grafana_folder
         provider:
-          # disableDelete: true
+          disableDelete: true
           foldersFromFilesStructure: true
       datasources:
         enabled: true
+        label: grafana_datasource
+        labelValue: "true"
         searchNamespace: ALL
+
     plugins:
-      - natel-discrete-panel
       - pr0ps-trackmap-panel
-      - grafana-piechart-panel
-      - vonage-status-panel
-      - grafana-worldmap-panel
       - grafana-clock-panel
+      - vonage-status-panel
+
     serviceMonitor:
       enabled: true
+
     ingress:
       enabled: true
-      ingressClassName: "internal"
-      annotations:
-        hajimari.io/enable: "true"
-        hajimari.io/icon: "chart-areaspline"
-        hajimari.io/appName: "Grafana"
-        hajimari.io/group: "System"
+      ingressClassName: internal
       hosts:
         - &host "grafana.${SECRET_DOMAIN}"
       tls:
         - hosts:
             - *host
-          secretName: "grafana-tls"
+          secretName: grafana-tls
+
     serviceAccount:
       create: true
       autoMount: true
