@@ -27,6 +27,7 @@ spec:
     kubeStateMetrics:
       enabled: true
     kube-state-metrics:
+      fullnameOverride: kube-state-metrics
       metricLabelsAllowlist:
         - "persistentvolumeclaims=[*]"
       prometheus:
@@ -97,7 +98,9 @@ spec:
       enabled: false
 
     kubeEtcd:
-      enabled: false
+      service:
+        selector:
+          component: kube-apiserver
 
     kubeScheduler:
       enabled: false
