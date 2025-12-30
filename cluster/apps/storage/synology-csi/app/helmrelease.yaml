@@ -30,14 +30,17 @@ spec:
       create: false
       name: synology-csi-client-info
     storageClasses:
-      synology-csi-delete:
+      synology-csi:
+        isDefault: true
+        reclaimPolicy: Delete
         parameters:
           dsm: nas-1.lan
           fsType: ext4
           location: /volume1
           protocol: iscsi
       synology-csi-retain:
-        isDefault: true
+        # TODO: fix me
+        # reclaimPolicy: Retain
         parameters:
           dsm: nas-1.lan
           fsType: ext4
