@@ -69,31 +69,32 @@ spec:
                 value: "False"
               - name: RADARR__SERVER__PORT
                 value: *port
-              - name: RADARR__POSTGRES__HOST
-                valueFrom:
-                  secretKeyRef:
-                    name: radarr-secret
-                    key: db_host
-              - name: RADARR__POSTGRES__PORT
-                valueFrom:
-                  secretKeyRef:
-                    name: radarr-secret
-                    key: db_port
-              - name: RADARR__POSTGRES__USER
-                valueFrom:
-                  secretKeyRef:
-                    name: radarr-secret
-                    key: db_user
-              - name: RADARR__POSTGRES__PASSWORD
-                valueFrom:
-                  secretKeyRef:
-                    name: radarr-secret
-                    key: db_pass
-              - name: RADARR__POSTGRES__MAINDB
-                valueFrom:
-                  secretKeyRef:
-                    name: radarr-secret
-                    key: db_main
+              # Postgres config commented out to use SQLite
+              # - name: RADARR__POSTGRES__HOST
+              #   valueFrom:
+              #     secretKeyRef:
+              #       name: radarr-secret
+              #       key: db_host
+              # - name: RADARR__POSTGRES__PORT
+              #   valueFrom:
+              #     secretKeyRef:
+              #       name: radarr-secret
+              #       key: db_port
+              # - name: RADARR__POSTGRES__USER
+              #   valueFrom:
+              #     secretKeyRef:
+              #       name: radarr-secret
+              #       key: db_user
+              # - name: RADARR__POSTGRES__PASSWORD
+              #   valueFrom:
+              #     secretKeyRef:
+              #       name: radarr-secret
+              #       key: db_pass
+              # - name: RADARR__POSTGRES__MAINDB
+              #   valueFrom:
+              #     secretKeyRef:
+              #       name: radarr-secret
+              #       key: db_main
 
     defaultPodOptions:
       securityContext:

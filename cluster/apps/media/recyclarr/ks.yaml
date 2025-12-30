@@ -2,24 +2,27 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: prowlarr
+  name: recyclarr
   namespace: flux-system
 spec:
   targetNamespace: media
   commonMetadata:
     labels:
-      app.kubernetes.io/name: prowlarr
+      app.kubernetes.io/name: recyclarr
   components:
     - ../../../../components/volsync
-  path: ./cluster/apps/media/prowlarr/app
+  dependsOn:
+    - name: sonarr
+    - name: radarr
+  path: ./cluster/apps/media/recyclarr/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-cluster
   postBuild:
     substitute:
-      APP: prowlarr
-      VOLSYNC_CAPACITY: 2Gi
+      APP: recyclarr
+      VOLSYNC_CAPACITY: 1Gi
   wait: false
   interval: 1h
   retryInterval: 1m

@@ -1,0 +1,153 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json
+
+sonarr:
+  sonarr:
+    base_url: http://sonarr.media.svc.cluster.local:8989
+    api_key: !env_var SONARR_API_KEY
+    delete_old_custom_formats: true
+    replace_existing_custom_formats: true
+    include:
+      - template: sonarr-v4-custom-formats-web-1080p
+
+    # Quality definitions (MB/min) - 45-min episode at 1080p: ~1.6 GB pref, ~4.5 GB max
+    quality_definition:
+      type: series
+      qualities:
+        - quality: WEBDL-1080p
+          min: 12.5
+          max: 100
+          preferred: 35
+        - quality: WEBRip-1080p
+          min: 12.5
+          max: 100
+          preferred: 35
+        - quality: HDTV-1080p
+          min: 15
+          max: 80
+          preferred: 35
+
+    quality_profiles:
+      # Grabs HDTV immediately, upgrades to WEB 1080p
+      # Keeps upgrading until Tier 1 release group (~1700-1800 score)
+      - name: WEB-1080p
+        reset_unmatched_scores:
+          enabled: true
+        upgrade:
+          allowed: true
+          until_quality: WEB 1080p
+          until_score: 2000
+        min_format_score: 0
+        quality_sort: top
+        qualities:
+          - name: WEB 1080p
+            qualities:
+              - WEBDL-1080p
+              - WEBRip-1080p
+          - name: HDTV-1080p
+          - name: WEB 720p
+            qualities:
+              - WEBDL-720p
+              - WEBRip-720p
+          - name: HDTV-720p
+          - name: WEB 480p
+            qualities:
+              - WEBDL-480p
+              - WEBRip-480p
+          - name: SDTV
+
+    custom_formats:
+      # Unwanted
+      - trash_ids:
+          - 32b367365729d530ca1c124a0b180c64 # Bad Dual Groups
+          - 82d40da2bc6923f41e14394075dd4b03 # No-RlsGroup
+          - e1a997ddb54e3ecbfe06341ad323c458 # Obfuscated
+          - 06d66ab109d4d2eddb2794d21526d140 # Retags
+          - 1b3994c551cbb92a2c781af061f4ab44 # Scene
+        assign_scores_to:
+          - name: WEB-1080p
+
+radarr:
+  radarr:
+    base_url: http://radarr.media.svc.cluster.local:7878
+    api_key: !env_var RADARR_API_KEY
+    delete_old_custom_formats: true
+    replace_existing_custom_formats: true
+    include:
+      - template: radarr-custom-formats-hd-bluray-web
+
+    # Quality definitions (MB/min) - 2-hr movie at 1080p: ~6 GB pref, ~18 GB max
+    quality_definition:
+      type: movie
+      qualities:
+        - quality: WEBDL-1080p
+          min: 12.5
+          max: 150
+          preferred: 50
+        - quality: WEBRip-1080p
+          min: 12.5
+          max: 150
+          preferred: 50
+        - quality: Bluray-1080p
+          min: 50
+          max: 200
+          preferred: 100
+
+    quality_profiles:
+      # Default profile: WEB only (3-8 GB movies)
+      - name: WEB-1080p
+        reset_unmatched_scores:
+          enabled: true
+        upgrade:
+          allowed: true
+          until_quality: WEB 1080p
+          until_score: 5000
+        min_format_score: 0
+        quality_sort: top
+        qualities:
+          - name: WEB 1080p
+            qualities:
+              - WEBDL-1080p
+              - WEBRip-1080p
+          - name: WEB 720p
+            qualities:
+              - WEBDL-720p
+              - WEBRip-720p
+          - name: WEB 480p
+            qualities:
+              - WEBDL-480p
+              - WEBRip-480p
+
+      # Upgrade profile: WEB -> Bluray (8-15 GB movies)
+      - name: HD Bluray + WEB
+        reset_unmatched_scores:
+          enabled: true
+        upgrade:
+          allowed: true
+          until_quality: Bluray-1080p
+          until_score: 10000
+        min_format_score: 0
+        quality_sort: top
+        qualities:
+          - name: Bluray-1080p
+          - name: WEB 1080p
+            qualities:
+              - WEBDL-1080p
+              - WEBRip-1080p
+          - name: Bluray-720p
+          - name: WEB 720p
+            qualities:
+              - WEBDL-720p
+              - WEBRip-720p
+
+    custom_formats:
+      # Unwanted
+      - trash_ids:
+          - b6832f586342ef70d9c128d40c07b872 # Bad Dual Groups
+          - ae9b7c9ebde1f3bd336a8cbd1ec4c5e5 # No-RlsGroup
+          - 7357cf5161efbf8c4d5d0c30b4815ee2 # Obfuscated
+          - 5c44f52a8714fdd79bb4d98e2673be1f # Retags
+          - f537cf427b64c38c8e36298f657e4828 # Scene
+        assign_scores_to:
+          - name: WEB-1080p
+          - name: HD Bluray + WEB
