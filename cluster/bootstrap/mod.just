@@ -38,11 +38,11 @@ node-ip node:
 [doc('Apply initial Talos configuration to all nodes')]
 nodes:
     #!/usr/bin/env bash
-    set -euox pipefail
+    set -euo pipefail
     while IFS= read -r node; do
-        # talosctl apply-config -n $(just bootstrap node-ip ${node}) --file="${TALOS_CONFIG_DIR}/${node}.yaml" --insecure
         just log "Applying Talos config to ${node}..."
-        if ! op=$(just talos apply -n ${node} -e ${node}.lan --insecure 2>&1); then
+        op=$(talosctl apply-config -n $(just bootstrap node-ip ${node}) --file="${TALOS_CONFIG_DIR}/${node}.yaml" --insecure 2>&1)
+        if ! $op; then
             if [[ "$op" == *"certificate required"* ]]; then
                 just log "Talos already configured, skipping apply of config"
                 continue;

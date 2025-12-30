@@ -1,0 +1,21 @@
+---
+machine:
+  type: controlplane
+  certSANs:
+    - k8s-2.lan
+  install:
+    disk: /dev/nvme0n1
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+auto: off
+hostname: k8s-2
+---
+apiVersion: v1alpha1
+kind: DHCPv4Config
+name: enp44s0
+---
+apiVersion: v1alpha1
+kind: Layer2VIPConfig
+name: 192.168.42.42
+link: enp44s0
