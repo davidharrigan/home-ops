@@ -125,66 +125,9 @@ spec:
 
     alertmanager:
       fullnameOverride: alertmanager
-      enabled: false # TODO: enable
-      config:
-        global:
-          resolve_timeout: 5m
-        receivers:
-          - name: "null" # quote
-          - name: pushover
-            pushover_configs:
-              - url_title: View in Alertmanager
-                token: "${PUSHOVER_API_TOKEN}"
-                user_key: "${PUSHOVER_USER_KEY}"
-                send_resolved: true
-                html: true
-                sound: gamelan
-                priority: |-
-                  {{ if eq .Status "firing" }}1{{ else }}0{{ end }}
-                title: |-
-                  {{ .CommonLabels.alertname }} [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}]
-                message: |-
-                  {{- range .Alerts }}
-                    {{- if ne .Annotations.description "" }}
-                      {{ .Annotations.description }}
-                    {{- else if ne .Annotations.summary "" }}
-                      {{ .Annotations.summary }}
-                    {{- else if ne .Annotations.message "" }}
-                      {{ .Annotations.message }}
-                    {{- else }}
-                      Alert description not available
-                    {{- end }}
-                    {{- if gt (len .Labels.SortedPairs) 0 }}
-                      <small>
-                      {{- range .Labels.SortedPairs }}
-                        <b>{{ .Name }}:</b> {{ .Value }}
-                      {{- end }}
-                      </small>
-                    {{- end }}
-                  {{- end }}
-        route:
-          group_by: ["alertname", "job"]
-          group_wait: 30s
-          group_interval: 5m
-          repeat_interval: 6h
-          receiver: pushover
-          routes:
-            - receiver: "null" # quote
-              matchers:
-                - alertname =~ "InfoInhibitor|Watchdog"
-            - receiver: pushover
-              matchers:
-                - severity = "critical"
-              continue: true
-        inhibit_rules:
-          - source_matchers:
-              - severity = "critical"
-            target_matchers:
-              - severity = "warning"
-            equal: ["alertname", "namespace"]
-
+      enabled: true
       ingress:
-        enabled: false # TODO: enable
+        enabled: true
         pathType: Prefix
         ingressClassName: "internal"
         hosts:
@@ -195,6 +138,10 @@ spec:
             secretName: "alertmanager-tls"
       alertmanagerSpec:
         replicas: 1
+        alertmanagerConfiguration:
+          name: alertmanager
+          global:
+            resolveTimeout: 5m
         storageSpec:
           volumeClaimTemplate:
             spec:
