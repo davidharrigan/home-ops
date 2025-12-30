@@ -29,6 +29,11 @@
       automerge: true,
     },
     {
+      description: "Auto merge digest pins",
+      matchUpdateTypes: ["pinDigest"],
+      automerge: true,
+    },
+    {
       matchUpdateTypes: ["major"],
       semanticCommitType: "feat",
       commitMessagePrefix: "{{semanticCommitType}}({{semanticCommitScope}})!:",
