@@ -72,49 +72,58 @@ spec:
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
-          url: https://grafana.com/api/dashboards/1860/revisions/37/download
+          gnetId: 1860
+          revision: 37
         cert-manager:
           datasource: Prometheus
-          url: https://grafana.com/api/dashboards/20842/revisions/3/download
+          gnetId: 20340
+          revision: 1
         prometheus:
           datasource: Prometheus
-          url: https://grafana.com/api/dashboards/19105/revisions/7/download
+          gnetId: 19105
+          revision: 7
       kubernetes:
         kubernetes-overview:
           datasource:
-            - name: DS_PROMETHEUS
+            - name: DS__VICTORIAMETRICS-PROD-ALL
               value: Prometheus
-          url: https://grafana.com/api/dashboards/15661/revisions/1/download
+          gnetId: 15661
+          revision: 2
         kubernetes-api-server:
           datasource: Prometheus
-          url: https://grafana.com/api/dashboards/15761/revisions/19/download
+          gnetId: 15761
+          revision: 19
         kubernetes-coredns:
           datasource: Prometheus
-          url: https://grafana.com/api/dashboards/15762/revisions/21/download
+          gnetId: 15762
+          revision: 21
         kubernetes-global:
           datasource: Prometheus
-          url: https://grafana.com/api/dashboards/15757/revisions/43/download
+          gnetId: 15757
+          revision: 43
         kubernetes-namespaces:
           datasource: Prometheus
-          url: https://grafana.com/api/dashboards/15758/revisions/42/download
+          gnetId: 15758
+          revision: 42
         kubernetes-nodes:
           datasource: Prometheus
-          url: https://grafana.com/api/dashboards/15759/revisions/37/download
+          gnetId: 15759
+          revision: 37
         kubernetes-pods:
           datasource: Prometheus
-          url: https://grafana.com/api/dashboards/15760/revisions/36/download
-        kubernetes-volumes:
-          datasource: Prometheus
-          url: https://grafana.com/api/dashboards/11454/revisions/14/download
+          gnetId: 15760
+          revision: 36
       networking:
         cloudflared:
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
-          url: https://grafana.com/api/dashboards/17457/revisions/6/download
+          gnetId: 17457
+          revision: 6
         nginx-ingress:
           datasource: Prometheus
-          url: https://grafana.com/api/dashboards/9614/revisions/1/download
+          gnetId: 9614
+          revision: 1
 
     grafana.ini:
       server:
