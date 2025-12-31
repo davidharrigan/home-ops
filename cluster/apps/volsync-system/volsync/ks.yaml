@@ -5,8 +5,8 @@ metadata:
   name: volsync
   namespace: flux-system
 spec:
-  targetNamespace: storage
-  path: ./cluster/apps/storage/volsync/app
+  targetNamespace: volsync-system
+  path: ./cluster/apps/volsync-system/volsync/app
   prune: true
   sourceRef:
     kind: GitRepository

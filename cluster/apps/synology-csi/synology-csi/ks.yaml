@@ -5,7 +5,8 @@ metadata:
   name: synology-csi
   namespace: flux-system
 spec:
-  path: ./cluster/apps/storage/synology-csi/app
+  targetNamespace: synology-csi
+  path: ./cluster/apps/synology-csi/synology-csi/app
   prune: true
   sourceRef:
     kind: GitRepository
