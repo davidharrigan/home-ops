@@ -6,6 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   path: ./cluster/apps/media/tautulli/app
+  targetNamespace: media
   prune: true
   sourceRef:
     kind: GitRepository
@@ -14,3 +15,12 @@ spec:
   interval: 1h
   retryInterval: 1m
   timeout: 15m
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: plex
+  components:
+    - ../../../../components/volsync
+  postBuild:
+    substitute:
+      APP: tautulli
+      VOLSYNC_CAPACITY: 5Gi
