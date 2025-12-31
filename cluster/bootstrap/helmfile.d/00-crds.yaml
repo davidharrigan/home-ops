@@ -23,7 +23,7 @@ releases:
   - name: snapshot-controller
     namespace: kube-system
     chart: piraeus/snapshot-controller
-    version: 3.0.6
+    version: 4.2.0
   - name: volsync
     namespace: volsync-system
     chart: backube/volsync
