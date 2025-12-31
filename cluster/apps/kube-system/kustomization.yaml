@@ -5,6 +5,7 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
+  - ./snapshot-controller/ks.yaml
   - ./cilium/ks.yaml
   - ./metrics-server/ks.yaml
   # - ./reloader/ks.yaml

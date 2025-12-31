@@ -46,3 +46,11 @@ spec:
           fsType: ext4
           location: /volume1
           protocol: iscsi
+    volumeSnapshotClasses:
+      synology-csi-snapclass:
+        isDefault: true
+        deletionPolicy: Delete
+        parameters:
+          dsm: nas-1.lan
+          location: /volume1
+          is_locked: "false"

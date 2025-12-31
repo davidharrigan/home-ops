@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./backube.yaml
   - ./bitnami.yaml
+  - ./piraeus.yaml
   - ./bjw-s.yaml
   - ./cilium.yaml
   - ./external-dns.yaml

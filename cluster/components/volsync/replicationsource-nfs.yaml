@@ -13,6 +13,7 @@ spec:
     rcloneConfig: volsync-rclone-nfs
     copyMethod: ${VOLSYNC_COPY_METHOD:=Snapshot}
     storageClassName: ${VOLSYNC_STORAGECLASS:=synology-csi-retain}
+    volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=synology-csi-snapclass}
     moverSecurityContext:
       runAsUser: 568
       runAsGroup: 568
