@@ -5,6 +5,7 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
+  - ./volsync-secrets/ks.yaml
   - ./bazarr/ks.yaml
   - ./overseerr/ks.yaml
   - ./plex/ks.yaml
