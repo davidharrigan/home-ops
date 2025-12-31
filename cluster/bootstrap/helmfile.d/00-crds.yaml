@@ -9,8 +9,16 @@ helmDefaults:
     - --include-crds
     - --no-hooks
 
+repositories:
+  - name: backube
+    url: https://backube.github.io/helm-charts/
+
 releases:
   - name: kube-prometheus-stack
     namespace: monitoring
     chart: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
     version: 80.8.0
+  - name: volsync
+    namespace: storage
+    chart: backube/volsync
+    version: 0.14.0

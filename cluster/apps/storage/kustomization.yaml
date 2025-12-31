@@ -6,3 +6,4 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./synology-csi/ks.yaml
+  - ./volsync/ks.yaml
