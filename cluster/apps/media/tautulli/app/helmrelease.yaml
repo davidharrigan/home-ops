@@ -78,13 +78,5 @@ spec:
     persistence:
       config:
         existingClaim: config-tautulli
-      cache:
-        existingClaim: cache-tautulli
-        globalMounts:
-          - path: /config/cache
-      logs:
-        type: emptyDir
-        globalMounts:
-          - path: /config/logs
       tmp:
         type: emptyDir
