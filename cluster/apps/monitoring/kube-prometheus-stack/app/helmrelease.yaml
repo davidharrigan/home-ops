@@ -98,9 +98,7 @@ spec:
       enabled: false
 
     kubeEtcd:
-      service:
-        selector:
-          component: kube-apiserver
+      enabled: false  # Talos doesn't expose etcd metrics by default
 
     kubeScheduler:
       enabled: false
