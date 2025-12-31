@@ -27,10 +27,9 @@ spec:
               tag: 4.5.5@sha256:da57e01cdebc547852b6df85c8df8c0e4d87792742c7608c5590dc653b184e8c
             resources:
               requests:
-                cpu: 5m
+                cpu: 25m
                 memory: 100Mi
               limits:
-                cpu: 250m
                 memory: 3Gi
             env:
               SABNZBD__PORT: &port 8080
