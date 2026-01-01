@@ -19,6 +19,15 @@ spec:
     crds: CreateReplace
   values:
     manageCRDs: true
+    metrics:
+      disableAuth: true
+    podSecurityContext:
+      runAsNonRoot: true
+      runAsUser: 65534
+      runAsGroup: 65534
+      fsGroup: 65534
+      seccompProfile:
+        type: RuntimeDefault
     resources:
       requests:
         cpu: 50m
