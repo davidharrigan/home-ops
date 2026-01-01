@@ -5,3 +5,4 @@ namespace: synology-csi
 resources:
   - ./secret.sops.yaml
   - ./helmrelease.yaml
+  - ./clusterrole-patch.yaml

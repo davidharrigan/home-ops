@@ -1,0 +1,22 @@
+---
+# Full ClusterRole for csi-snapshotter sidecar
+# The synology-csi chart creates an incomplete ClusterRole - this patches it
+# Based on: https://github.com/kubernetes-csi/external-snapshotter/blob/main/deploy/kubernetes/csi-snapshotter/rbac-csi-snapshotter.yaml
+# See: https://github.com/SynologyOpenSource/synology-csi/issues/84
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: synology-csi-snapshotter
+rules:
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["list", "watch", "create", "update", "patch"]
+  - apiGroups: ["snapshot.storage.k8s.io"]
+    resources: ["volumesnapshotclasses"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["snapshot.storage.k8s.io"]
+    resources: ["volumesnapshotcontents"]
+    verbs: ["get", "list", "watch", "update", "patch"]
+  - apiGroups: ["snapshot.storage.k8s.io"]
+    resources: ["volumesnapshotcontents/status"]
+    verbs: ["update", "patch"]

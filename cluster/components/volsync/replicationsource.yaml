@@ -2,18 +2,18 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: ${APP}-nfs
+  name: ${APP}
 spec:
   sourcePVC: ${APP}
   trigger:
     schedule: "0 2 * * *"
   rclone:
     rcloneConfigSection: nfs-backup
-    rcloneDestPath: ${APP}
-    rcloneConfig: volsync-rclone-nfs
+    rcloneDestPath: /volsync/${APP}
+    rcloneConfig: volsync-rclone
     copyMethod: ${VOLSYNC_COPY_METHOD:=Snapshot}
-    storageClassName: ${VOLSYNC_STORAGECLASS:=synology-csi-retain}
-    volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=synology-csi-snapclass}
+    storageClassName: ${VOLSYNC_STORAGECLASS:=synology-csi}
+    volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=synology-csi-snapshot}
     moverSecurityContext:
       runAsUser: 568
       runAsGroup: 568
