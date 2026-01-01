@@ -82,6 +82,10 @@ spec:
           datasource: Prometheus
           gnetId: 19105
           revision: 7
+        volsync:
+          datasource: Prometheus
+          gnetId: 21356
+          revision: 3
       kubernetes:
         kubernetes-overview:
           datasource:

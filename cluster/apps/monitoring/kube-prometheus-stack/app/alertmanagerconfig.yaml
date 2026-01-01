@@ -19,6 +19,14 @@ spec:
           - name: alertname
             value: InfoInhibitor|Watchdog
             matchType: =~
+      - receiver: "null"
+        matchers:
+          - name: alertname
+            value: NodeFilesystemAlmostOutOfFiles
+            matchType: =
+          - name: mountpoint
+            value: /boot/efi
+            matchType: =
       - receiver: pushover
         matchers:
           - name: severity

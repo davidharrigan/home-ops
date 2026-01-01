@@ -6,3 +6,4 @@ resources:
   - ./helmrelease.yaml
   - ./alertmanagerconfig.yaml
   - ./secret.sops.yaml
+  - ./scrapeconfig.yaml
