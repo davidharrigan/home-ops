@@ -8,10 +8,11 @@ bootstrap_dir := root_dir / "cluster/bootstrap"
 talos_dir := root_dir / "cluster/talos"
 machines_dir := talos_dir / "machines"
 flux_dir := root_dir / "cluster/flux"
+apps_dir := root_dir / "cluster/apps"
 
 # Talos config values
 [private]
-default: nodes etcd talosconfig kubeconfig wait crds cilium flux flux-secrets flux-config
+default: nodes etcd talosconfig kubeconfig wait namespaces secrets helm flux flux-config
 
 [private]
 target-nodes:
@@ -88,7 +89,33 @@ kubeconfig path='':
 wait:
     gum spin --title "Waiting for nodes..." -- kubectl wait nodes --all --for=condition=Ready --timeout=300s
 
-[doc('Install CRDs via helmfile (ServiceMonitor, etc.)')]
+[doc('Create required namespaces')]
+namespaces:
+    just log "Creating namespaces..."
+    find {{ apps_dir }} -path "./*/namespace.yaml" -type f | while read -r file; do \
+        if ! kubectl apply --dry-run=client -f "$file" 2>&1 | grep -q "unchanged"; then \
+            just log "Creating namespace from $file..."; \
+            err=$(kubectl apply --server-side -f "$file" 2>&1); \
+            [[ $? -ne 0 ]] && just fatal "Failed to create namespace from $file: $err"; \
+        fi \
+    done
+
+[doc('Apply cluster secrets')]
+secrets:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    just log info "Applying bootstrap secrets from 1Password..."
+    for tmpl in {{ bootstrap_dir }}/secrets/*.yaml.tmpl; do
+        name=$(basename "$tmpl")
+        just log info "Processing $name..."
+        op inject -i "$tmpl" | kubectl apply --server-side -f -
+    done
+    just log info "Bootstrap secrets applied"
+
+[doc('Install Helm charts required for bootstrapping')]
+helm: crds cilium external-secrets
+
+[doc('Install CRDs via helmfile')]
 crds:
     #!/usr/bin/env bash
     just log "Installing CRDs..."
@@ -105,6 +132,14 @@ cilium:
     gum spin --title "Waiting for Cilium daemonset..." -- kubectl -n kube-system rollout status daemonset/cilium --timeout=300s
     gum spin --title "Waiting for nodes..." -- kubectl wait nodes --all --for=condition=Ready --timeout=300s
 
+[doc('Install External Secrets Operator via helmfile')]
+external-secrets:
+    #!/usr/bin/env bash
+    just log "Installing External Secrets Operator..."
+    cd {{ bootstrap_dir }}
+    helmfile -f helmfile.d/20-external-secrets.yaml sync
+    gum spin --title "Waiting for External Secrets Operator deployment..." -- kubectl -n external-secrets rollout status deployment/external-secrets --timeout=120s
+
 [doc('Install Flux components')]
 flux:
     #!/usr/bin/env bash
@@ -115,13 +150,6 @@ flux:
     just log info "Waiting for Flux controllers..."
     kubectl -n flux-system rollout status deployment/source-controller --timeout=120s
     kubectl -n flux-system rollout status deployment/kustomize-controller --timeout=120s
-
-[doc('Apply Flux secrets')]
-flux-secrets:
-    just log info "Applying Flux secrets..."
-    sops --decrypt {{ bootstrap_dir }}/age-key.sops.yaml | kubectl apply --server-side -f -
-    sops --decrypt {{ bootstrap_dir }}/github-deploy-key.sops.yaml | kubectl apply --server-side -f -
-    sops --decrypt {{ flux_dir }}/vars/cluster-secrets.sops.yaml | kubectl apply --server-side -f -
 
 [doc('Start Flux reconciliation')]
 flux-config:

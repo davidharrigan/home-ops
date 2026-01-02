@@ -14,6 +14,8 @@ repositories:
     url: https://backube.github.io/helm-charts/
   - name: piraeus
     url: https://piraeus.io/helm-charts/
+  - name: external-secrets
+    url: https://charts.external-secrets.io
 
 releases:
   - name: kube-prometheus-stack
@@ -28,3 +30,7 @@ releases:
     namespace: volsync-system
     chart: backube/volsync
     version: 0.14.0
+  - name: external-secrets-crds
+    namespace: external-secrets
+    chart: external-secrets/external-secrets
+    version: 1.2.0

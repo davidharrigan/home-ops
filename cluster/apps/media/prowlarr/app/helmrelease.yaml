@@ -68,32 +68,6 @@ spec:
                     key: api_key
               - name: PROWLARR__SERVER__PORT
                 value: *port
-              # Postgres config commented out to use SQLite
-              # - name: PROWLARR__POSTGRES__HOST
-              #   valueFrom:
-              #     secretKeyRef:
-              #       name: prowlarr-secret
-              #       key: db_host
-              # - name: PROWLARR__POSTGRES__PORT
-              #   valueFrom:
-              #     secretKeyRef:
-              #       name: prowlarr-secret
-              #       key: db_port
-              # - name: PROWLARR__POSTGRES__USER
-              #   valueFrom:
-              #     secretKeyRef:
-              #       name: prowlarr-secret
-              #       key: db_user
-              # - name: PROWLARR__POSTGRES__PASSWORD
-              #   valueFrom:
-              #     secretKeyRef:
-              #       name: prowlarr-secret
-              #       key: db_pass
-              # - name: PROWLARR__POSTGRES__MAINDB
-              #   valueFrom:
-              #     secretKeyRef:
-              #       name: prowlarr-secret
-              #       key: db_main
               - name: PROWLARR__LOG__DBENABLED
                 value: "False"
               - name: PROWLARR__LOG__LEVEL

@@ -5,5 +5,5 @@ namespace: monitoring
 resources:
   - ./helmrelease.yaml
   - ./alertmanagerconfig.yaml
-  - ./secret.sops.yaml
+  - ./externalsecret.yaml
   - ./scrapeconfig.yaml
