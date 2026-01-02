@@ -1,0 +1,28 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: qui
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: qui
+  dependsOn:
+    - name: qbittorrent
+  components:
+    - ../../../../components/volsync
+  path: ./cluster/apps/media/qui/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster
+  postBuild:
+    substitute:
+      APP: qui
+      VOLSYNC_CAPACITY: 1Gi
+  wait: false
+  interval: 1h
+  retryInterval: 1m
+  timeout: 15m
