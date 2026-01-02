@@ -78,47 +78,24 @@ radarr:
       qualities:
         - name: WEBDL-1080p
           min: 12.5
-          max: 150
-          preferred: 50
+          max: 200
+          preferred: 80
         - name: WEBRip-1080p
           min: 12.5
-          max: 150
-          preferred: 50
+          max: 200
+          preferred: 80
         - name: Bluray-1080p
           min: 50
-          max: 200
+          max: 300
           preferred: 100
 
     quality_profiles:
-      - name: WEB-1080p
-        reset_unmatched_scores:
-          enabled: true
-        upgrade:
-          allowed: true
-          until_quality: WEB 1080p
-          until_score: 5000
-        min_format_score: 0
-        quality_sort: top
-        qualities:
-          - name: WEB 1080p
-            qualities:
-              - WEBDL-1080p
-              - WEBRip-1080p
-          - name: WEB 720p
-            qualities:
-              - WEBDL-720p
-              - WEBRip-720p
-          - name: WEB 480p
-            qualities:
-              - WEBDL-480p
-              - WEBRip-480p
-
       - name: HD Bluray + WEB
         reset_unmatched_scores:
           enabled: true
         upgrade:
           allowed: true
-          until_quality: Bluray-1080p
+          until_quality: WEB 1080p
           until_score: 10000
         min_format_score: 0
         quality_sort: top
