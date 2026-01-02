@@ -1,0 +1,201 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: qbittorrent
+  namespace: media
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: app-template
+      version: 4.5.0
+      interval: 1h
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    controllers:
+      qbittorrent:
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        # Verification: kubectl exec -it -n media deploy/qbittorrent -c gluetun -- wget -qO- ifconfig.me
+        initContainers:
+          gluetun:
+            restartPolicy: Always
+            image:
+              repository: ghcr.io/qdm12/gluetun
+              tag: v3.41.0
+            env:
+              TZ: America/New_York
+              VPN_TYPE: wireguard
+              PORT_FORWARD_ONLY: "on"
+              VPN_INTERFACE: tun0
+              VPN_PORT_FORWARDING: "on"
+              VPN_PORT_FORWARDING_STATUS_FILE: /gluetun/forwarded_port
+              DOT: "on"
+              DOT_PROVIDERS: cloudflare
+              FIREWALL_INPUT_PORTS: "8080,8000,9999"  # qBittorrent WebUI, Control server, Health server
+              FIREWALL_VPN_INPUT_PORTS: &torrentPort 50413
+              FIREWALL_OUTBOUND_SUBNETS: "10.244.0.0/16,10.96.0.0/12" # pod CIDR, service CIDR
+              HEALTH_SERVER_ADDRESS: ":9999"
+              HTTP_CONTROL_SERVER_ADDRESS: ":8000"
+              HTTP_CONTROL_SERVER_AUTH_CONFIG_FILEPATH: /gluetun/auth/config.toml
+              LOG_LEVEL: info
+              VERSION_INFORMATION: "off"
+              WIREGUARD_ADDRESSES: 10.2.0.2/32
+              UPDATER_PERIOD: 24h
+            envFrom:
+              - secretRef:
+                  name: qbittorrent-secret
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: 9999
+                  initialDelaySeconds: 30
+                  periodSeconds: 30
+                  timeoutSeconds: 10
+                  failureThreshold: 3
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: 9999
+                  initialDelaySeconds: 10
+                  periodSeconds: 10
+                  timeoutSeconds: 10
+                  failureThreshold: 30
+            resources:
+              requests:
+                cpu: 50m
+                memory: 256Mi
+                squat.ai/tun: "1"
+              limits:
+                memory: 512Mi
+                squat.ai/tun: "1"
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                add: ["NET_ADMIN"]
+            lifecycle:
+              postStart:
+                exec:
+                  command: ["/bin/sh", "-c", "(ip rule del table 51820; ip -6 rule del table 51820) || true"]
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/home-operations/qbittorrent
+              tag: 5.1.4@sha256:e9c2c24ad2b39fa0ee44de682bf26b14bf23cffea1de9e1f082f26caed4277f9
+            env:
+              TZ: America/New_York
+              QBT_WEBUI_PORT: &port 8080
+              QBT_TORRENTING_PORT: *torrentPort
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v2/app/version
+                    port: *port
+                  initialDelaySeconds: 30
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v2/app/version
+                    port: *port
+                  initialDelaySeconds: 10
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 30
+            resources:
+              requests:
+                cpu: 100m
+                memory: 512Mi
+              limits:
+                memory: 4Gi
+            securityContext:
+              runAsNonRoot: true
+              runAsUser: 568
+              runAsGroup: 568
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups:
+          - 65539
+
+    service:
+      app:
+        controller: qbittorrent
+        ports:
+          http:
+            port: *port
+
+    ingress:
+      app:
+        annotations:
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            proxy_set_header Accept-Encoding "";
+            sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/qbittorrent/nord.css"></head>';
+            sub_filter_once on;
+        hosts:
+          - host: &host "qbittorrent.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+
+    persistence:
+      config:
+        existingClaim: qbittorrent
+      media:
+        type: nfs
+        server: nas-2.lan
+        path: /volume1/Media
+        globalMounts:
+          - path: /media
+      gluetun-tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: gluetun
+      gluetun-data:
+        type: emptyDir
+        advancedMounts:
+          qbittorrent:
+            gluetun:
+              - path: /gluetun
+      gluetun-auth:
+        type: secret
+        name: qbittorrent-gluetun-auth-config
+        advancedMounts:
+          qbittorrent:
+            gluetun:
+              - path: /gluetun/auth/config.toml
+                subPath: auth-config.toml
+                readOnly: true
