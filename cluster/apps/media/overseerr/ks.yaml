@@ -22,5 +22,4 @@ spec:
       VOLSYNC_CAPACITY: 3Gi
   wait: false
   interval: 1h
-  retryInterval: 1m
   timeout: 15m

@@ -124,4 +124,4 @@ spec:
         server: nas-2.lan
         path: /volume1/Media
         globalMounts:
-          - path: /media
+          - path: /data
