@@ -202,5 +202,5 @@ usb device file=schematic_file:
 
 [doc('Apply Talos config to a single node')]
 apply node *args:
-    talosctl apply-config -n "{{ node }}" --file="{{ output_dir }}/{{ node }}.yaml" {{ args }}
+    talosctl apply-config -n "{{ node }}.lan" --file="{{ output_dir }}/{{ node }}.yaml" {{ args }}
     just log "Config applied to {{ node }}"

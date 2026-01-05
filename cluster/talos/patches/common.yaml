@@ -11,3 +11,12 @@ machine:
       forwardKubeDNSToHost: false
   install:
     image: factory.talos.dev/metal-installer/c66247d0dd400240c7b6fbc9e6af6eb91d0bf7d07f65964537ed15d550d3b32d:v1.12.0
+---
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+provisioning:
+  diskSelector:
+    match: system_disk
+  minSize: 2GiB
+  maxSize: 100GiB
