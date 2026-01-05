@@ -1,0 +1,47 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: immich-db
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: immich
+  dependsOn:
+    - name: cloudnative-pg
+  path: ./cluster/apps/media/immich/db
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster
+  wait: true
+  interval: 1h
+  timeout: 15m
+  healthChecks:
+    - apiVersion: postgresql.cnpg.io/v1
+      kind: Cluster
+      name: immich-postgres
+      namespace: media
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: immich
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: immich
+  dependsOn:
+    - name: immich-db
+  path: ./cluster/apps/media/immich/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster
+  wait: false
+  interval: 1h
+  timeout: 15m
