@@ -1,0 +1,21 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: immich-postgres-backup
+  namespace: media
+spec:
+  sourcePVC: immich-postgres-1
+  trigger:
+    schedule: "0 3 * * *"
+  rclone:
+    rcloneConfigSection: nfs-backup
+    rcloneDestPath: /volsync/immich-postgres
+    rcloneConfig: volsync-rclone
+    copyMethod: Snapshot
+    storageClassName: synology-csi
+    volumeSnapshotClassName: synology-csi-snapshot
+    moverSecurityContext:
+      runAsUser: 26
+      runAsGroup: 26
+      fsGroup: 26
