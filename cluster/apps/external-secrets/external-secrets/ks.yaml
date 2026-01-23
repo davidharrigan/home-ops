@@ -22,6 +22,7 @@ metadata:
 spec:
   dependsOn:
     - name: external-secrets-operator
+    - name: onepassword-connect
   path: ./cluster/apps/external-secrets/external-secrets/cluster-secret-store
   prune: true
   sourceRef:

@@ -6,7 +6,7 @@ metadata:
 spec:
   sourcePVC: ${APP}
   trigger:
-    schedule: "0 2 * * *"
+    schedule: ${SCHEDULE:="0 2 * * *"}
   rclone:
     rcloneConfigSection: nfs-backup
     rcloneDestPath: /volsync/${APP}
