@@ -57,6 +57,12 @@
       },
       minimumGroupSize: 2,
     },
+    {
+      description: "Override Talos factory installer to official upstream",
+      matchDatasources: ["docker"],
+      matchPackagePatterns: ["^factory\\.talos\\.dev"],
+      replacementName: "ghcr.io/siderolabs/installer",
+    },
   ],
   suppressNotifications: ["prIgnoreNotification", "prEditedNotification"],
   rebaseWhen: "conflicted",
