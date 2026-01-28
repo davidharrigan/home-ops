@@ -1,79 +1,116 @@
 {
-  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   extends: [
-    "config:best-practices",
-    ":automergePr",
-    ":automergeRequireAllStatusChecks",
-    ":dependencyDashboard",
-    ":disableRateLimiting",
-    ":timezone(America/New_York)",
-    "docker:enableMajor",
-    "customManagers:makefileVersions",
-    "davidharrigan/renovate:default/commits",
-    "davidharrigan/renovate:default/labels",
+    'config:best-practices',
+    ':automergePr',
+    ':automergeRequireAllStatusChecks',
+    ':dependencyDashboard',
+    ':disableRateLimiting',
+    ':timezone(America/New_York)',
+    'docker:enableMajor',
+    'customManagers:makefileVersions',
+    'davidharrigan/renovate:default/commits',
+    'davidharrigan/renovate:default/labels',
   ],
-
   packageRules: [
     {
-      description: "Auto merge Github Actions",
-      matchManagers: ["github-actions"],
-      matchUpdateTypes: ["digest", "minor", "patch"],
-      minimumReleaseAge: "3 days",
+      description: 'Auto merge Github Actions',
+      matchManagers: [
+        'github-actions',
+      ],
+      matchUpdateTypes: [
+        'digest',
+        'minor',
+        'patch',
+      ],
+      minimumReleaseAge: '3 days',
       automerge: true,
     },
     {
-      description: "Auto merge container updates",
-      matchDatasources: ["docker"],
-      matchUpdateTypes: ["digest", "patch"],
-      matchPackageNames: ["/home-operations/"],
+      description: 'Auto merge container updates',
+      matchDatasources: [
+        'docker',
+      ],
+      matchUpdateTypes: [
+        'digest',
+        'patch',
+      ],
+      matchPackageNames: [
+        '/home-operations/',
+      ],
       automerge: true,
     },
     {
-      description: "Auto merge digest pins",
-      matchUpdateTypes: ["pinDigest"],
+      description: 'Auto merge digest pins',
+      matchUpdateTypes: [
+        'pinDigest',
+      ],
       automerge: true,
     },
     {
-      matchUpdateTypes: ["major"],
-      semanticCommitType: "feat",
-      commitMessagePrefix: "{{semanticCommitType}}({{semanticCommitScope}})!:",
+      matchUpdateTypes: [
+        'major',
+      ],
+      semanticCommitType: 'feat',
+      commitMessagePrefix: '{{semanticCommitType}}({{semanticCommitScope}})!:',
     },
     {
-      description: "Flux Group",
-      groupName: "flux",
-      matchPackageNames: ["/fluxcd\\/flux/"],
+      description: 'Flux Group',
+      groupName: 'flux',
+      matchPackageNames: [
+        '/fluxcd\\/flux/',
+      ],
       group: {
-        commitMessageTopic: "{{{groupName}}} group",
+        commitMessageTopic: '{{{groupName}}} group',
       },
       minimumGroupSize: 2,
     },
     {
-      description: "Intel Device Plugins Group",
-      groupName: "intel-device-plugins",
-      matchDatasources: ["helm"],
-      matchPackageNames: ["/intel-device-plugins/"],
+      description: 'Intel Device Plugins Group',
+      groupName: 'intel-device-plugins',
+      matchDatasources: [
+        'helm',
+      ],
+      matchPackageNames: [
+        '/intel-device-plugins/',
+      ],
       group: {
-        commitMessageTopic: "{{{groupName}}} group",
+        commitMessageTopic: '{{{groupName}}} group',
       },
       minimumGroupSize: 2,
     },
     {
-      description: "Override Talos factory installer to official upstream",
-      matchDatasources: ["docker"],
-      matchPackagePatterns: ["^factory\\.talos\\.dev"],
-      replacementName: "ghcr.io/siderolabs/installer",
+      description: 'Override Talos factory installer to official upstream',
+      matchDatasources: [
+        'docker',
+      ],
+      replacementName: 'ghcr.io/siderolabs/installer',
+      matchPackageNames: [
+        '/^factory\\.talos\\.dev/',
+      ],
     },
   ],
-  suppressNotifications: ["prIgnoreNotification", "prEditedNotification"],
-  rebaseWhen: "conflicted",
+  suppressNotifications: [
+    'prIgnoreNotification',
+    'prEditedNotification',
+  ],
+  rebaseWhen: 'conflicted',
   flux: {
-    managerFilePatterns: ["/(^|/)cluster/.+\\.ya?ml(?:\\.j2)?$/"],
+    managerFilePatterns: [
+      '/(^|/)cluster/.+\\.ya?ml(?:\\.j2)?$/',
+    ],
   },
-  "helm-values": {
-    managerFilePatterns: ["/(^|/)cluster/.+\\.ya?ml(?:\\.j2)?$/"],
+  'helm-values': {
+    managerFilePatterns: [
+      '/(^|/)cluster/.+\\.ya?ml(?:\\.j2)?$/',
+    ],
   },
   kubernetes: {
-    managerFilePatterns: ["/(^|/)cluster/.+\\.ya?ml(?:\\.j2)?$/"],
+    managerFilePatterns: [
+      '/(^|/)cluster/.+\\.ya?ml(?:\\.j2)?$/',
+    ],
   },
-  ignorePaths: ["**/*.sops.*"],
+  ignorePaths: [
+    '**/*.sops.*',
+  ],
 }
