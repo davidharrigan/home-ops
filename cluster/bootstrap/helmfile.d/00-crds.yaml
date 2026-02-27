@@ -21,7 +21,7 @@ releases:
   - name: kube-prometheus-stack
     namespace: monitoring
     chart: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
-    version: 80.8.0
+    version: 82.4.3
   - name: snapshot-controller
     namespace: kube-system
     chart: piraeus/snapshot-controller
