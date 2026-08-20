@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: main
-          image: ghcr.io/esphome/esphome:2025.11.1
+          image: ghcr.io/esphome/esphome:2026.8.0@sha256:5ca1a7e39926cdf3cd48239ec5c9f5b429c9ac84390bd940c26c296d3cecc72e
           probes:
             liveness:
               enabled: false
