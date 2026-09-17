@@ -93,6 +93,10 @@ spec:
           - sourceLabels: ["__name__"]
             regex: (apiserver_response_sizes_bucket|apiserver_watch_events_sizes_bucket)
             action: drop
+          # Drop high-cardinality histogram buckets we don't query (~15k series)
+          - sourceLabels: ["__name__"]
+            regex: (apiserver_request_body_size_bytes_bucket|apiserver_watch_cache_read_wait_seconds_bucket|apiserver_watch_list_duration_seconds_bucket)
+            action: drop
 
     kubeControllerManager:
       enabled: false
@@ -184,8 +188,8 @@ spec:
             memory: 512Mi
           limits:
             memory: 2Gi
-        retention: 7d
-        retentionSize: "50GB"
+        retention: 70d
+        retentionSize: "42GB"
         scrapeInterval: 1m
         enableAdminAPI: true
         walCompression: true
