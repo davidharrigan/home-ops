@@ -187,6 +187,27 @@ data:
           "fieldConfig": { "defaults": { "unit": "s", "color": { "mode": "continuous-BlPu" } }, "overrides": [] },
           "options": { "displayMode": "gradient", "orientation": "horizontal", "reduceOptions": { "calcs": ["lastNotNull"] } },
           "targets": [{ "refId": "A", "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "topk(10, tautulli_user_play_duration_seconds)", "legendFormat": "{{user}}", "instant": true }]
+        },
+        {
+          "type": "row", "title": "History", "collapsed": false,
+          "gridPos": { "h": 1, "w": 24, "x": 0, "y": 49 }
+        },
+        {
+          "type": "timeseries", "title": "Play History (rolling 24h, by user)",
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 50 },
+          "fieldConfig": { "defaults": { "unit": "short", "custom": { "drawStyle": "line", "fillOpacity": 25, "stacking": { "mode": "normal" } } }, "overrides": [] },
+          "options": { "legend": { "displayMode": "table", "placement": "right", "calcs": ["sum"] }, "tooltip": { "mode": "multi", "sort": "desc" } },
+          "targets": [{ "refId": "A", "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "delta(tautulli_user_plays[24h])", "legendFormat": "{{user}}" }]
+        },
+        {
+          "type": "timeseries", "title": "Hours Watched — Past 7 Days (by user)",
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 50 },
+          "timeFrom": "7d",
+          "fieldConfig": { "defaults": { "unit": "h", "custom": { "drawStyle": "line", "fillOpacity": 25, "stacking": { "mode": "normal" } } }, "overrides": [] },
+          "options": { "legend": { "displayMode": "table", "placement": "right", "calcs": ["sum"] }, "tooltip": { "mode": "multi", "sort": "desc" } },
+          "targets": [{ "refId": "A", "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "delta(tautulli_user_play_duration_seconds[24h]) / 3600", "legendFormat": "{{user}}" }]
         }
       ]
     }
