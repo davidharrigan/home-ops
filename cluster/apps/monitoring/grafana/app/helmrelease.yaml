@@ -171,7 +171,11 @@ spec:
               timeInterval: 1m
 
     persistence:
-      enabled: false
+      enabled: true
+      type: pvc
+      storageClassName: synology-csi-retain
+      accessModes: ["ReadWriteOnce"]
+      size: 5Gi
 
     sidecar:
       dashboards:
