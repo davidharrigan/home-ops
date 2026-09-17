@@ -17,4 +17,5 @@ resources:
   - ./sabnzbd/ks.yaml
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
+  - ./tautulli-exporter/ks.yaml
   - ./immich/ks.yaml

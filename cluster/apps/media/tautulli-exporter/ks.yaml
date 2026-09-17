@@ -1,0 +1,21 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: tautulli-exporter
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/media/tautulli-exporter/app
+  targetNamespace: media
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-cluster
+  wait: false
+  interval: 1h
+  timeout: 15m
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: tautulli-exporter
+  dependsOn:
+    - name: tautulli
