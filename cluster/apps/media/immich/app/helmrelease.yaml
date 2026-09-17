@@ -70,10 +70,10 @@ spec:
               resources:
                 requests:
                   cpu: 100m
-                  memory: 256Mi
+                  memory: 3Gi
                   gpu.intel.com/i915: "1"
                 limits:
-                  memory: 4Gi
+                  memory: 6Gi
                   gpu.intel.com/i915: "1"
       defaultPodOptions:
         nodeSelector:
@@ -105,7 +105,7 @@ spec:
               resources:
                 requests:
                   cpu: 100m
-                  memory: 512Mi
+                  memory: 1Gi
                 limits:
                   memory: 2Gi
       persistence:
