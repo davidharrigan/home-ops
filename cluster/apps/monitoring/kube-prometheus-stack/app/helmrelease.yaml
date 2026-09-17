@@ -136,6 +136,12 @@ spec:
             secretName: "alertmanager-tls"
       alertmanagerSpec:
         replicas: 1
+        resources:
+          requests:
+            cpu: 10m
+            memory: 64Mi
+          limits:
+            memory: 128Mi
         alertmanagerConfiguration:
           name: alertmanager
           global:
