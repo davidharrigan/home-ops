@@ -39,6 +39,10 @@ spec:
         secretKeyRef:
           name: grafana-secret
           key: TAUTULLI_API_KEY
+      PLEX_TOKEN:
+        secretKeyRef:
+          name: grafana-plex-secret
+          key: PLEX_TOKEN
 
     admin:
       existingSecret: grafana-secret

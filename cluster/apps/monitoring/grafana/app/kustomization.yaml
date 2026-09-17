@@ -4,5 +4,7 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - ./externalsecret.yaml
+  - ./externalsecret-plex.yaml
   - ./helmrelease.yaml
   - ./tautulli-datasource.yaml
+  - ./plex-datasource.yaml
