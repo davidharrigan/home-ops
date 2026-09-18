@@ -20,7 +20,8 @@ spec:
         containers:
           main:
             image:
-              tag: v2.4.1
+              repository: ghcr.io/immich-app/immich-server
+              tag: v3.2.2
             env:
               TZ: America/New_York
               DB_HOSTNAME: immich-postgres-rw.media.svc.cluster.local
