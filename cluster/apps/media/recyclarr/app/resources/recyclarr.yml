@@ -1,15 +1,11 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json
+# yaml-language-server: $schema=https://schemas.recyclarr.dev/v8/config-schema.json
 
 sonarr:
   sonarr:
     base_url: http://sonarr.media.svc.cluster.local:8989
     api_key: !env_var SONARR_API_KEY
     delete_old_custom_formats: true
-    replace_existing_custom_formats: true
-    include:
-      - template: sonarr-v4-custom-formats-web-1080p
-
     quality_definition:
       type: series
       qualities:
@@ -27,7 +23,8 @@ sonarr:
           preferred: 35
 
     quality_profiles:
-      - name: WEB-1080p
+      - trash_id: 72dae194fc92bf828f32cde7744e51a1 # WEB-1080p
+        name: WEB-1080p
         reset_unmatched_scores:
           enabled: true
         upgrade:
@@ -69,10 +66,6 @@ radarr:
     base_url: http://radarr.media.svc.cluster.local:7878
     api_key: !env_var RADARR_API_KEY
     delete_old_custom_formats: true
-    replace_existing_custom_formats: true
-    include:
-      - template: radarr-custom-formats-hd-bluray-web
-
     quality_definition:
       type: movie
       qualities:
@@ -90,7 +83,8 @@ radarr:
           preferred: 100
 
     quality_profiles:
-      - name: HD Bluray + WEB
+      - trash_id: d1d67249d3890e49bc12e275d989a7e9 # HD Bluray + WEB
+        name: HD Bluray + WEB
         reset_unmatched_scores:
           enabled: true
         upgrade:
