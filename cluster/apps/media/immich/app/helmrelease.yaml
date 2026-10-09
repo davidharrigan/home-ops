@@ -21,7 +21,7 @@ spec:
           main:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v3.2.2
+              tag: v3.3.1@sha256:db996e352359771c6a3db121a0ed8761516b22f727fc092a0f46dcfef82c1bc1
             env:
               TZ: America/New_York
               DB_HOSTNAME: immich-postgres-rw.media.svc.cluster.local
