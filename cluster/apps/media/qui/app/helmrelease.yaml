@@ -23,7 +23,7 @@ spec:
           app:
             image:
               repository: ghcr.io/autobrr/qui
-              tag: v1.11.0
+              tag: v1.31.1@sha256:6ee1cf6df0a82687089e6e181aad09edb826b4b779603c56a28c803d19db99fd
             probes:
               liveness: &probes
                 enabled: true
