@@ -20,12 +20,12 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/sct/overseerr
-              tag: 1.35.0@sha256:6197516c9d7b58ccf113455e32aafb94df5d91995fe50e8c2cae6ba6c7c7b7de
+              repository: ghcr.io/seerr-team/seerr
+              tag: v3.5.2@sha256:aadee014b40e28cf9aa4928bc9d1183a6eb08f8c44d543cddc9efdcb16549be2
             env:
               TZ: America/New_York
               LOG_LEVEL: "info"
-              PORT: &port 80
+              PORT: &port 5055
             resources:
               requests:
                 cpu: 10m
@@ -33,6 +33,18 @@ spec:
               limits:
                 cpu: 500m
                 memory: 500Mi
+            securityContext:
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              capabilities: { drop: ["ALL"] }
+              seccompProfile: { type: RuntimeDefault }
+
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
 
     service:
       app:
