@@ -19,9 +19,6 @@ spec:
       main:
         containers:
           main:
-            image:
-              repository: ghcr.io/immich-app/immich-server
-              tag: v3.4.2@sha256:fc880c1bf665b4aab1e74c15e56ab871225989cd546536e6b77e771869af06bd
             env:
               TZ: America/New_York
               DB_HOSTNAME: immich-postgres-rw.media.svc.cluster.local
@@ -64,6 +61,9 @@ spec:
         main:
           containers:
             main:
+              image:
+                repository: ghcr.io/immich-app/immich-server
+                tag: v3.4.2@sha256:fc880c1bf665b4aab1e74c15e56ab871225989cd546536e6b77e771869af06bd
               securityContext:
                 allowPrivilegeEscalation: false
                 capabilities:
@@ -97,8 +97,13 @@ spec:
       enabled: true
       controllers:
         main:
+          # The cache PVC is ReadWriteOnce, so the old pod must release it first.
+          strategy: Recreate
           containers:
             main:
+              image:
+                repository: ghcr.io/immich-app/immich-machine-learning
+                tag: v3.4.2@sha256:739405742a79bd7447227c553bb62ed5491aa36acf00bc667af7f9c93b6fae91
               securityContext:
                 allowPrivilegeEscalation: false
                 capabilities:
