@@ -12,8 +12,6 @@ helmDefaults:
 repositories:
   - name: backube
     url: https://backube.github.io/helm-charts/
-  - name: piraeus
-    url: https://piraeus.io/helm-charts/
   - name: external-secrets
     url: https://charts.external-secrets.io
 
@@ -22,10 +20,6 @@ releases:
     namespace: monitoring
     chart: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
     version: 80.8.0
-  - name: snapshot-controller
-    namespace: kube-system
-    chart: piraeus/snapshot-controller
-    version: 4.2.0
   - name: volsync
     namespace: volsync-system
     chart: backube/volsync
