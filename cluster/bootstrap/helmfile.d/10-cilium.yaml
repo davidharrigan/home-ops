@@ -15,7 +15,7 @@ releases:
     namespace: kube-system
     chart: cilium/cilium
     # chart: oci://quay.io/cilium/cilium
-    version: 1.18.17
+    version: 1.19.10
     values:
       - ../../apps/kube-system/cilium/app/cilium-base-values.yaml
     hooks:
